@@ -1,0 +1,86 @@
+﻿@using System.Collections.Generic
+@using System.Linq
+@using Microsoft.AspNetCore.Http
+@using Microsoft.AspNetCore.Identity;
+@using WebApplication1.Models.ViewModel;
+@model LoginViewModel
+@inject SignInManager<ApplicationUser> SignInManager
+
+@{
+    ViewData["Title"] = "Log in";
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Log in</title>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+   <partial name="AdminLTE/_Styles" />
+</head>
+<body class="hold-transition login-page" style="background: white!important;">
+    <div class="login-box">
+        <div class="login-logo">
+                <a href="https://github.com/ajeetx"><b>risk</b>control</a> ...unit
+            </div>
+            <!-- /.login-logo -->
+            <div class="card">
+                <div class="card-body login-card-body">
+                    <p class="login-box-msg">Sign in to start your session</p>
+        <form asp-route-returnurl="@ViewData["ReturnUrl"]" method="post">
+            <div class="form-group has-feedback">
+                <label asp-for="Email"></label>
+                        <input asp-for="Email" type="email" value="portal-admin@admin.com" class="form-control" placeholder="Email" />
+                <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+            <div class="form-group has-feedback">
+                <label asp-for="Password"></label>
+                        <input asp-for="Password" type="password" value="123Pa$$word!" class="form-control" placeholder="Password" />
+                <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+            <div class="row">
+                <!-- /.col -->
+                <div class="col-xs-4">
+                    <button type="submit" class="btn btn-primary">Sign In</button>
+                </div>
+                <!-- /.col -->
+            </div>
+            <!-- /.social-auth-links -->
+            <a asp-action="ForgotPassword">I forgot my password</a><br>
+            <a asp-action="Register" asp-route-returnurl="@ViewData["ReturnUrl"]" class="text-center">Register a new membership</a>
+        </form>
+
+
+                </div>
+
+
+            </div>
+            <!-- /.login-card-body -->
+            <div style="text-align: -webkit-center;">
+                <div class="alert alert-success">
+                Portal Admin Credentials – `portal-admin@admin.com` / `123Pa$$word!` <br />
+            </div>
+                <br />
+                <p class="mb-1">
+                    <a id="forgot-password" asp-controller="Account" asp-action="ForgotPassword">Forgot your password?</a>
+                </p>
+                <p class="mb-0">
+                    <a asp-controller="Account" asp-action="Register">Register as a new user</a>
+                </p>
+                <br />
+                <small style="font-size:15px"> Made with <span style="color: #e25555;">&hearts;</span> by <a href="http://github.com/ajeetx">ajeet</a> .</small>
+
+            </div>
+        </div>
+    <partial name="AdminLTE/_Scripts" />
+
+</body>
+</html>
+@section Scripts{
+    @await Html.PartialAsync("_ValidationScriptsPartial")
+    </script>
+}

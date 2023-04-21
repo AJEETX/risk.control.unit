@@ -1,0 +1,40 @@
+﻿
+@model List<IdentityRole>
+
+<div>
+    <h4>Roles Manager</h4>
+    <form method="post" action="roles/create">
+        <div class="input-group col-4" style="padding:0px;">
+            <input autocomplete="off" name="roleName" type="text" class="form-control">
+            <span class="input-group-append">
+                <button type="submit" class="btn btn-success">Add New Role</button>
+            </span>
+        </div>
+    </form>
+    <br />
+    <table class="table table-striped">
+        <thead>
+            <tr>
+
+                @*<th>Id</th>*@
+                <th>Role</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var role in Model)
+            {
+                <tr>
+                    <td>@role.Name</td>
+                    <td>
+                        <a class="btn btn-secondary" asp-action="Edit" asp-route-id="@role.Id">Edit</a> 
+                        <a class="btn btn-info" asp-action="Details" asp-route-id="@role.Id">Details</a> 
+                        <a class="btn btn-danger" asp-action="Delete" asp-route-id="@role.Id">Delete</a>
+                        <a class="btn btn-danger" asp-controller="Permission" asp-action="Index" asp-route-id="@role.Id">Permissions</a>
+                        <input type="hidden" value="@role.Id" />
+                    </td>
+                </tr>
+            }
+
+        </tbody>
+    </table>
+</div>
