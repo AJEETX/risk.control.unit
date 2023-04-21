@@ -268,7 +268,7 @@ async Task SeedDatabase() //can be placed at the very bottom under app.Run()
         PhoneNumberConfirmed = true,
         isSuperAdmin = true
     };
-    if (userManager.Users.All(u => u.Id != vendorAdmin.Id))
+    if (userManager.Users.All(u => u.Id != vendorSupervisor.Id))
     {
         var user = await userManager.FindByEmailAsync(vendorSupervisor.Email);
         if (user == null)

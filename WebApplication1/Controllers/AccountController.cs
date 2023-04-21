@@ -63,9 +63,15 @@ namespace WebApplication1.Controllers
                     return View(model);
                 }
             }
+        }
 
-            // If we got this far, something failed, redisplay form
-            return View(model);
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Logout()
+        {
+            await _signInManager.SignOutAsync();
+            _logger.LogInformation("User logged out.");
+            return RedirectToAction(nameof(HomeController.Index), "Home");
         }
         [HttpGet]
         [AllowAnonymous]

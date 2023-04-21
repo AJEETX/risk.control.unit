@@ -84,9 +84,9 @@
                 </li>
  
                 @{
-                    if (User.IsInRole("SuperAdmin"))
-                    {
-                        <li class="nav-header">SUPER ADMIN</li>
+                    if (User.IsInRole(AppRoles.PortalAdmin.ToString()) || User.IsInRole(AppRoles.ClientAdmin.ToString()))
+                        {
+                        <li class="nav-header">PORTAL ADMIN</li>
  
                         <li class="nav-item">
                             <a is-active-page asp-area="" asp-controller="Roles" asp-action="Index" class="nav-link">

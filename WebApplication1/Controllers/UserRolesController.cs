@@ -5,6 +5,7 @@ using System.Security.Claims;
 using WebApplication1.Helpers;
 using WebApplication1.Models;
 using WebApplication1.Models.ViewModel;
+using WebApplication1.Seeds;
 
 namespace WebApplication1.Controllers
 {
@@ -69,36 +70,42 @@ namespace WebApplication1.Controllers
             var currentUser = await userManager.GetUserAsync(User);
             await signInManager.RefreshSignInAsync(currentUser);
 
-
             await SeedSuperAdminAsync(userManager, roleManager);
             return RedirectToAction("Index", new { userId = id });
         }
         private static async Task SeedSuperAdminAsync(UserManager<Models.ApplicationUser> userManager, RoleManager<IdentityRole> roleManager)
         {
-            //Seed Default User
-            var defaultUser = new Models.ApplicationUser
+            //Seed portal User
+            var portalAdmin = new Models.ApplicationUser()
             {
-                UserName = "superadmin@gmail.com",
-                Email = "superadmin@gmail.com",
+                UserName = "portal-admin@admin.com",
+                Email = "portal-admin@admin.com",
+                FirstName = "Portal",
+                LastName = "Admin",
                 EmailConfirmed = true,
                 PhoneNumberConfirmed = true,
             };
-            if (userManager.Users.All(u => u.Id != defaultUser.Id))
+            if (userManager.Users.All(u => u.Id != portalAdmin.Id))
             {
-                var user = await userManager.FindByEmailAsync(defaultUser.Email);
+                var user = await userManager.FindByEmailAsync(portalAdmin.Email);
                 if (user == null)
                 {
-                    await userManager.CreateAsync(defaultUser, "123Pa$$word!");
-                    await userManager.AddToRoleAsync(defaultUser, AppRoles.ClientCreator.ToString());
-                    await userManager.AddToRoleAsync(defaultUser, AppRoles.ClientAdmin.ToString());
-                    await userManager.AddToRoleAsync(defaultUser, AppRoles.PortalAdmin.ToString());
+                    await userManager.CreateAsync(portalAdmin, ApplicationUserOptions.Password);
+                    await userManager.AddToRoleAsync(portalAdmin, AppRoles.PortalAdmin.ToString());
+                    await userManager.AddToRoleAsync(portalAdmin, AppRoles.ClientAdmin.ToString());
+                    await userManager.AddToRoleAsync(portalAdmin, AppRoles.ClientCreator.ToString());
+                    await userManager.AddToRoleAsync(portalAdmin, AppRoles.ClientAssigner.ToString());
+                    await userManager.AddToRoleAsync(portalAdmin, AppRoles.ClientAssessor.ToString());
+                    await userManager.AddToRoleAsync(portalAdmin, AppRoles.VendorAdmin.ToString());
+                    await userManager.AddToRoleAsync(portalAdmin, AppRoles.VendorSupervisor.ToString());
+                    await userManager.AddToRoleAsync(portalAdmin, AppRoles.VendorAgent.ToString());
                 }
                 await SeedClaimsForSuperAdmin(roleManager);
             }
         }
         private async static Task SeedClaimsForSuperAdmin(RoleManager<IdentityRole> roleManager)
         {
-            var adminRole = await roleManager.FindByNameAsync("SuperAdmin");
+            var adminRole = await roleManager.FindByNameAsync(AppRoles.PortalAdmin.ToString());
             await AddPermissionClaim(roleManager, adminRole, "Products");
         }
 
