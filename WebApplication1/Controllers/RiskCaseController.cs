@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -14,10 +16,12 @@ namespace WebApplication1.Controllers
     public class RiskCaseController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly IWebHostEnvironment webHostEnvironment;
 
-        public RiskCaseController(ApplicationDbContext context)
+        public RiskCaseController(ApplicationDbContext context, IWebHostEnvironment webHostEnvironment)
         {
             _context = context;
+            this.webHostEnvironment = webHostEnvironment;
         }
 
         // GET: RiskCases
@@ -153,6 +157,59 @@ namespace WebApplication1.Controllers
 
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Upload(IFormFile postedFile)
+        {
+            if (postedFile != null)
+            {
+                string path = Path.Combine(webHostEnvironment.WebRootPath, "upload-cases");
+                if (!Directory.Exists(path))
+                {
+                    Directory.CreateDirectory(path);
+                }
+
+                string fileName = Path.GetFileName(postedFile.FileName);
+                string filePath = Path.Combine(path, fileName);
+                using (FileStream stream = new FileStream(filePath, FileMode.Create))
+                {
+                    postedFile.CopyTo(stream);
+                }
+                string csvData = await System.IO.File.ReadAllTextAsync(filePath);
+                DataTable dt = new DataTable();
+                bool firstRow = true;
+                foreach (string row in csvData.Split('\n'))
+                {
+                    if (!string.IsNullOrEmpty(row))
+                    {
+                        if (!string.IsNullOrEmpty(row))
+                        {
+                            if (firstRow)
+                            {
+                                foreach (string cell in row.Split(','))
+                                {
+                                    dt.Columns.Add(cell.Trim());
+                                }
+                                firstRow = false;
+                            }
+                            else
+                            {
+                                dt.Rows.Add();
+                                int i = 0;
+                                foreach (string cell in row.Split(','))
+                                {
+                                    dt.Rows[dt.Rows.Count - 1][i] = cell.Trim();
+                                    i++;
+                                }
+                            }
+                        }
+                    }
+                }
+
+                return View(new { DataTable = dt });
+            }
+             return View();
         }
 
         private bool RiskCaseExists(string id)

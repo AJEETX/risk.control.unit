@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using WebApplication1.Data;
@@ -9,15 +10,23 @@ namespace WebApplication1.Controllers
 {
     public class UserController : Controller
     {
-        private readonly UserManager<Models.ApplicationUser> userManager;
+        private readonly UserManager<ApplicationUser> userManager;
         private readonly RoleManager<IdentityRole> roleManager;
+        private readonly IWebHostEnvironment webHostEnvironment;
         public List<UsersViewModel> UserList;
         private readonly ApplicationDbContext context;
+        private IPasswordHasher<ApplicationUser> passwordHasher;
 
-        public UserController(UserManager<Models.ApplicationUser> userManager, RoleManager<IdentityRole> roleManager, ApplicationDbContext context)
+        public UserController(UserManager<ApplicationUser> userManager,
+            IPasswordHasher<ApplicationUser> passwordHasher,
+            RoleManager<IdentityRole> roleManager,
+            IWebHostEnvironment webHostEnvironment,
+            ApplicationDbContext context)
         {
             this.userManager = userManager;
             this.roleManager = roleManager;
+            this.passwordHasher = passwordHasher;
+            this.webHostEnvironment = webHostEnvironment;
             this.context = context;
             UserList = new List<UsersViewModel>();
         }
@@ -29,6 +38,8 @@ namespace WebApplication1.Controllers
                 var thisViewModel = new UsersViewModel();
                 thisViewModel.UserId = user.Id;
                 thisViewModel.Email = user.Email;
+                thisViewModel.UserName = user.UserName;
+                thisViewModel.ProfileImage = "img/user.jpg";
                 thisViewModel.FirstName = user.FirstName;
                 thisViewModel.LastName = user.LastName;
                 thisViewModel.Roles = await GetUserRoles(user);
@@ -41,22 +52,47 @@ namespace WebApplication1.Controllers
         {
             return View();
         }
+
+        [HttpPost]
+        public async Task<IActionResult> Create(ApplicationUser user)
+        {
+            if (ModelState.IsValid)
+            {
+                if(user.ProfileImage != null && user.ProfileImage.Length >0 )
+                {
+                    string newFileName = Guid.NewGuid().ToString();
+                    string fileExtension = Path.GetExtension(user.ProfileImage.FileName);
+                    newFileName += fileExtension;
+                    var upload = Path.Combine(webHostEnvironment.WebRootPath, "upload", newFileName);
+                    user.ProfileImage.CopyTo(new FileStream(upload, FileMode.Create));
+                    user.ProfilePictureUrl = newFileName;
+                }
+
+                IdentityResult result = await userManager.CreateAsync(user, user.Password);
+
+                if (result.Succeeded)
+                    return RedirectToAction("Index");
+                else
+                {
+                    foreach (IdentityError error in result.Errors)
+                        ModelState.AddModelError("", error.Description);
+                }
+            }
+            return View(user);
+        }
+
         public async Task<IActionResult> Edit(string userId)
         {
-
             if (userId == null)
             {
-
                 return NotFound();
             }
 
-            var applicationUser = await context.ApplicationUser.SingleOrDefaultAsync(m => m.Id == userId);
-            if (applicationUser == null)
-            {
-                return NotFound();
-            }
-
-            return View(applicationUser);
+            var applicationUser = await userManager.FindByIdAsync(userId);
+            if (applicationUser != null)
+                return View(applicationUser);
+            else
+                return RedirectToAction("Index");
         }
 
         [HttpPost]
@@ -73,17 +109,36 @@ namespace WebApplication1.Controllers
                 try
                 {
                     //super admin should always have access to Roles
-                    applicationUser.ApplicationUserRole = applicationUser.isSuperAdmin ? true : applicationUser.ApplicationUserRole;
+                    var user = await userManager.FindByIdAsync(id);
+                    if (user != null)
+                    {
+                        user.PhoneNumber = applicationUser.PhoneNumber;
+                        user.ProfilePictureUrl = applicationUser.ProfilePictureUrl;
+                        user.FirstName = applicationUser.FirstName;
+                        user.LastName = applicationUser.LastName;
+                        user.Email = applicationUser.Email;
+                        user.UserName = applicationUser.UserName;
 
-                    context.ApplicationUser.Update(applicationUser);
-                    await context.SaveChangesAsync();                }
+                        var result  = await userManager.UpdateAsync(user);
+                        if (result.Succeeded)
+                        {
+                            return RedirectToAction("Index");
+                        }
+                        Errors(result);
+                    }
+                }
                 catch (Exception ex)
                 {
                     throw;
                 }
-                return RedirectToAction(nameof(Index));
             }
-            return View(applicationUser);
+            return Problem();
+        }
+
+        private void Errors(IdentityResult result)
+        {
+            foreach (IdentityError error in result.Errors)
+                ModelState.AddModelError("", error.Description);
         }
         private async Task<List<string>> GetUserRoles(Models.ApplicationUser user)
         {

@@ -4,57 +4,77 @@
     //Layout = "~/Pages/Shared/AdminLTE/_Layout.cshtml";
 }
 
-    <div>
+<div>
     <h1>Manage user</h1>
 
     <p>
         <a class="btn btn-success" asp-action="Create">Create New</a>
     </p>
-        <table class="table table-striped">
-            <thead>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Profile photo</th>
+                <th>User Name</th>
+                <th>First Name</th>
+                <th>Roles</th>
+                <th>Last Name</th>
+                <th>Email</th>
+                <th>Role Type</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var user in Model)
+            {
                 <tr>
-                    <th>First Name</th>
-                    <th>Last Name</th>
-                    <th>Email</th>
-                    <th>Roles</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var user in Model)
-                {
-                    <tr>
-                        <td>@user.FirstName</td>
-                        <td>@user.LastName</td>
-                        <td>@user.Email</td>
-                        <td>
-                            @{
-                                if (user.Roles.Contains(AppRoles.PortalAdmin.ToString()))
-                                {
-                                    <span class="badge badge-danger">PA</span>
-                                }
-                                else if (user.Roles.Contains(AppRoles.ClientAdmin.ToString()))
-                                {
-                                    <span class="badge badge-danger">CA</span>
-                                }
-                                else if (user.Roles.Contains(AppRoles.VendorAdmin.ToString()))
-                                {
-                                    <span class="badge badge-warning">VA</span>
-                                }
-                                else
-                                {
-                                    <span class="badge badge-success">ST</span>
-                                }
-
+                    <td>
+                        @{
+                            var img = user.ProfileImage;
+                            if(string.IsNullOrWhiteSpace(img))
+                            {
+                                img = "/img/user.jpg";
                             }
-                        </td>
-                        <td>
+                        }
+                        <img src="@img" height="30" alt="No image" />
+                    </td>
+                    <td>@user.UserName</td>
+                    <td>@user.FirstName</td>
+                    <td>@user.LastName</td>
+                    <td>
+                        @foreach (var role in user.Roles)
+                        {
+                            <span class="badge badge-info">@role</span>
+                        }
+                    </td>
+                    <td>@user.Email</td>
+                    <td>
+                        @{
+                            if (user.Roles.Contains(AppRoles.PortalAdmin.ToString()))
+                            {
+                                <span class="badge badge-danger">PA</span>
+                            }
+                            else if (user.Roles.Contains(AppRoles.ClientAdmin.ToString()))
+                            {
+                                <span class="badge badge-danger">CA</span>
+                            }
+                            else if (user.Roles.Contains(AppRoles.VendorAdmin.ToString()))
+                            {
+                                <span class="badge badge-warning">VA</span>
+                            }
+                            else
+                            {
+                                <span class="badge badge-success">ST</span>
+                            }
+
+                        }
+                    </td>
+                    <td>
                         <a class="btn btn-success" asp-area="" asp-controller="User" asp-action="Edit" asp-route-userId="@user.UserId">Manage User</a>
                         <a class="btn btn-danger" asp-area="" asp-controller="UserRoles" asp-action="Index" asp-route-userId="@user.UserId">Manage Roles</a>
-                        </td>
-                    </tr>
-                }
-            </tbody>
-        </table>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
 
-    </div>
+</div>
