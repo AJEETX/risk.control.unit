@@ -5,7 +5,7 @@ namespace WebApplication1.Models
 {
     public partial class ApplicationUser : IdentityUser
     {
-        public string profilePictureUrl { get; set; } = "/dist/img/empty_profile.png";
+        public string profilePictureUrl { get; set; } = "/img/user.jpg";
         public bool isSuperAdmin { get; set; } = false;
         public byte[]? ProfilePicture { get; set; }
         public string FirstName { get; set; }

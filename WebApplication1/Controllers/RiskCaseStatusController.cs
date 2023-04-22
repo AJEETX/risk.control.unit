@@ -157,22 +157,4 @@ namespace WebApplication1.Controllers
           return (_context.RiskCaseStatus?.Any(e => e.RiskCaseStatusId == id)).GetValueOrDefault();
         }
     }
-
-    public static partial class Pages
-    {
-        public static class RiskCaseStatus
-        {
-            public const string Controller = "RiskCaseStatus";
-            public const string Action = "Index";
-            public const string Role = "RiskCaseStatus";
-            public const string Url = "/RiskCaseStatus/Index";
-            public const string Name = "RiskCaseStatus";
-        }
-    }
-
-    public partial class ApplicationUser
-    {
-        [Display(Name = "RiskCaseStatus")]
-        public bool RiskCaseStatusRole { get; set; } = false;
-    }
 }
