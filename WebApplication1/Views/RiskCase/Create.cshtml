@@ -24,11 +24,11 @@
             </div>
             <div class="form-group">
                 <label asp-for="RiskCaseTypeId" class="control-label"></label>
-                <select asp-for="RiskCaseTypeId" class ="form-control" asp-items="ViewBag.RiskCaseTypeId"></select>
+                <select asp-for="RiskCaseTypeId" class="form-control" asp-items="ViewBag.RiskCaseTypeId"></select>
             </div>
             <div class="form-group">
                 <label asp-for="RiskCaseStatusId" class="control-label"></label>
-                <select asp-for="RiskCaseStatusId" class ="form-control" asp-items="ViewBag.RiskCaseStatusId"></select>
+                <select asp-for="RiskCaseStatusId" class="form-control" asp-items="ViewBag.RiskCaseStatusId"></select>
             </div>
             <div class="form-group">
                 <label asp-for="Created" class="control-label"></label>
@@ -36,16 +36,15 @@
                 <span asp-validation-for="Created" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <a asp-action="Index" class="btn btn-secondary"> <i class="fa fa-window-close"></i> Cancel</a>
+                <button type="submit" class="btn btn-success"><i class="fas fa-plus"></i> Create </button>
             </div>
         </form>
     </div>
 </div>
 
-<div>
-    <a class="btn btn-primary" asp-action="Index">Back to List</a>
-</div>
-
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }

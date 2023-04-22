@@ -22,7 +22,7 @@ builder.Services.AddControllersWithViews().AddRazorRuntimeCompilation().AddNToas
     Theme = "metroui"
 });
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+                options.UseSqlite("Data Source=rcu00.db"));
 builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
 {
     options.User.RequireUniqueEmail = true;
@@ -109,6 +109,7 @@ async Task SeedDatabase() //can be placed at the very bottom under app.Run()
         Email = "portal-admin@admin.com",
         FirstName = "Portal",
         LastName = "Admin",
+        Password = ApplicationUserOptions.Password,
         EmailConfirmed = true,
         PhoneNumberConfirmed = true,
     };
@@ -149,7 +150,8 @@ async Task SeedDatabase() //can be placed at the very bottom under app.Run()
         LastName = "Admin",
         EmailConfirmed = true,
         PhoneNumberConfirmed = true,
-        isSuperAdmin = true
+        Password = ApplicationUserOptions.Password,
+        isSuperAdmin = true,
     };
     if (userManager.Users.All(u => u.Id != clientAdmin.Id))
     {
@@ -175,6 +177,7 @@ async Task SeedDatabase() //can be placed at the very bottom under app.Run()
         FirstName = "Client",
         LastName = "Creator",
         EmailConfirmed = true,
+        Password = ApplicationUserOptions.Password,
         PhoneNumberConfirmed = true,
         isSuperAdmin = true
     };
@@ -198,6 +201,7 @@ async Task SeedDatabase() //can be placed at the very bottom under app.Run()
         LastName = "Assigner",
         EmailConfirmed = true,
         PhoneNumberConfirmed = true,
+        Password = ApplicationUserOptions.Password,
         isSuperAdmin = true
     };
     if (userManager.Users.All(u => u.Id != clientAssigner.Id))
@@ -219,6 +223,7 @@ async Task SeedDatabase() //can be placed at the very bottom under app.Run()
         LastName = "Assessor",
         EmailConfirmed = true,
         PhoneNumberConfirmed = true,
+        Password = ApplicationUserOptions.Password,
         isSuperAdmin = true
     };
     if (userManager.Users.All(u => u.Id != clientAssessor.Id))
@@ -241,6 +246,7 @@ async Task SeedDatabase() //can be placed at the very bottom under app.Run()
         LastName = "Admin",
         EmailConfirmed = true,
         PhoneNumberConfirmed = true,
+        Password = ApplicationUserOptions.Password,
         isSuperAdmin = true
     };
     if (userManager.Users.All(u => u.Id != vendorAdmin.Id))
@@ -266,6 +272,7 @@ async Task SeedDatabase() //can be placed at the very bottom under app.Run()
         LastName = "Supervisor",
         EmailConfirmed = true,
         PhoneNumberConfirmed = true,
+        Password = ApplicationUserOptions.Password,
         isSuperAdmin = true
     };
     if (userManager.Users.All(u => u.Id != vendorSupervisor.Id))
@@ -289,6 +296,7 @@ async Task SeedDatabase() //can be placed at the very bottom under app.Run()
         LastName = "Agent",
         EmailConfirmed = true,
         PhoneNumberConfirmed = true,
+        Password = ApplicationUserOptions.Password,
         isSuperAdmin = true
     };
     if (userManager.Users.All(u => u.Id != vendorAgent.Id))

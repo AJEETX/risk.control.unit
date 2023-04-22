@@ -2,6 +2,7 @@
 {
     public class PermissionViewModel
     {
+        public string RoleName { get; set; }
         public string RoleId { get; set; }
         public IList<RoleClaimsViewModel> RoleClaims { get; set; }
     }

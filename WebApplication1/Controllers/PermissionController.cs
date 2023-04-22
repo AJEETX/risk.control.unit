@@ -20,6 +20,7 @@ namespace WebApplication1.Controllers
             var allPermissions = new List<RoleClaimsViewModel>();
             allPermissions.GetPermissions(typeof(Permissions.Products), Id);
             var role = await _roleManager.FindByIdAsync(Id);
+            model.RoleName = role.Name;
             model.RoleId = Id;
             var claims = await _roleManager.GetClaimsAsync(role);
             var allClaimValues = allPermissions.Select(a => a.Value).ToList();
@@ -32,6 +33,7 @@ namespace WebApplication1.Controllers
                     permission.Selected = true;
                 }
             }
+            
             model.RoleClaims = allPermissions;
             return View(model);
         }
