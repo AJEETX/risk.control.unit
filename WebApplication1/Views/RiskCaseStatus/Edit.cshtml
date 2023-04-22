@@ -11,6 +11,7 @@
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Edit">
+            <div class="card-body">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="RiskCaseStatusId" />
             <div class="form-group">
@@ -28,15 +29,13 @@
                 <input asp-for="Created" class="form-control" />
                 <span asp-validation-for="Created" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+             <div class="form-group">
+                <a asp-action="Index" class="btn btn-secondary"><i class="fa fa-window-close"></i> Cancel</a> &nbsp;
+                <button type="submit" class="btn btn-warning"> <i class="fas fa-pen"></i> Edit</button>
             </div>
         </form>
     </div>
-</div>
-
-<div>
-    <a class="btn btn-primary" asp-action="Index">Back to List</a>
 </div>
 
 @section Scripts {

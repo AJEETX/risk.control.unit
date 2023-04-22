@@ -39,7 +39,7 @@ namespace WebApplication1.Controllers
                 thisViewModel.UserId = user.Id;
                 thisViewModel.Email = user.Email;
                 thisViewModel.UserName = user.UserName;
-                thisViewModel.ProfileImage = "img/user.jpg";
+                thisViewModel.ProfileImage = user.ProfilePictureUrl;
                 thisViewModel.FirstName = user.FirstName;
                 thisViewModel.LastName = user.LastName;
                 thisViewModel.Roles = await GetUserRoles(user);
@@ -56,7 +56,7 @@ namespace WebApplication1.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(ApplicationUser user)
         {
-            if (ModelState.IsValid)
+            user.Id = Guid.NewGuid().ToString();
             {
                 if(user.ProfileImage != null && user.ProfileImage.Length >0 )
                 {
@@ -65,7 +65,7 @@ namespace WebApplication1.Controllers
                     newFileName += fileExtension;
                     var upload = Path.Combine(webHostEnvironment.WebRootPath, "upload", newFileName);
                     user.ProfileImage.CopyTo(new FileStream(upload, FileMode.Create));
-                    user.ProfilePictureUrl = newFileName;
+                    user.ProfilePictureUrl = "upload"+ newFileName;
                 }
 
                 IdentityResult result = await userManager.CreateAsync(user, user.Password);
@@ -104,7 +104,6 @@ namespace WebApplication1.Controllers
                 return NotFound();
             }
 
-            if (ModelState.IsValid)
             {
                 try
                 {

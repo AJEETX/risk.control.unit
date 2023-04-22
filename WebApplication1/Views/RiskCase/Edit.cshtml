@@ -6,37 +6,40 @@
 
 <h1>Edit</h1>
 
-<h4>RiskCase</h4>
+<h4>Case</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Edit">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="RiskCaseId" />
-            <div class="form-group">
-                <label asp-for="Name" class="control-label"></label>
-                <input asp-for="Name" class="form-control" />
-                <span asp-validation-for="Name" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Description" class="control-label"></label>
-                <input asp-for="Description" class="form-control" />
-                <span asp-validation-for="Description" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="RiskCaseTypeId" class="control-label"></label>
-                <select asp-for="RiskCaseTypeId" class="form-control" asp-items="ViewBag.RiskCaseTypeId"></select>
-                <span asp-validation-for="RiskCaseTypeId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="RiskCaseStatusId" class="control-label"></label>
-                <select asp-for="RiskCaseStatusId" class="form-control" asp-items="ViewBag.RiskCaseStatusId"></select>
-                <span asp-validation-for="RiskCaseStatusId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Created" class="control-label"></label>
-                <input asp-for="Created" class="form-control" />
-                <span asp-validation-for="Created" class="text-danger"></span>
+            <div class="card-body">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input type="hidden" asp-for="RiskCaseId" />
+                <div class="form-group">
+                    <label asp-for="Name" class="control-label"></label>
+                    <input asp-for="Name" class="form-control" />
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Description" class="control-label"></label>
+                    <input asp-for="Description" class="form-control" />
+                    <span asp-validation-for="Description" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="RiskCaseTypeId" class="control-label"></label>
+                    <select asp-for="RiskCaseTypeId" class="form-control" asp-items="ViewBag.RiskCaseTypeId"></select>
+                    <span asp-validation-for="RiskCaseTypeId" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="RiskCaseStatusId" class="control-label"></label>
+                    <select asp-for="RiskCaseStatusId" class="form-control"
+                        asp-items="ViewBag.RiskCaseStatusId"></select>
+                    <span asp-validation-for="RiskCaseStatusId" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Created" class="control-label"></label>
+                    <input asp-for="Created" class="form-control" />
+                    <span asp-validation-for="Created" class="text-danger"></span>
+                </div>
             </div>
             <div class="form-group">
                 <a asp-action="Index" class="btn btn-secondary"><i class="fa fa-window-close"></i> Cancel</a> &nbsp;
@@ -48,5 +51,7 @@
 
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }

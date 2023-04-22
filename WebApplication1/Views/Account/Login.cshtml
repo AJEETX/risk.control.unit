@@ -33,29 +33,28 @@
             <div class="card-body login-card-body">
                 <p class="login-box-msg">Sign in </p>
                 <form asp-route-returnurl="@ViewData["ReturnUrl"]" method="post">
-                    <div class="form-group has-feedback">
-                        <label asp-for="Email"></label>
-                        <input asp-for="Email" type="email" value="portal-admin@admin.com" class="form-control"
-                            placeholder="Email" />
-                        <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
-                        <span asp-validation-for="Email" class="text-danger"></span>
+                    <div class="mb-3">
+                        <div class="mb-3 input-group">
+                            <input name="Email" placeholder="Email" type="email" id="email" class="form-control"
+                                value="portal-admin@admin.com">
+                            <div class="input-group-append">
+                                <span class="input-group-text"><i class="fas fa-envelope"></i></span>
+                            </div>
+                        </div>
                     </div>
-                    <div class="form-group has-feedback">
-                        <label asp-for="Password"></label>
-                        <input asp-for="Password" type="password" value="123Pa$$word!" class="form-control"
-                            placeholder="Password" />
-                        <span class="glyphicon glyphicon-lock form-control-feedback"></span>
-                        <span asp-validation-for="Password" class="text-danger"></span>
+                    <div class="mb-3">
+                        <div class="mb-3 input-group"><input name="password" placeholder="Password" type="password"
+                                id="password" class="form-control" value="123Pa$$word!">
+                            <div class="input-group-append"><span class="input-group-text"><i
+                                        class="fas fa-lock"></i></span></div>
+                        </div>
                     </div>
                     <div class="d-grid gap-2">
-                        <button type="submit" class="btn btn-primary">Sign In</button>
+                        <button type="submit" class="btn btn-primary btn-block"><i class="fas fa-key"></i>&nbsp; Sign
+                            in</button>
                     </div>
                 </form>
-
-
             </div>
-
-
         </div>
         <!-- /.login-card-body -->
         <div style="text-align: -webkit-center;">
@@ -64,7 +63,7 @@
                 Portal Admin password - `123Pa$$word!`
             </div>
             <br />
-           
+
             <small style="font-size:15px"> Made with <span style="color: #e25555;">&hearts;</span> by <a
                     href="http://github.com/ajeetx">ajeet</a> .</small>
 
