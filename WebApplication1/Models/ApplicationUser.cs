@@ -17,6 +17,8 @@ namespace WebApplication1.Models
         public string FirstName { get; set; }
         [Required]
         public string LastName { get; set; }
+        public string? State { get; set; }
+        public string? Country { get; set; }
         [Required]
         public string? Password { get; set; }
         public bool isInRoleHomeIndex { get; set; }

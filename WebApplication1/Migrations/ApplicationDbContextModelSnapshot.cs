@@ -160,6 +160,9 @@ namespace WebApplication1.Migrations
                         .IsConcurrencyToken()
                         .HasColumnType("TEXT");
 
+                    b.Property<string>("Country")
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("Email")
                         .HasMaxLength(256)
                         .HasColumnType("TEXT");
@@ -212,6 +215,9 @@ namespace WebApplication1.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("SecurityStamp")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("State")
                         .HasColumnType("TEXT");
 
                     b.Property<bool>("TwoFactorEnabled")

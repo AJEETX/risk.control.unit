@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using WebApplication1.Data;
 using WebApplication1.Models;
@@ -48,11 +49,29 @@ namespace WebApplication1.Controllers
             return View(UserList);
         }
 
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
+            await GetCountryState();
             return View();
         }
+        [HttpPost, ActionName("GetStatesByCountryId")]
+        public async Task<JsonResult> GetStatesByCountryId(string countryId) {
+            int cId;
+            var states = new List <State> ();
+            if (!string.IsNullOrEmpty(countryId)) {
+                cId = Convert.ToInt32(countryId);
+                states = await context.States.Where(s => s.CountryId.Equals(cId)).ToListAsync();
+            }
+            return Json(states);
+        }
 
+        private async Task GetCountryState()
+        {
+            var countries = await context.Countries.ToListAsync();
+            var states = new List<State>{};
+            ViewData["countries"] = new SelectList(countries.OrderBy(s => s.CountryId), "CountryId", "CountryName");
+            ViewData["states"] = new SelectList(states.OrderBy(s => s.StateId), "StateId", "StateName");
+        }
         [HttpPost]
         public async Task<IActionResult> Create(ApplicationUser user)
         {
@@ -65,7 +84,7 @@ namespace WebApplication1.Controllers
                     newFileName += fileExtension;
                     var upload = Path.Combine(webHostEnvironment.WebRootPath, "upload", newFileName);
                     user.ProfileImage.CopyTo(new FileStream(upload, FileMode.Create));
-                    user.ProfilePictureUrl = "upload"+ newFileName;
+                    user.ProfilePictureUrl = newFileName;
                 }
 
                 IdentityResult result = await userManager.CreateAsync(user, user.Password);
@@ -78,11 +97,13 @@ namespace WebApplication1.Controllers
                         ModelState.AddModelError("", error.Description);
                 }
             }
+            await GetCountryState();
             return View(user);
         }
 
         public async Task<IActionResult> Edit(string userId)
         {
+            await GetCountryState();
             if (userId == null)
             {
                 return NotFound();
@@ -93,6 +114,18 @@ namespace WebApplication1.Controllers
                 return View(applicationUser);
             else
                 return RedirectToAction("Index");
+        }
+        [HttpPost]
+        public async Task<IActionResult> DeleteImage(string id)
+        {
+            var user = await context.ApplicationUser.FirstOrDefaultAsync(a => a.Id == id);
+            if(user is not null)
+            {
+                user.ProfilePictureUrl = null; 
+                await context.SaveChangesAsync();
+                return Ok(new { message = "succes", succeeded = true });
+            }
+            return NotFound("failed");
         }
 
         [HttpPost]
@@ -117,7 +150,8 @@ namespace WebApplication1.Controllers
                         user.LastName = applicationUser.LastName;
                         user.Email = applicationUser.Email;
                         user.UserName = applicationUser.UserName;
-
+                        user.Country = applicationUser.Country;
+                        user.State= applicationUser.State;
                         var result  = await userManager.UpdateAsync(user);
                         if (result.Succeeded)
                         {

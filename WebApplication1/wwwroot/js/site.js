@@ -1,4 +1,43 @@
-﻿// Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
-// for details on configuring this project to bundle and minify static web assets.
+﻿$(document).ready(function () {
 
-// Write your Javascript code.
+    $('#Country').change(function(){
+        loadState($('#Country'));
+    });
+    $("#btnDeleteImage").click(function () {
+        var id = $(this).attr("data-id");
+        $.ajax({
+            url: '/User/DeleteImage/' + id,
+            type: "POST",
+            async: true,
+            success: function (data) {
+                if (data.succeeded) {
+                    $("#delete-image-main").hide();
+                    $("#ProfilePictureUrl").val("");
+                }
+                else {
+                   // toastr.error(data.message);
+                }
+            },
+            beforeSend: function () {
+                $(this).attr("disabled", true);
+                $(this).html('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Loading...');
+            },
+            complete: function () {
+                $(this).html('Delete Image');
+            },
+        });
+    });
+});
+function loadState(obj) {
+    var value = obj.value;
+    $.post("GetStatesByCountryId", { countryId: value }, function (data) {
+        PopulateDropDown("#state", data);
+    });
+}
+function PopulateDropDown(dropDownId, list, selectedId) {
+    $(dropDownId).empty();
+    $(dropDownId).append("<option>--SELECT STATE--</option>")
+    $.each(list, function (index, row) {
+        $(dropDownId).append("<option value='" + row.stateId + "'>" + row.stateName + "</option>")
+    });
+}

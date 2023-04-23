@@ -1,4 +1,5 @@
-﻿@inject SignInManager<ApplicationUser> SignInManager
+﻿@using WebApplication1.Models;
+@inject SignInManager<ApplicationUser> SignInManager
 @inject UserManager<ApplicationUser> UserManager
 <aside class="main-sidebar elevation-2 sidebar-light-primary">
     <!-- Brand Logo -->
@@ -27,19 +28,18 @@
                         <img class="img-circle elevation-0" style="width:40px;height:40px; object-fit:cover; border-radius:30px" src="data:image/*;base64,@(Convert.ToBase64String(UserManager.GetUserAsync(User).Result.ProfilePicture))">
                     </div>
                 }
-
                 <div class="info">
                     <a href="#" class="d-block">
-                        @UserManager.GetUserAsync(User).Result?.FirstName @UserManager.GetUserAsync(User).Result?.LastName @{
-                            if (User.IsInRole("SuperAdmin"))
-                            {
-                                <span class="badge badge-danger">SA</span>
-                            }
-                            else if (User.IsInRole("Basic"))
-                            {
-                                <span class="badge badge-success">BASIC</span>
-                            }
-                        }
+                    @UserManager.GetUserAsync(User).Result?.FirstName @UserManager.GetUserAsync(User).Result?.LastName @{
+                    if (User.IsInRole(AppRoles.PortalAdmin.ToString()))
+                    {
+                        <span class="badge badge-danger">PA</span>
+                    }
+                    else if (User.IsInRole(AppRoles.ClientAdmin.ToString()))
+                    {
+                        <span class="badge badge-success">CA</span>
+                    }
+                    }
                     </a>
                 </div>
             </div>
