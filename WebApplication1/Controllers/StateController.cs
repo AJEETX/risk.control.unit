@@ -11,11 +11,11 @@ using WebApplication1.Models;
 
 namespace WebApplication1.Controllers
 {
-    public class CountryController : Controller
+    public class StateController : Controller
     {
         private readonly ApplicationDbContext _context;
 
-        public CountryController(ApplicationDbContext context)
+        public StateController(ApplicationDbContext context)
         {
             _context = context;
         }
@@ -23,34 +23,35 @@ namespace WebApplication1.Controllers
         // GET: RiskCaseStatus
         public async Task<IActionResult> Index()
         {
-              return _context.Countries != null ? 
-                          View(await _context.Countries.ToListAsync()) :
-                          Problem("Entity set 'ApplicationDbContext.Countries'  is null.");
+            ViewData["CountryId"] = new SelectList(_context.Countries, "CountryId", "CountryName");
+              return _context.States != null ? 
+                          View(await _context.States.Include(s => s.Country).ToListAsync()) :
+                          Problem("Entity set 'ApplicationDbContext.States'  is null.");
         }
 
         // GET: RiskCaseStatus/Details/5
         public async Task<IActionResult> Details(int id)
         {
-            if (id == 0 || _context.Countries == null)
+            if (id == 0 || _context.States == null)
             {
                 return NotFound();
             }
 
-            var country = await _context.Countries
-                .FirstOrDefaultAsync(m => m.CountryId == id);
-            if (country == null)
+            var state = await _context.States.Include(s => s.Country)
+                .FirstOrDefaultAsync(m => m.StateId == id);
+            if (state == null)
             {
                 return NotFound();
             }
 
-            return View(country);
+            return View(state);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(string countryName)
+        public async Task<IActionResult> Create(string countryId, string stateName)
         {
-            _context.Add(new Country { CountryName = countryName.Trim().ToUpper()} );
+            _context.Add(new State { StateName = stateName.Trim().ToUpper(), CountryId = int.Parse(countryId)} );
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
@@ -58,17 +59,17 @@ namespace WebApplication1.Controllers
         // GET: RiskCaseStatus/Edit/5
         public async Task<IActionResult> Edit(int id)
         {
-            if (id == 0 || _context.Countries == null)
+            if (id == 0 || _context.States == null)
             {
                 return NotFound();
             }
 
-            var country = await _context.Countries.FirstOrDefaultAsync(c => c.CountryId == id);
-            if (country == null)
+            var state = await _context.States.FirstOrDefaultAsync(c => c.StateId == id);
+            if (state == null)
             {
                 return NotFound();
             }
-            return View(country);
+            return View(state);
         }
 
         // POST: RiskCaseStatus/Edit/5
@@ -76,9 +77,9 @@ namespace WebApplication1.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, Country country)
+        public async Task<IActionResult> Edit(int id,State state)
         {
-            if (id != country.CountryId)
+            if (id != state.StateId)
             {
                 return NotFound();
             }
@@ -87,12 +88,12 @@ namespace WebApplication1.Controllers
             {
                 try
                 {
-                    _context.Update(country);
+                    _context.Update(state);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!CountryExists(country.CountryId))
+                    if (!StateExists(state.StateId))
                     {
                         return NotFound();
                     }
@@ -103,25 +104,25 @@ namespace WebApplication1.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(country);
+            return View(state);
         }
 
         // GET: RiskCaseStatus/Delete/5
         public async Task<IActionResult> Delete(int id)
         {
-            if (id == 0 || _context.Countries == null)
+            if (id == 0 || _context.States == null)
             {
                 return NotFound();
             }
 
-            var country = await _context.Countries
-                .FirstOrDefaultAsync(m => m.CountryId == id);
-            if (country == null)
+            var state = await _context.States
+                .FirstOrDefaultAsync(m => m.StateId == id);
+            if (state == null)
             {
                 return NotFound();
             }
 
-            return View(country);
+            return View(state);
         }
 
         // POST: RiskCaseStatus/Delete/5
@@ -129,23 +130,23 @@ namespace WebApplication1.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            if (_context.Countries == null)
+            if (_context.States == null)
             {
-                return Problem("Entity set 'ApplicationDbContext.Countries'  is null.");
+                return Problem("Entity set 'ApplicationDbContext.States'  is null.");
             }
-            var country = await _context.Countries.FindAsync(id);
-            if (country != null)
+            var state = await _context.States.FindAsync(id);
+            if (state != null)
             {
-                _context.Countries.Remove(country);
+                _context.States.Remove(state);
             }
             
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool CountryExists(int id)
+        private bool StateExists(int id)
         {
-          return (_context.Countries?.Any(e => e.CountryId == id)).GetValueOrDefault();
+          return (_context.States?.Any(e => e.StateId == id)).GetValueOrDefault();
         }
     }
 }

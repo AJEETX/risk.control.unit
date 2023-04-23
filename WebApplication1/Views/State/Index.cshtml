@@ -1,0 +1,41 @@
+﻿@model List<State>
+
+<div>
+    <h4>Manage State</h4>
+    <form method="post" action="State/create"  asp-antiforgery="true">
+        <div class="input-group col-4" style="padding:0px;">
+            <select  name="countryId"  class="form-control" asp-items="ViewBag.CountryId">
+                                    <option>
+                                        SELECT Country
+                                    </option></select>
+            <input autocomplete="off" name="StateName" type="text" class="form-control">
+            <span class="input-group-append">
+                <button type="submit" class="btn btn-success"><i class="fas fa-plus"></i> State</button>
+            </span>
+        </div>
+    </form>
+    <br />
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Country name</th>
+                <th>State name</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var state in Model)
+            {
+                <tr>
+                    <td>@state.Country.CountryName</td>
+                    <td>@state.StateName</td>
+                    <td>
+                        <a class="btn btn-xs btn-warning" asp-action="Edit" asp-route-id="@state.StateId"><i class="fas fa-pen"></i> Edit</a> &nbsp;
+                        <a class="btn btn-xs btn-danger" asp-action="Delete" asp-route-id="@state.StateId"><i class="fas fa-trash"></i> Delete</a>
+                        <input type="hidden" value="@state.StateId" />
+                    </td>
+                </tr>
+            }
+
+        </tbody>
+    </table>
+</div>
