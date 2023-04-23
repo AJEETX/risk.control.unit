@@ -1,7 +1,7 @@
 ﻿$(document).ready(function () {
 
     $('#Country').change(function(){
-        loadState($('#Country'));
+        loadState($(this));
     });
     $("#btnDeleteImage").click(function () {
         var id = $(this).attr("data-id");

@@ -51,7 +51,7 @@ namespace WebApplication1.Controllers
 
         public async Task<IActionResult> Create()
         {
-            await GetCountryState();
+            await GetCountryStateCreate();
             return View();
         }
         [HttpPost, ActionName("GetStatesByCountryId")]
@@ -64,14 +64,16 @@ namespace WebApplication1.Controllers
             }
             return Json(states);
         }
-
-        private async Task GetCountryState()
+        private async Task GetCountryStateCreate()
         {
             var countries = await context.Countries.ToListAsync();
+            countries.Add(new Country{CountryId = 0, CountryName = "--SELECT COUNTRY--" });
             var states = new List<State>{};
+            states.Add(new State{StateId = 0, StateName = "--SELECT STATE--" });
             ViewData["countries"] = new SelectList(countries.OrderBy(s => s.CountryId), "CountryId", "CountryName");
             ViewData["states"] = new SelectList(states.OrderBy(s => s.StateId), "StateId", "StateName");
         }
+        
         [HttpPost]
         public async Task<IActionResult> Create(ApplicationUser user)
         {
@@ -97,19 +99,27 @@ namespace WebApplication1.Controllers
                         ModelState.AddModelError("", error.Description);
                 }
             }
-            await GetCountryState();
+            await GetCountryStateEdit(user);
             return View(user);
         }
-
+        private async Task GetCountryStateEdit(ApplicationUser user)
+        {
+            var countries = await context.Countries.ToListAsync();
+            countries.Add(new Country{CountryId = 0, CountryName = "--SELECT COUNTRY--" });
+            var states = new List<State>{};
+            states.Add(new State{StateId = 0, StateName = "--SELECT STATE--" });
+            ViewData["countries"] = new SelectList(countries.OrderBy(s => s.CountryId), "CountryId", "CountryName", user.CountryId);
+            ViewData["states"] = new SelectList(states.OrderBy(s => s.StateId), "StateId", "StateName", user.StateId);
+        }
         public async Task<IActionResult> Edit(string userId)
         {
-            await GetCountryState();
             if (userId == null)
             {
                 return NotFound();
             }
 
             var applicationUser = await userManager.FindByIdAsync(userId);
+            await GetCountryStateEdit(applicationUser);
             if (applicationUser != null)
                 return View(applicationUser);
             else

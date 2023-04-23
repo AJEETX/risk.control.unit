@@ -55,7 +55,7 @@
                             <div class="form-group">
                                 <label asp-for="Country" class="control-label"></label>
                                 <select id="Country" asp-for="Country" class="form-control"
-                                    asp-items="ViewBag.countries" onchange="loadState(this)">
+                                    asp-items="ViewBag.countries" onload="loadState(this)" onchange="loadState(this)">
                                     <options>-- SELECT --</options>
                                 </select>
                             </div>
