@@ -12,14 +12,14 @@ namespace WebApplication1.Data
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
-            // Customize the ASP.NET Identity model and override the defaults if needed.
-            // For example, you can rename the ASP.NET Identity table names and more.
-            // Add your customizations after calling base.OnModelCreating(builder);
         }
 
-        public DbSet<ApplicationUser> ApplicationUser { get; set; }
-        public DbSet<RiskCase> RiskCase { get; set; }
-        public DbSet<RiskCaseType> RiskCaseType { get; set; }
-        public DbSet<RiskCaseStatus> RiskCaseStatus { get; set; }
+        public virtual DbSet<ApplicationUser> ApplicationUser { get; set; }
+        public virtual DbSet<RiskCase> RiskCase { get; set; }
+        public virtual DbSet<RiskCaseType> RiskCaseType { get; set; }
+        public virtual DbSet<RiskCaseStatus> RiskCaseStatus { get; set; }
+        public virtual DbSet<Country> Countries { get; set; }
+        public virtual DbSet<State> States { get; set; }
+        public virtual DbSet<City> Citys { get; set; }
     }
 }

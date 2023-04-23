@@ -1,29 +1,29 @@
-﻿@model IdentityRole
+﻿@model WebApplication1.Models.Country
 
 @{
     ViewData["Title"] = "Details";
 }
 
-<h1>Edit</h1>
+<h1>Details</h1>
 
-<h4>Roles</h4>
+<h4>Country</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Details">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="Id" />
+            <input type="hidden" asp-for="CountryId" />
             <div class="form-group">
-                <label asp-for="Name" class="control-label"></label>
-                <input asp-for="Name" class="form-control" />
-                <span asp-validation-for="Name" class="text-danger"></span>
+                <label asp-for="CountryName" class="control-label"></label>
+                <input asp-for="CountryName" class="form-control" />
+                <span asp-validation-for="CountryName" class="text-danger"></span>
             </div>
         </form>
     </div>
 </div>
 <div>
      <a asp-action="Index" class="btn btn-secondary"><i class="fa fa-window-close"></i> Cancel</a> &nbsp;
-    <a class="btn btn-warning" asp-action="Edit" asp-route-id="@Model?.Id"><i class="fas fa-pen"></i> Edit</a>
+    <a class="btn btn-warning" asp-action="Edit" asp-route-id="@Model?.CountryId"><i class="fas fa-pen"></i> Edit</a>
 </div>
 
 @section Scripts {

@@ -79,3 +79,6 @@ body {
   padding: 1rem;
   border-radius: 1em;
 }
+table td{
+  max-height: 50px;
+}
