@@ -7,7 +7,7 @@ namespace WebApplication1.Models
     public partial class ApplicationUser : IdentityUser
     {
         [FileExtensions(Extensions = "jpg,jpeg,png")]
-        public string ProfilePictureUrl { get; set; }
+        public string? ProfilePictureUrl { get; set; }
         public bool isSuperAdmin { get; set; } = false;
         public byte[]? ProfilePicture { get; set; }
         [NotMapped]
