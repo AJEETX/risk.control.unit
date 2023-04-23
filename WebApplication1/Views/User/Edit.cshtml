@@ -13,8 +13,8 @@
                         <div class="card-header">
                             <h3 class="card-title">Edit user</h3>
                         </div>
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                         <div class="card-body">
-                            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
                             <input type="hidden" asp-for="Id" />
                             <div class="form-group">
@@ -51,18 +51,14 @@
                             <h3 class="card-title">...</h3>
                         </div>
                         <div class="card-body">
-                            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                             <div class="form-group">
-                                <label asp-for="Country" class="control-label"></label>
-                                <select id="Country" asp-for="Country" class="form-control"
-                                    asp-items="ViewBag.countries" onload="loadState(this)" onchange="loadState(this)">
-                                    <options>-- SELECT --</options>
+                                <label asp-for="CountryId" class="control-label"></label>
+                                <select asp-for="CountryId" class="form-control" asp-items="ViewBag.CountryId" onload="loadState(this)" onchange="loadState(this)">
                                 </select>
                             </div>
                             <div class="form-group">
-                                <label asp-for="State" class="control-label"></label>
-                                <select id="state" asp-for="State" class="form-control" asp-items="ViewBag.states">
-                                    <options>-- SELECT --</options>
+                                <label asp-for="StateId" class="control-label"></label>
+                                <select id="StateId" asp-for="StateId" class="form-control" asp-items="ViewBag.StateId">
                                 </select>
                             </div>
                             <div class="form-group">
@@ -72,6 +68,7 @@
                             </div>
 
                             @if (!string.IsNullOrEmpty(Model.ProfilePictureUrl))
+
                             {
                                 <div class="form-group" id="delete-image-main">
                                     <label asp-for="ProfileImage"></label>

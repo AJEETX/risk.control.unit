@@ -1,6 +1,6 @@
 ﻿$(document).ready(function () {
 
-    $('#Country').change(function(){
+    $('#CountryId').change(function(){
         loadState($(this));
     });
     $("#btnDeleteImage").click(function () {
@@ -31,7 +31,7 @@
 function loadState(obj) {
     var value = obj.value;
     $.post("GetStatesByCountryId", { countryId: value }, function (data) {
-        PopulateDropDown("#state", data);
+        PopulateDropDown("#StateId", data);
     });
 }
 function PopulateDropDown(dropDownId, list, selectedId) {

@@ -70,8 +70,8 @@ namespace WebApplication1.Controllers
             countries.Add(new Country{CountryId = 0, CountryName = "--SELECT COUNTRY--" });
             var states = new List<State>{};
             states.Add(new State{StateId = 0, StateName = "--SELECT STATE--" });
-            ViewData["countries"] = new SelectList(countries.OrderBy(s => s.CountryId), "CountryId", "CountryName");
-            ViewData["states"] = new SelectList(states.OrderBy(s => s.StateId), "StateId", "StateName");
+            ViewData["CountryId"] = new SelectList(countries.OrderBy(s => s.CountryId), "CountryId", "CountryName");
+            ViewData["StateId"] = new SelectList(states.OrderBy(s => s.StateId), "StateId", "StateName");
         }
         
         [HttpPost]
@@ -108,8 +108,8 @@ namespace WebApplication1.Controllers
             countries.Add(new Country{CountryId = 0, CountryName = "--SELECT COUNTRY--" });
             var states = new List<State>{};
             states.Add(new State{StateId = 0, StateName = "--SELECT STATE--" });
-            ViewData["countries"] = new SelectList(countries.OrderBy(s => s.CountryId), "CountryId", "CountryName", user.CountryId);
-            ViewData["states"] = new SelectList(states.OrderBy(s => s.StateId), "StateId", "StateName", user.StateId);
+            ViewData["CountryId"] = new SelectList(countries.OrderBy(s => s.CountryId), "CountryId", "CountryName", user.CountryId);
+            ViewData["StateId"] = new SelectList(states.OrderBy(s => s.StateId), "StateId", "StateName", user.StateId);
         }
         public async Task<IActionResult> Edit(string userId)
         {
