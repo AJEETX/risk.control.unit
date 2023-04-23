@@ -11,9 +11,13 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Edit">
+        <form asp-action="Edit"  enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Id" />
+            <div class="form-group">
+                <input asp-for="UserName" type="hidden" class="form-control" />
+                <span asp-validation-for="UserName" class="text-danger"></span>
+            </div>
             <div class="form-group">
                 <label asp-for="FirstName" class="control-label"></label>
                 <input asp-for="FirstName" class="form-control" />
@@ -34,22 +38,27 @@
                 <input asp-for="Email" class="form-control" />
                 <span asp-validation-for="Email" class="text-danger"></span>
             </div>
+            @if (!string.IsNullOrEmpty(Model.ProfilePictureUrl))
+            {
+                <div class="form-group" id="delete-image-main">
+                    <img height="100" src="@Model.ProfilePictureUrl" />
+                    <a class="btn btn-xs btn-danger" asp-action="Delete" asp-route-id="@Model.Id"><i class="fas fa-trash"></i> Delete</a>
+                </div>
+            }
             <div class="form-group">
-                <label asp-for="ProfileImage" class="control-label"></label>
-                <input asp-for="ProfileImage" class="form-control" />
-                <span asp-validation-for="ProfileImage" class="text-danger"></span>
+                <input asp-for="ProfileImage" type="file" accept="image/*" class="form-control">
+                <input type="hidden" asp-for="ProfilePictureUrl" />
             </div>
-            <div class="form-group">
-                <input type="submit" value="Edit" class="btn btn-primary" />
+           <div class="form-group">
+                <a asp-action="Index" class="btn btn-secondary"><i class="fa fa-window-close"></i> Cancel</a> &nbsp;
+                <button type="submit" class="btn btn-warning"> <i class="fas fa-pen"></i> Edit</button>
             </div>
         </form>
     </div>
 </div>
 
-<div>
-    <a class="btn btn-primary" asp-action="Index">Back to List</a>
-</div>
-
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }

@@ -1,60 +1,99 @@
-﻿@model IEnumerable<WebApplication1.Models.RiskCase>
+﻿@model List<WebApplication1.Models.RiskCase>
 
 @{
     ViewData["Title"] = "Index";
 }
+<div>
+    <h4>Investigations</h4>
+    <form asp-action="index">
+        <div class="input-group col-5" style="padding:0px;">
+            <a class="btn btn-success" asp-action="Create"><i class="fas fa-plus"></i> Create Case</a>
 
-<h1>Investigation</h1>
-
-<p>
-    <a class="btn btn-success" asp-action="Create"><i class="fas fa-plus"></i> Create Case</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Name)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Description)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.RiskCaseType)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.RiskCaseStatus)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Created)
-            </th>
-            <th>Actions</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
+            <input autocomplete="off" name="SearchString" type="text" class="form-control" />
+            <span class="input-group-append">
+                <button type="submit" class="btn btn-info"> <i class="fa fa-search"></i> Search...</button>
+            </span>
+        </div>
+    </form>
+    <br />
+    <table class="table table-striped">
+        <thead>
             <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Name)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Description)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.RiskCaseType.Name)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.RiskCaseStatus.Name)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Created)
-                </td>
-                <td>
-                    <a class="btn btn-xs btn-info" asp-action="Details" asp-route-id="@item.RiskCaseId"><i class="fa fa-search"></i> View</a> &nbsp;
-                    <a class="btn btn-xs btn-warning" asp-action="Edit" asp-route-id="@item.RiskCaseId"><i class="fas fa-pen"></i> Edit</a> &nbsp;
-                    <a class="btn btn-xs btn-danger" asp-action="Delete" asp-route-id="@item.RiskCaseId"><i class="fas fa-trash"></i> Delete</a>
-                </td>
+                <th>
+                    @Html.ActionLink("Name", "Index", new { sortOrder = ViewBag.NameSortParm })
+                </th>
+                <th>
+                    @Html.ActionLink("Description", "Index", new { sortOrder = ViewBag.NameSortParm })
+                </th>
+                <th>
+                    @Html.ActionLink("Case type", "Index", new { sortOrder = ViewBag.NameSortParm })
+                </th>
+                <th>
+                    @Html.ActionLink("Case status", "Index", new { sortOrder = ViewBag.NameSortParm })
+                </th>
+                <th>
+                    @Html.ActionLink("Created", "Index", new { sortOrder = ViewBag.DateSortParm })
+                </th>
+                <th>Actions</th>
             </tr>
-        }
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Description)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.RiskCaseType.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.RiskCaseStatus.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Created)
+                    </td>
+                    <td>
+                        <a class="btn btn-xs btn-info" asp-action="Details" asp-route-id="@item.RiskCaseId"><i
+                                class="fa fa-search"></i> View</a> &nbsp;
+                        <a class="btn btn-xs btn-warning" asp-action="Edit" asp-route-id="@item.RiskCaseId"><i
+                                class="fas fa-pen"></i> Edit</a> &nbsp;
+                        <a class="btn btn-xs btn-danger" asp-action="Delete" asp-route-id="@item.RiskCaseId"><i
+                                class="fas fa-trash"></i> Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <br />
+    @{
+        var PageNumber = (int)@ViewBag.PageNumber;
+        var PageSize = (int)@ViewBag.PageSize;
+        var TotalPages = (int)@ViewBag.TotalPages;
+        var ShowPrevious = (bool)@ViewBag.ShowPrevious;
+        var ShowNext = (bool)@ViewBag.ShowNext;
+        var ShowFirst = (bool)@ViewBag.ShowFirst;
+        var ShowLast = (bool)@ViewBag.ShowLast;
+    }
+
+    <ul class="pagination">
+        <li class="page-item @(!ShowFirst? "disabled":"")">
+            <a asp-page="/pagination" asp-route-CurrentPage="1" class="page-link"><i class="fas fa-fast-backward"></i></a>
+        </li>
+        <li class="page-item @(!ShowPrevious? "disabled":"")">
+            <a asp-page="/pagination" asp-route-CurrentPage="@(PageNumber -1)" class="page-link"><i class="fas fa-step-backward"></i></a>
+        </li>
+        <li class="page-item  @(!ShowNext? "disabled":"")">
+            <a asp-page="/pagination" asp-route-CurrentPage="@(PageNumber + 1)" class="page-link"><i class="fas fa-step-forward"></i></a>
+        </li>
+
+        <li class="page-item  @(!ShowLast? "disabled":"")">
+            <a asp-page="/pagination" asp-route-CurrentPage="@TotalPages" class="page-link"><i class="fas fa-fast-forward"></i></a>
+        </li>
+    </ul>
+</div>
+<div>
+</div>

@@ -1,19 +1,23 @@
 ﻿@using WebApplication1.Models.ViewModel;
 @model List<UsersViewModel>
-@{
-    //Layout = "~/Pages/Shared/AdminLTE/_Layout.cshtml";
-}
 
 <div>
-    <h1>Manage user</h1>
+    <h4>User</h4>
+    <form method="post" action="roles/create">
+        <div class="input-group col-5" style="padding:0px;">
+            <a class="btn btn-success" asp-action="Create"><i class="fas fa-plus"></i> Create user</a>
 
-    <p>
-    <a class="btn btn-success" asp-action="Create"><i class="fas fa-plus"></i> Create user</a>
-    </p>
+            <input autocomplete="off" name="roleName" type="text" class="form-control">
+            <span class="input-group-append">
+                <button type="submit" class="btn btn-info"> <i class="fa fa-search"></i> Search...</button>
+            </span>
+        </div>
+    </form>
+    <br />
     <table class="table table-striped">
         <thead>
             <tr>
-                <th>Profile photo</th>
+                <th></th>
                 <th>Email</th>
                 <th>Name</th>
                 <th>Roles</th>
@@ -27,10 +31,22 @@
                 <tr>
                     <td>
                         @{
+                            var defaultImage = "/img/user.jpg";
+
                             var img = user.ProfileImage;
-                            if(string.IsNullOrWhiteSpace(img))
+
+                            if (string.IsNullOrWhiteSpace(img) || defaultImage == img)
+
                             {
                                 img = "/img/user.jpg";
+
+                            }
+
+                            else
+
+                            {
+                                img = "upload/" + img;
+
                             }
                         }
                         <img src="@img" height="30" alt="No image" />
@@ -39,6 +55,7 @@
                     <td>@user.FirstName @user.LastName</td>
                     <td>
                         @foreach (var role in user.Roles)
+
                         {
                             <span class="badge badge-info">@role</span>
                         }
@@ -46,18 +63,25 @@
                     <td>
                         @{
                             if (user.Roles.Contains(AppRoles.PortalAdmin.ToString()))
+
                             {
                                 <span class="badge badge-danger">PA</span>
                             }
+
                             else if (user.Roles.Contains(AppRoles.ClientAdmin.ToString()))
+
                             {
                                 <span class="badge badge-danger">CA</span>
                             }
+
                             else if (user.Roles.Contains(AppRoles.VendorAdmin.ToString()))
+
                             {
                                 <span class="badge badge-warning">VA</span>
                             }
+
                             else
+
                             {
                                 <span class="badge badge-success">ST</span>
                             }
@@ -65,12 +89,13 @@
                         }
                     </td>
                     <td>
-                        <a class="btn btn-xs btn-warning" asp-action="Edit" asp-route-userId="@user.UserId"> <i class="fas fa-pen"></i> User </a>&nbsp;
-                        <a class="btn btn-xs btn-danger" asp-controller="UserRoles" asp-action="Index" asp-route-userId="@user.UserId"><i class="fas fa-pen"></i> Role</a>
+                        <a class="btn btn-xs btn-warning" asp-action="Edit" asp-route-userId="@user.UserId"> <i
+                                class="fas fa-pen"></i> User </a>&nbsp;
+                        <a class="btn btn-xs btn-danger" asp-controller="UserRoles" asp-action="Index"
+                        asp-route-userId="@user.UserId"><i class="fas fa-pen"></i> Role</a>
                     </td>
                 </tr>
             }
         </tbody>
     </table>
-
 </div>

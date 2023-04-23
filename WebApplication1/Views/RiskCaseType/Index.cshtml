@@ -3,13 +3,21 @@
 @{
     ViewData["Title"] = "Index";
 }
+<div>
+    <h4>Case type</h4>
+    
+    <form method="post" action="roles/create">
+    <div class="input-group col-5" style="padding:0px;">
+            <a class="btn btn-success" asp-action="Create"><i class="fas fa-plus"></i> Create Case type</a>
 
-<h1>Index</h1>
-
-<p>
-    <a class="btn btn-success" asp-action="Create"><i class="fas fa-plus"></i> Create Case type</a>
-</p>
-<table class="table">
+            <input autocomplete="off" name="roleName" type="text" class="form-control">
+            <span class="input-group-append">
+                <button type="submit" class="btn btn-info"> <i class="fa fa-search"></i> Search...</button>
+            </span>
+        </div>
+    </form>
+    <br />
+<table class="table table-striped">
     <thead>
         <tr>
             <th>
@@ -49,3 +57,4 @@
         }
     </tbody>
 </table>
+</div>
