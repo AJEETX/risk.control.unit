@@ -4,7 +4,7 @@
 }
 <section class="content pt-2">
     <div class="container-fluid ">
-        <form asp-action="Create" asp-antiforgery="true">
+        <form asp-action="Create" asp-antiforgery="true" enctype="multipart/form-data">
             <div class="row mb-2">
                 <div class="col-sm-6">
                     <div class="card card-primary">
@@ -67,8 +67,7 @@
                             </div>
                             <div class="form-group">
                                 <label asp-for="ProfileImage" class="control-label"></label>
-                                <input asp-for="ProfileImage" type="file" accept="image/*" class="form-control" />
-                                <span asp-validation-for="ProfileImage" class="text-danger"></span>
+                                <input asp-for="ProfileImage" type="file" class="form-control" />
                             </div>
                             <div class="card-footer text-right">
                                 <a asp-action="Index" class="btn btn-secondary"> <i class="fa fa-window-close"></i>

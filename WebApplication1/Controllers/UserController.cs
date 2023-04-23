@@ -75,6 +75,7 @@ namespace WebApplication1.Controllers
         }
         
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(ApplicationUser user)
         {
             user.Id = Guid.NewGuid().ToString();
@@ -102,14 +103,14 @@ namespace WebApplication1.Controllers
             await GetCountryStateEdit(user);
             return View(user);
         }
-        private async Task GetCountryStateEdit(ApplicationUser user)
+        private async Task GetCountryStateEdit(ApplicationUser? user)
         {
             var countries = await context.Countries.ToListAsync();
             countries.Add(new Country{CountryId = 0, CountryName = "--SELECT COUNTRY--" });
             var states = new List<State>{};
             states.Add(new State{StateId = 0, StateName = "--SELECT STATE--" });
-            ViewData["CountryId"] = new SelectList(countries.OrderBy(s => s.CountryId), "CountryId", "CountryName", user.CountryId);
-            ViewData["StateId"] = new SelectList(states.OrderBy(s => s.StateId), "StateId", "StateName", user.StateId);
+            ViewData["CountryId"] = new SelectList(countries.OrderBy(s => s.CountryId), "CountryId", "CountryName", user?.CountryId);
+            ViewData["StateId"] = new SelectList(states.OrderBy(s => s.StateId), "StateId", "StateName", user?.StateId);
         }
         public async Task<IActionResult> Edit(string userId)
         {
@@ -150,18 +151,33 @@ namespace WebApplication1.Controllers
             {
                 try
                 {
-                    //super admin should always have access to Roles
                     var user = await userManager.FindByIdAsync(id);
+                    if(user?.ProfileImage != null && user.ProfileImage.Length >0 )
+                    {
+                        string newFileName = Guid.NewGuid().ToString();
+                        string fileExtension = Path.GetExtension(user.ProfileImage.FileName);
+                        newFileName += fileExtension;
+                        var upload = Path.Combine(webHostEnvironment.WebRootPath, "upload", newFileName);
+                        user.ProfileImage.CopyTo(new FileStream(upload, FileMode.Create));
+                        user.ProfilePictureUrl = newFileName;
+                    }
+
                     if (user != null)
                     {
                         user.PhoneNumber = applicationUser.PhoneNumber;
                         user.ProfilePictureUrl = applicationUser.ProfilePictureUrl;
                         user.FirstName = applicationUser.FirstName;
                         user.LastName = applicationUser.LastName;
+                        if(!string.IsNullOrWhiteSpace(applicationUser.Password))
+                        {
+                            user.Password = applicationUser.Password;
+                        }
                         user.Email = applicationUser.Email;
                         user.UserName = applicationUser.UserName;
                         user.Country = applicationUser.Country;
+                        user.CountryId = applicationUser.CountryId;
                         user.State= applicationUser.State;
+                        user.StateId= applicationUser.StateId;
                         var result  = await userManager.UpdateAsync(user);
                         if (result.Succeeded)
                         {

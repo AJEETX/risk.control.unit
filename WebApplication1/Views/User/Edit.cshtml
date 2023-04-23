@@ -6,7 +6,7 @@
 }
 <section class="content pt-2">
     <div class="container-fluid ">
-        <form asp-action="Create" asp-antiforgery="true">
+        <form asp-action="edit" asp-antiforgery="true">
             <div class="row mb-2">
                 <div class="col-sm-6">
                     <div class="card card-primary">
@@ -64,7 +64,6 @@
                             <div class="form-group">
                                 <label asp-for="Password" class="control-label"></label>
                                 <input type="password" asp-for="Password" class="form-control" />
-                                <span asp-validation-for="Password" class="text-danger"></span>
                             </div>
 
                             @if (!string.IsNullOrEmpty(Model.ProfilePictureUrl))
@@ -80,8 +79,6 @@
                             <div class="form-group">
                                 <label asp-for="ProfileImage" class="control-label"></label>
                                 <input asp-for="ProfileImage" type="file" accept="image/*" class="form-control" />
-                                <span asp-validation-for="ProfileImage" class="text-danger"></span>
-                                <input type="hidden" asp-for="ProfilePictureUrl" />
                             </div>
                             <div class="card-footer text-right">
                                 <a asp-action="Index" class="btn btn-secondary"> <i class="fa fa-window-close"></i>
