@@ -134,40 +134,236 @@ async Task SeedDatabase() //can be placed at the very bottom under app.Run()
 
     var currrentState = await context.State.AddAsync(state);
 
-    var _case = new RiskCase
+    var _case1 = new RiskCase
     {
-        Name =  "TEST CLAIM CASE",
+        Name =  "TEST CLAIM CASE 1",
         Description = "TEST CLAIM CASE DESCRIPTION",
         RiskCaseTypeId  =  currentCaseType.Entity.RiskCaseTypeId,
         RiskCaseStatusId = currentCaseStatus.Entity.RiskCaseStatusId,
         Created = DateTime.Now
     };
+    var _case2 = new RiskCase
+    {
+        Name =  "TEST CLAIM CASE 2",
+        Description = "TEST CLAIM CASE DESCRIPTION",
+        RiskCaseTypeId  =  currentCaseType.Entity.RiskCaseTypeId,
+        RiskCaseStatusId = currentCaseStatus.Entity.RiskCaseStatusId,
+        Created = DateTime.Now
+    };
+    
+    var _case3 = new RiskCase
+    {
+        Name =  "TEST CLAIM CASE 3",
+        Description = "TEST CLAIM CASE DESCRIPTION",
+        RiskCaseTypeId  =  currentCaseType.Entity.RiskCaseTypeId,
+        RiskCaseStatusId = currentCaseStatus.Entity.RiskCaseStatusId,
+        Created = DateTime.Now
+    };
+    var _case4 = new RiskCase
+    {
+        Name =  "TEST CLAIM CASE 4",
+        Description = "TEST CLAIM CASE DESCRIPTION",
+        RiskCaseTypeId  =  currentCaseType.Entity.RiskCaseTypeId,
+        RiskCaseStatusId = currentCaseStatus.Entity.RiskCaseStatusId,
+        Created = DateTime.Now
+    };    
+    var _case5 = new RiskCase
+    {
+        Name =  "TEST CLAIM CASE 5",
+        Description = "TEST CLAIM CASE DESCRIPTION",
+        RiskCaseTypeId  =  currentCaseType.Entity.RiskCaseTypeId,
+        RiskCaseStatusId = currentCaseStatus.Entity.RiskCaseStatusId,
+        Created = DateTime.Now
+    };   
+    var _case6 = new RiskCase
+    {
+        Name =  "TEST CLAIM CASE 6",
+        Description = "TEST CLAIM CASE DESCRIPTION",
+        RiskCaseTypeId  =  currentCaseType.Entity.RiskCaseTypeId,
+        RiskCaseStatusId = currentCaseStatus.Entity.RiskCaseStatusId,
+        Created = DateTime.Now
+    };     
+    var _case7 = new RiskCase
+    {
+        Name =  "TEST CLAIM CASE 7",
+        Description = "TEST CLAIM CASE DESCRIPTION",
+        RiskCaseTypeId  =  currentCaseType.Entity.RiskCaseTypeId,
+        RiskCaseStatusId = currentCaseStatus.Entity.RiskCaseStatusId,
+        Created = DateTime.Now
+    };        
+    var _case8 = new RiskCase
+    {
+        Name =  "TEST CLAIM CASE 8",
+        Description = "TEST CLAIM CASE DESCRIPTION",
+        RiskCaseTypeId  =  currentCaseType.Entity.RiskCaseTypeId,
+        RiskCaseStatusId = currentCaseStatus.Entity.RiskCaseStatusId,
+        Created = DateTime.Now
+    };   
+    var _case9 = new RiskCase
+    {
+        Name =  "TEST CLAIM CASE 9",
+        Description = "TEST CLAIM CASE DESCRIPTION",
+        RiskCaseTypeId  =  currentCaseType.Entity.RiskCaseTypeId,
+        RiskCaseStatusId = currentCaseStatus.Entity.RiskCaseStatusId,
+        Created = DateTime.Now
+    };         
+    var _case10 = new RiskCase
+    {
+        Name =  "TEST CLAIM CASE 10",
+        Description = "TEST CLAIM CASE DESCRIPTION",
+        RiskCaseTypeId  =  currentCaseType.Entity.RiskCaseTypeId,
+        RiskCaseStatusId = currentCaseStatus.Entity.RiskCaseStatusId,
+        Created = DateTime.Now
+    };    
+    var _case11 = new RiskCase
+    {
+        Name =  "TEST CLAIM CASE 11",
+        Description = "TEST CLAIM CASE DESCRIPTION",
+        RiskCaseTypeId  =  currentCaseType.Entity.RiskCaseTypeId,
+        RiskCaseStatusId = currentCaseStatus.Entity.RiskCaseStatusId,
+        Created = DateTime.Now
+    };      
+    var _case12 = new RiskCase
+    {
+        Name =  "TEST CLAIM CASE 12",
+        Description = "TEST CLAIM CASE DESCRIPTION",
+        RiskCaseTypeId  =  currentCaseType.Entity.RiskCaseTypeId,
+        RiskCaseStatusId = currentCaseStatus.Entity.RiskCaseStatusId,
+        Created = DateTime.Now
+    };  
+    var _case13 = new RiskCase
+    {
+        Name =  "TEST CLAIM CASE 13",
+        Description = "TEST CLAIM CASE DESCRIPTION",
+        RiskCaseTypeId  =  currentCaseType.Entity.RiskCaseTypeId,
+        RiskCaseStatusId = currentCaseStatus.Entity.RiskCaseStatusId,
+        Created = DateTime.Now
+    };   
+   var _case14 = new RiskCase
+    {
+        Name =  "TEST CLAIM CASE 14",
+        Description = "TEST CLAIM CASE DESCRIPTION",
+        RiskCaseTypeId  =  currentCaseType.Entity.RiskCaseTypeId,
+        RiskCaseStatusId = currentCaseStatus.Entity.RiskCaseStatusId,
+        Created = DateTime.Now
+    };        
+    
+   var _case15 = new RiskCase
+    {
+        Name =  "TEST CLAIM CASE 15",
+        Description = "TEST CLAIM CASE DESCRIPTION",
+        RiskCaseTypeId  =  currentCaseType.Entity.RiskCaseTypeId,
+        RiskCaseStatusId = currentCaseStatus.Entity.RiskCaseStatusId,
+        Created = DateTime.Now
+    };  
+   var _case16 = new RiskCase
+    {
+        Name =  "TEST CLAIM CASE 16",
+        Description = "TEST CLAIM CASE DESCRIPTION",
+        RiskCaseTypeId  =  currentCaseType.Entity.RiskCaseTypeId,
+        RiskCaseStatusId = currentCaseStatus.Entity.RiskCaseStatusId,
+        Created = DateTime.Now
+    };  
+   var _case17 = new RiskCase
+    {
+        Name =  "TEST CLAIM CASE 17",
+        Description = "TEST CLAIM CASE DESCRIPTION",
+        RiskCaseTypeId  =  currentCaseType.Entity.RiskCaseTypeId,
+        RiskCaseStatusId = currentCaseStatus.Entity.RiskCaseStatusId,
+        Created = DateTime.Now
+    };  
+   var _case18 = new RiskCase
+    {
+        Name =  "TEST CLAIM CASE 18",
+        Description = "TEST CLAIM CASE DESCRIPTION",
+        RiskCaseTypeId  =  currentCaseType.Entity.RiskCaseTypeId,
+        RiskCaseStatusId = currentCaseStatus.Entity.RiskCaseStatusId,
+        Created = DateTime.Now
+    };  
+   var _case19 = new RiskCase
+    {
+        Name =  "TEST CLAIM CASE 19",
+        Description = "TEST CLAIM CASE DESCRIPTION",
+        RiskCaseTypeId  =  currentCaseType.Entity.RiskCaseTypeId,
+        RiskCaseStatusId = currentCaseStatus.Entity.RiskCaseStatusId,
+        Created = DateTime.Now
+    };  
+       var _case20 = new RiskCase
+    {
+        Name =  "TEST CLAIM CASE 20",
+        Description = "TEST CLAIM CASE DESCRIPTION",
+        RiskCaseTypeId  =  currentCaseType.Entity.RiskCaseTypeId,
+        RiskCaseStatusId = currentCaseStatus.Entity.RiskCaseStatusId,
+        Created = DateTime.Now
+    };  
+       var _case21 = new RiskCase
+    {
+        Name =  "TEST CLAIM CASE 21",
+        Description = "TEST CLAIM CASE DESCRIPTION",
+        RiskCaseTypeId  =  currentCaseType.Entity.RiskCaseTypeId,
+        RiskCaseStatusId = currentCaseStatus.Entity.RiskCaseStatusId,
+        Created = DateTime.Now
+    };     
+    var _case22 = new RiskCase
+    {
+        Name =  "TEST CLAIM CASE 22",
+        Description = "TEST CLAIM CASE DESCRIPTION",
+        RiskCaseTypeId  =  currentCaseType.Entity.RiskCaseTypeId,
+        RiskCaseStatusId = currentCaseStatus.Entity.RiskCaseStatusId,
+        Created = DateTime.Now
+    }; 
+    var _case23 = new RiskCase
+    {
+        Name =  "TEST CLAIM CASE 23",
+        Description = "TEST CLAIM CASE DESCRIPTION",
+        RiskCaseTypeId  =  currentCaseType.Entity.RiskCaseTypeId,
+        RiskCaseStatusId = currentCaseStatus.Entity.RiskCaseStatusId,
+        Created = DateTime.Now
+    };  
 
-    await context.RiskCase.AddAsync(_case);
-    await context.RiskCase.AddAsync(_case);
-    await context.RiskCase.AddAsync(_case);
-    await context.RiskCase.AddAsync(_case);
-    await context.RiskCase.AddAsync(_case);
-    await context.RiskCase.AddAsync(_case);
-    await context.RiskCase.AddAsync(_case);
-    await context.RiskCase.AddAsync(_case);
-    await context.RiskCase.AddAsync(_case);
-    await context.RiskCase.AddAsync(_case);
-    await context.RiskCase.AddAsync(_case);
-    await context.RiskCase.AddAsync(_case);
-    await context.RiskCase.AddAsync(_case);
-    await context.RiskCase.AddAsync(_case);
-    await context.RiskCase.AddAsync(_case);
-    await context.RiskCase.AddAsync(_case);
-    await context.RiskCase.AddAsync(_case);
-    await context.RiskCase.AddAsync(_case);
-    await context.RiskCase.AddAsync(_case);
-    await context.RiskCase.AddAsync(_case);
-    await context.RiskCase.AddAsync(_case);
-    await context.RiskCase.AddAsync(_case);
-    await context.RiskCase.AddAsync(_case);
-    await context.RiskCase.AddAsync(_case);
-    await context.RiskCase.AddAsync(_case);
+    var _case24 = new RiskCase
+    {
+        Name =  "TEST CLAIM CASE 24",
+        Description = "TEST CLAIM CASE DESCRIPTION",
+        RiskCaseTypeId  =  currentCaseType.Entity.RiskCaseTypeId,
+        RiskCaseStatusId = currentCaseStatus.Entity.RiskCaseStatusId,
+        Created = DateTime.Now
+    };  
+
+    var _case25 = new RiskCase
+    {
+        Name =  "TEST CLAIM CASE 25",
+        Description = "TEST CLAIM CASE DESCRIPTION",
+        RiskCaseTypeId  =  currentCaseType.Entity.RiskCaseTypeId,
+        RiskCaseStatusId = currentCaseStatus.Entity.RiskCaseStatusId,
+        Created = DateTime.Now
+    };  
+                                                                        
+    await context.RiskCase.AddAsync(_case1);
+    await context.RiskCase.AddAsync(_case2);
+    await context.RiskCase.AddAsync(_case3);
+    await context.RiskCase.AddAsync(_case4);
+    await context.RiskCase.AddAsync(_case5);
+    await context.RiskCase.AddAsync(_case6);
+    await context.RiskCase.AddAsync(_case7);
+    await context.RiskCase.AddAsync(_case8);
+    await context.RiskCase.AddAsync(_case9);
+    await context.RiskCase.AddAsync(_case10);
+    await context.RiskCase.AddAsync(_case11);
+    await context.RiskCase.AddAsync(_case12);
+    await context.RiskCase.AddAsync(_case13);
+    await context.RiskCase.AddAsync(_case14);
+    await context.RiskCase.AddAsync(_case15);
+    await context.RiskCase.AddAsync(_case16);
+    await context.RiskCase.AddAsync(_case17);
+    await context.RiskCase.AddAsync(_case18);
+    await context.RiskCase.AddAsync(_case19);
+    await context.RiskCase.AddAsync(_case20);
+    await context.RiskCase.AddAsync(_case21);
+    await context.RiskCase.AddAsync(_case22);
+    await context.RiskCase.AddAsync(_case23);
+    await context.RiskCase.AddAsync(_case24);
+    await context.RiskCase.AddAsync(_case25);
 
     await context.SaveChangesAsync();
 
