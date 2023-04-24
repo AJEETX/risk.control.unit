@@ -20,10 +20,10 @@
 
             <div class="user-panel mt-3 pb-3 mb-3 d-flex">
 
-                @if (UserManager.GetUserAsync(User).Result?.ProfilePicture != null)
+                @if (UserManager.GetUserAsync(User).Result?.ProfilePictureUrl != null)
                 {
                     <div class="image">
-                        <img class="img-circle elevation-0" style="width:40px;height:40px; object-fit:cover; border-radius:30px" src="data:image/*;base64,@(Convert.ToBase64String(UserManager.GetUserAsync(User).Result.ProfilePicture))">
+                        <img class="img-circle elevation-0 sidebar-profile" src="@UserManager.GetUserAsync(User).Result.ProfilePictureUrl">
                     </div>
                 }
                 <div class="info">
@@ -35,8 +35,32 @@
                     }
                     else if (User.IsInRole(AppRoles.ClientAdmin.ToString()))
                     {
-                        <span class="badge badge-success">CA</span>
+                        <span class="badge badge-warning">CA</span>
                     }
+                    else if (User.IsInRole(AppRoles.VendorAdmin.ToString()))
+                    {
+                        <span class="badge badge-info">VA</span>
+                    }    
+                    else if (User.IsInRole(AppRoles.ClientCreator.ToString()))
+                    {
+                        <span class="badge badge-primary">CC</span>
+                    }        
+                    else if (User.IsInRole(AppRoles.ClientAssigner.ToString()))
+                    {
+                        <span class="badge badge-secondary">CAS</span>
+                    }     
+                    else if (User.IsInRole(AppRoles.ClientAssessor.ToString()))
+                    {
+                        <span class="badge badge-secondary">CSS</span>
+                    }            
+                   else if (User.IsInRole(AppRoles.VendorSupervisor.ToString()))
+                    {
+                        <span class="badge badge-dark">VS</span>
+                    }    
+                  else if (User.IsInRole(AppRoles.VendorAgent.ToString()))
+                    {
+                        <span class="badge badge-dark">VAG</span>
+                    }                                                                                                                      
                     </a>
                 </div>
             </div>

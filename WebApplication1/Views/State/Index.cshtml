@@ -3,10 +3,10 @@
 <div>
     <h4>Manage State</h4>
     <form method="post" action="State/create"  asp-antiforgery="true">
-        <div class="input-group col-4" style="padding:0px;">
+        <div class="input-group col-8" style="padding:0px;">
             <select name="CountryId"  class="form-control" asp-items="ViewBag.CountryId">
                                     <option>
-                                        SELECT Country
+                                       --- SELECT COUNTRY ---
                                     </option></select>
             <input autocomplete="off" name="stateName" type="text" class="form-control" placeholder="state name">
             <input autocomplete="off" name="stateCode" type="text" class="form-control" placeholder="state code">

@@ -23,7 +23,7 @@ namespace WebApplication1.Controllers
         // GET: RiskCaseStatus
         public async Task<IActionResult> Index()
         {
-            ViewData["CountryId"] = new SelectList(_context.Country, "CountryId", "Code");
+            ViewData["CountryId"] = new SelectList(_context.Country, "CountryId", "Name");
             return _context.State != null ?
                         View(await _context.State.Include(s => s.Country).ToListAsync()) :
                         Problem("Entity set 'ApplicationDbContext.State'  is null.");
