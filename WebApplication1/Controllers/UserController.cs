@@ -33,7 +33,7 @@ namespace WebApplication1.Controllers
         }
         public async Task<IActionResult> Index()
         {
-            var users = await userManager.Users.ToListAsync();
+            var users = await userManager.Users.Include(u => u.Country).Include(u => u.State).ToListAsync();
             foreach (Models.ApplicationUser user in users)
             {
                 var thisViewModel = new UsersViewModel();
@@ -43,8 +43,10 @@ namespace WebApplication1.Controllers
                 thisViewModel.ProfileImage = user?.ProfilePictureUrl ?? "img/no-image.png";
                 thisViewModel.FirstName = user.FirstName;
                 thisViewModel.LastName = user.LastName;
+                thisViewModel.Country = user.Country.Name;
                 thisViewModel.CountryId = user.CountryId;
                 thisViewModel.StateId = user.StateId;
+                thisViewModel.State = user.State.Name;
                 thisViewModel.Roles = await GetUserRoles(user);
                 UserList.Add(thisViewModel);
             }
