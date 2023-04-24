@@ -1,31 +1,39 @@
 ﻿@using WebApplication1.Models.ViewModel;
 @model UserRolesViewModel
-@{
-    //Layout = "~/Pages/Shared/AdminLTE/_Layout.cshtml";
-}
-<form method="post">
-    <div class="card">
-        <div class="card-header">
-            <h2>Manage User Roles</h2>
-            Add/Remove Roles for User @Model.UserName.
-        </div>
-        <div class="card-body">
-            <input hidden asp-for="@Model.UserId" />
-            @for (int i = 0; i < Model.UserRoleViewModel.Count; i++)
-            {
-                <div class="form-check m-1">
-                    <input type="hidden" asp-for="@Model.UserRoleViewModel[i].RoleId" />
-                    <input type="hidden" asp-for="@Model.UserRoleViewModel[i].RoleName" />
-                    <input asp-for="@Model.UserRoleViewModel[i].Selected" class="form-check-input" />
-                        <label class="form-check-label" asp-for="@Model.UserRoleViewModel[i].Selected">
-                        @Model.UserRoleViewModel[i].RoleName
-                    </label>
+<section class="content pt-2">
+    <div class="container-fluid ">
+        <form method="post">
+            <div class="row mb-2">
+                <div class="card card-primary">
+                    <div class="card-header">
+                        <h4>Manage User Roles for : @Model.UserName</h4>
+                    </div>
+                    <div class="card-body">
+                        <input hidden asp-for="@Model.UserId" />
+                        @for (int i = 0; i < Model.UserRoleViewModel.Count; i++)
+
+                        {
+                            <div class="form-check m-1">
+                                <input type="hidden" asp-for="@Model.UserRoleViewModel[i].RoleId" />
+                                <input type="hidden" asp-for="@Model.UserRoleViewModel[i].RoleName" />
+                                <input asp-for="@Model.UserRoleViewModel[i].Selected" class="form-check-input" />
+                                <label class="form-check-label" asp-for="@Model.UserRoleViewModel[i].Selected">
+                                    @Model.UserRoleViewModel[i].RoleName
+                                </label>
+                            </div>
+                        }
+                        <div asp-validation-summary="All" class="text-danger"></div>
+                    </div>
+                    <div class="card-footer text-right">
+                        <a asp-controller="Roles" asp-action="Index" class="btn btn-secondary"> <i
+                                class="fa fa-window-close"></i>
+                            Cancel</a>
+                        <button type="submit" class="btn btn-success"><i class="fas fa-plus"></i> Edit
+                        </button>
+                    </div>
                 </div>
-            }
-            <div asp-validation-summary="All" class="text-danger"></div>
-        </div>
-        <div class="card-footer">
-            <input type="submit" value="Update" class="btn btn-primary" style="width:auto" />
-        </div>
+
+            </div>
+        </form>
     </div>
-</form>
+</section>

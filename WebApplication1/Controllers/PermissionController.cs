@@ -52,7 +52,7 @@ namespace WebApplication1.Controllers
             {
                 await _roleManager.AddPermissionClaim(role, claim.Value);
             }
-            return RedirectToAction("Index", new { Id = model.RoleId });
+            return RedirectToAction("Index","Roles", new { Id = model.RoleId });
         }
     }
 }

@@ -40,7 +40,7 @@ namespace WebApplication1.Controllers
                 thisViewModel.UserId = user.Id.ToString();
                 thisViewModel.Email = user?.Email;
                 thisViewModel.UserName = user?.UserName;
-                thisViewModel.ProfileImage = user?.ProfilePictureUrl;
+                thisViewModel.ProfileImage = user?.ProfilePictureUrl ?? "img/no-image.png";
                 thisViewModel.FirstName = user.FirstName;
                 thisViewModel.LastName = user.LastName;
                 thisViewModel.Country = user.Country;
@@ -62,10 +62,10 @@ namespace WebApplication1.Controllers
         }
         [HttpPost, ActionName("GetStatesByCountryId")]
         public async Task<JsonResult> GetStatesByCountryId(string countryId) {
-            int cId;
+            string cId;
             var states = new List <State> ();
             if (!string.IsNullOrEmpty(countryId)) {
-                cId = Convert.ToInt32(countryId);
+                cId = countryId;
                 states = await context.State.Where(s => s.CountryId.Equals(cId)).ToListAsync();
             }
             return Json(states);
@@ -195,7 +195,6 @@ namespace WebApplication1.Controllers
         private async Task<List<string>> GetUserRoles(Models.ApplicationUser user)
         {
             return new List<string>(await userManager.GetRolesAsync(user));
-            // return new List<string>(await userManager.GetRolesAsync(user));
         }
     }
 }
