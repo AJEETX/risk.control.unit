@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace WebApplication1.Migrations
 {
     /// <inheritdoc />
-    public partial class usercountry : Migration
+    public partial class usercountrystate : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -68,9 +68,9 @@ namespace WebApplication1.Migrations
                 name: "Countries",
                 columns: table => new
                 {
-                    CountryId = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    CountryName = table.Column<string>(type: "TEXT", nullable: false)
+                    CountryId = table.Column<string>(type: "TEXT", nullable: false),
+                    Name = table.Column<string>(type: "TEXT", nullable: false),
+                    Code = table.Column<string>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -215,10 +215,10 @@ namespace WebApplication1.Migrations
                 name: "States",
                 columns: table => new
                 {
-                    StateId = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    StateName = table.Column<string>(type: "TEXT", nullable: false),
-                    CountryId = table.Column<int>(type: "INTEGER", nullable: false)
+                    StateId = table.Column<string>(type: "TEXT", nullable: false),
+                    Name = table.Column<string>(type: "TEXT", nullable: false),
+                    Code = table.Column<string>(type: "TEXT", nullable: false),
+                    CountryId = table.Column<string>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -256,33 +256,6 @@ namespace WebApplication1.Migrations
                         column: x => x.RiskCaseTypeId,
                         principalTable: "RiskCaseType",
                         principalColumn: "RiskCaseTypeId",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Citys",
-                columns: table => new
-                {
-                    CityId = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    CityName = table.Column<string>(type: "TEXT", nullable: false),
-                    CountryId = table.Column<int>(type: "INTEGER", nullable: false),
-                    StateId = table.Column<int>(type: "INTEGER", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Citys", x => x.CityId);
-                    table.ForeignKey(
-                        name: "FK_Citys_Countries_CountryId",
-                        column: x => x.CountryId,
-                        principalTable: "Countries",
-                        principalColumn: "CountryId",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Citys_States_StateId",
-                        column: x => x.StateId,
-                        principalTable: "States",
-                        principalColumn: "StateId",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -324,16 +297,6 @@ namespace WebApplication1.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_Citys_CountryId",
-                table: "Citys",
-                column: "CountryId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Citys_StateId",
-                table: "Citys",
-                column: "StateId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_RiskCase_RiskCaseStatusId",
                 table: "RiskCase",
                 column: "RiskCaseStatusId");
@@ -368,19 +331,16 @@ namespace WebApplication1.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "Citys");
+                name: "RiskCase");
 
             migrationBuilder.DropTable(
-                name: "RiskCase");
+                name: "States");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
-
-            migrationBuilder.DropTable(
-                name: "States");
 
             migrationBuilder.DropTable(
                 name: "RiskCaseStatus");

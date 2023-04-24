@@ -6,7 +6,7 @@
 }
 <section class="content pt-2">
     <div class="container-fluid ">
-        <form asp-action="edit" asp-antiforgery="true">
+        <form asp-action="edit" asp-antiforgery="true" enctype="multipart/form-data">
             <div class="row mb-2">
                 <div class="col-sm-6">
                     <div class="card card-primary">
@@ -53,7 +53,7 @@
                         <div class="card-body">
                             <div class="form-group">
                                 <label asp-for="CountryId" class="control-label"></label>
-                                <select asp-for="CountryId" class="form-control" asp-items="ViewBag.CountryId" onload="loadState(this)" onchange="loadState(this)">
+                                <select asp-for="CountryId" class="form-control" asp-items="ViewBag.CountryId" onchange="loadState(this)">
                                 </select>
                             </div>
                             <div class="form-group">

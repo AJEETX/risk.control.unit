@@ -38,20 +38,26 @@ namespace WebApplication1.Controllers
             {
                 var thisViewModel = new UsersViewModel();
                 thisViewModel.UserId = user.Id;
-                thisViewModel.Email = user.Email;
-                thisViewModel.UserName = user.UserName;
-                thisViewModel.ProfileImage = user.ProfilePictureUrl;
+                thisViewModel.Email = user?.Email;
+                thisViewModel.UserName = user?.UserName;
+                thisViewModel.ProfileImage = user?.ProfilePictureUrl;
                 thisViewModel.FirstName = user.FirstName;
                 thisViewModel.LastName = user.LastName;
+                thisViewModel.Country = user.Country;
+                thisViewModel.CountryId = user.CountryId;
+                thisViewModel.StateId = user.StateId;
+                thisViewModel.State = user.State;
+
                 thisViewModel.Roles = await GetUserRoles(user);
                 UserList.Add(thisViewModel);
             }
             return View(UserList);
         }
 
-        public async Task<IActionResult> Create()
+        public IActionResult Create()
         {
-            await GetCountryStateCreate();
+            ViewData["CountryId"] = new SelectList(context.Countries, "CountryId", "Code");
+            ViewData["StateId"] = new SelectList(context.States, "StateId", "Code");
             return View();
         }
         [HttpPost, ActionName("GetStatesByCountryId")]
@@ -63,15 +69,6 @@ namespace WebApplication1.Controllers
                 states = await context.States.Where(s => s.CountryId.Equals(cId)).ToListAsync();
             }
             return Json(states);
-        }
-        private async Task GetCountryStateCreate()
-        {
-            var countries = await context.Countries.ToListAsync();
-            countries.Add(new Country{CountryId = 0, CountryName = "--SELECT COUNTRY--" });
-            var states = new List<State>{};
-            states.Add(new State{StateId = 0, StateName = "--SELECT STATE--" });
-            ViewData["CountryId"] = new SelectList(countries.OrderBy(s => s.CountryId), "CountryId", "CountryName");
-            ViewData["StateId"] = new SelectList(states.OrderBy(s => s.StateId), "StateId", "StateName");
         }
         
         [HttpPost]
@@ -93,24 +90,20 @@ namespace WebApplication1.Controllers
                 IdentityResult result = await userManager.CreateAsync(user, user.Password);
 
                 if (result.Succeeded)
-                    return RedirectToAction("Index");
+                    return RedirectToAction(nameof(Index));
                 else
                 {
                     foreach (IdentityError error in result.Errors)
                         ModelState.AddModelError("", error.Description);
                 }
             }
-            await GetCountryStateEdit(user);
+            GetCountryStateEdit(user);
             return View(user);
         }
-        private async Task GetCountryStateEdit(ApplicationUser? user)
+        private void GetCountryStateEdit(ApplicationUser? user)
         {
-            var countries = await context.Countries.ToListAsync();
-            countries.Add(new Country{CountryId = 0, CountryName = "--SELECT COUNTRY--" });
-            var states = new List<State>{};
-            states.Add(new State{StateId = 0, StateName = "--SELECT STATE--" });
-            ViewData["CountryId"] = new SelectList(countries.OrderBy(s => s.CountryId), "CountryId", "CountryName", user?.CountryId);
-            ViewData["StateId"] = new SelectList(states.OrderBy(s => s.StateId), "StateId", "StateName", user?.StateId);
+            ViewData["CountryId"] = new SelectList(context.Countries, "CountryId", "Name",user?.CountryId);
+            ViewData["StateId"] = new SelectList(context.States, "StateId", "Name", user?.StateId);
         }
         public async Task<IActionResult> Edit(string userId)
         {
@@ -120,7 +113,7 @@ namespace WebApplication1.Controllers
             }
 
             var applicationUser = await userManager.FindByIdAsync(userId);
-            await GetCountryStateEdit(applicationUser);
+            GetCountryStateEdit(applicationUser);
             if (applicationUser != null)
                 return View(applicationUser);
             else

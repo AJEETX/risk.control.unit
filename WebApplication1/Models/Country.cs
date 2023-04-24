@@ -6,26 +6,27 @@ namespace WebApplication1.Models;
 public class Country
 {
     [Key]
-
-    public int CountryId { get; set; }
-    public string CountryName { get; set; }
+    [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+    public string CountryId { get; set; }
+    [Display(Name = "Country name")]
+    public string Name { get; set; }
+    [Display(Name = "Country code")]
+    [Required]
+    public string Code { get; set; }    
 }
 public class State
 {
     [Key]
-    public int StateId { get; set; }
-    public string StateName { get; set; }
-    public  int CountryId { get; set; }
-    [ForeignKey (nameof(CountryId))]
-    public virtual Country Country { get; set; }
-}
-public class City
-{
-    [Key]
-    public int CityId { get; set; }
-    public string CityName { get; set; }
-    public int CountryId { get; set; } 
-    public virtual Country Country { get; set; }
-    public int StateId { get; set; } 
-    public virtual State State { get; set; }          
+    [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+    public string StateId { get; set; }
+    [Display(Name = "State name")]
+    public string Name { get; set; }
+    [Display(Name = "State code")]
+    [Required]
+    public string Code { get; set; }      
+    [Required]
+    [Display(Name = "Country name")]
+    public  string CountryId { get; set; }
+    [Display(Name = "Country name")]
+    public Country Country { get; set; }
 }

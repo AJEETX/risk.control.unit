@@ -4,11 +4,12 @@
     <h4>Manage State</h4>
     <form method="post" action="State/create"  asp-antiforgery="true">
         <div class="input-group col-4" style="padding:0px;">
-            <select  name="countryId"  class="form-control" asp-items="ViewBag.CountryId">
+            <select name="CountryId"  class="form-control" asp-items="ViewBag.CountryId">
                                     <option>
                                         SELECT Country
                                     </option></select>
-            <input autocomplete="off" name="StateName" type="text" class="form-control">
+            <input autocomplete="off" name="stateName" type="text" class="form-control" placeholder="state name">
+            <input autocomplete="off" name="stateCode" type="text" class="form-control" placeholder="state code">
             <span class="input-group-append">
                 <button type="submit" class="btn btn-success"><i class="fas fa-plus"></i> State</button>
             </span>
@@ -26,8 +27,8 @@
             @foreach (var state in Model)
             {
                 <tr>
-                    <td>@state.Country.CountryName</td>
-                    <td>@state.StateName</td>
+                    <td>@state.Country.Name</td>
+                    <td>@state.Name</td>
                     <td>
                         <a class="btn btn-xs btn-warning" asp-action="Edit" asp-route-id="@state.StateId"><i class="fas fa-pen"></i> Edit</a> &nbsp;
                         <a class="btn btn-xs btn-danger" asp-action="Delete" asp-route-id="@state.StateId"><i class="fas fa-trash"></i> Delete</a>

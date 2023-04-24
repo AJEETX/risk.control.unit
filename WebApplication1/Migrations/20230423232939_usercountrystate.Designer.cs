@@ -11,8 +11,8 @@ using WebApplication1.Data;
 namespace WebApplication1.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230423163354_usercountry1")]
-    partial class usercountry1
+    [Migration("20230423232939_usercountrystate")]
+    partial class usercountrystate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -257,38 +257,17 @@ namespace WebApplication1.Migrations
                     b.ToTable("AspNetUsers", (string)null);
                 });
 
-            modelBuilder.Entity("WebApplication1.Models.City", b =>
+            modelBuilder.Entity("WebApplication1.Models.Country", b =>
                 {
-                    b.Property<int>("CityId")
+                    b.Property<string>("CountryId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("TEXT");
 
-                    b.Property<string>("CityName")
+                    b.Property<string>("Code")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("CountryId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("StateId")
-                        .HasColumnType("INTEGER");
-
-                    b.HasKey("CityId");
-
-                    b.HasIndex("CountryId");
-
-                    b.HasIndex("StateId");
-
-                    b.ToTable("Citys");
-                });
-
-            modelBuilder.Entity("WebApplication1.Models.Country", b =>
-                {
-                    b.Property<int>("CountryId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("CountryName")
+                    b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
@@ -377,14 +356,19 @@ namespace WebApplication1.Migrations
 
             modelBuilder.Entity("WebApplication1.Models.State", b =>
                 {
-                    b.Property<int>("StateId")
+                    b.Property<string>("StateId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("TEXT");
 
-                    b.Property<int>("CountryId")
-                        .HasColumnType("INTEGER");
+                    b.Property<string>("Code")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
 
-                    b.Property<string>("StateName")
+                    b.Property<string>("CountryId")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
@@ -444,25 +428,6 @@ namespace WebApplication1.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("WebApplication1.Models.City", b =>
-                {
-                    b.HasOne("WebApplication1.Models.Country", "Country")
-                        .WithMany()
-                        .HasForeignKey("CountryId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("WebApplication1.Models.State", "State")
-                        .WithMany()
-                        .HasForeignKey("StateId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Country");
-
-                    b.Navigation("State");
                 });
 
             modelBuilder.Entity("WebApplication1.Models.RiskCase", b =>

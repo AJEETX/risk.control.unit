@@ -23,16 +23,16 @@ namespace WebApplication1.Controllers
         // GET: RiskCaseStatus
         public async Task<IActionResult> Index()
         {
-            ViewData["CountryId"] = new SelectList(_context.Countries, "CountryId", "CountryName");
-              return _context.States != null ? 
-                          View(await _context.States.Include(s => s.Country).ToListAsync()) :
-                          Problem("Entity set 'ApplicationDbContext.States'  is null.");
+            ViewData["CountryId"] = new SelectList(_context.Countries, "CountryId", "Code");
+            return _context.States != null ?
+                        View(await _context.States.Include(s => s.Country).ToListAsync()) :
+                        Problem("Entity set 'ApplicationDbContext.States'  is null.");
         }
 
         // GET: RiskCaseStatus/Details/5
-        public async Task<IActionResult> Details(int id)
+        public async Task<IActionResult> Details(string id)
         {
-            if (id == 0 || _context.States == null)
+            if (id == null || _context.States == null)
             {
                 return NotFound();
             }
@@ -49,17 +49,22 @@ namespace WebApplication1.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(string countryId, string stateName)
+        public async Task<IActionResult> Create(string countryId, string stateName, string stateCode)
         {
-            _context.Add(new State { StateName = stateName.Trim().ToUpper(), CountryId = int.Parse(countryId)} );
+            _context.Add(new State
+            {
+                Name = stateName.Trim().ToUpper(),
+                CountryId = countryId,
+                Code = stateCode.Trim().ToUpper()
+            });
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         // GET: RiskCaseStatus/Edit/5
-        public async Task<IActionResult> Edit(int id)
+        public async Task<IActionResult> Edit(string id)
         {
-            if (id == 0 || _context.States == null)
+            if (id == null || _context.States == null)
             {
                 return NotFound();
             }
@@ -77,7 +82,7 @@ namespace WebApplication1.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id,State state)
+        public async Task<IActionResult> Edit(string id, State state)
         {
             if (id != state.StateId)
             {
@@ -108,9 +113,9 @@ namespace WebApplication1.Controllers
         }
 
         // GET: RiskCaseStatus/Delete/5
-        public async Task<IActionResult> Delete(int id)
+        public async Task<IActionResult> Delete(string id)
         {
-            if (id == 0 || _context.States == null)
+            if (id == null || _context.States == null)
             {
                 return NotFound();
             }
@@ -139,14 +144,14 @@ namespace WebApplication1.Controllers
             {
                 _context.States.Remove(state);
             }
-            
+
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool StateExists(int id)
+        private bool StateExists(string id)
         {
-          return (_context.States?.Any(e => e.StateId == id)).GetValueOrDefault();
+            return (_context.States?.Any(e => e.StateId == id)).GetValueOrDefault();
         }
     }
 }

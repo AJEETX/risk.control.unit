@@ -4,7 +4,8 @@
     <h4>Manage Country</h4>
     <form method="post" action="country/create"  asp-antiforgery="true">
         <div class="input-group col-4" style="padding:0px;">
-            <input autocomplete="off" name="countryName" type="text" class="form-control">
+            <input autocomplete="off" name="countryName" type="text" class="form-control" placeholder="country name">
+            <input autocomplete="off" name="countryCode" type="text" class="form-control" placeholder="country code">
             <span class="input-group-append">
                 <button type="submit" class="btn btn-success"><i class="fas fa-plus"></i> Country</button>
             </span>
@@ -15,7 +16,7 @@
         <thead>
             <tr>
 
-                @*<th>Id</th>*@
+                <th>Country code</th>
                 <th>Country name</th>
             </tr>
         </thead>
@@ -23,7 +24,8 @@
             @foreach (var country in Model)
             {
                 <tr>
-                    <td>@country.CountryName</td>
+                    <td>@country.Code</td>
+                    <td>@country.Name</td>
                     <td>
                         <a class="btn btn-xs btn-warning" asp-action="Edit" asp-route-id="@country.CountryId"><i class="fas fa-pen"></i> Edit</a> &nbsp;
                         <a class="btn btn-xs btn-danger" asp-action="Delete" asp-route-id="@country.CountryId"><i class="fas fa-trash"></i> Delete</a>

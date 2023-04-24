@@ -36,7 +36,6 @@ namespace WebApplication1.Models
         [Required]
         public string Code { get; set; }
         public DateTime Created { get; set; }
-
     }
 
     public class RiskCaseStatus

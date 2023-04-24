@@ -29,9 +29,9 @@ namespace WebApplication1.Controllers
         }
 
         // GET: RiskCaseStatus/Details/5
-        public async Task<IActionResult> Details(int id)
+        public async Task<IActionResult> Details(string id)
         {
-            if (id == 0 || _context.Countries == null)
+            if (id == null || _context.Countries == null)
             {
                 return NotFound();
             }
@@ -48,17 +48,19 @@ namespace WebApplication1.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(string countryName)
+        public async Task<IActionResult> Create(string countryName, string countryCode)
         {
-            _context.Add(new Country { CountryName = countryName.Trim().ToUpper()} );
+            _context.Add(new Country { 
+                Name = countryName.Trim().ToUpper(),
+                Code = countryCode.Trim().ToUpper()} );
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         // GET: RiskCaseStatus/Edit/5
-        public async Task<IActionResult> Edit(int id)
+        public async Task<IActionResult> Edit(string id)
         {
-            if (id == 0 || _context.Countries == null)
+            if (id == null || _context.Countries == null)
             {
                 return NotFound();
             }
@@ -76,7 +78,7 @@ namespace WebApplication1.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, Country country)
+        public async Task<IActionResult> Edit(string id, Country country)
         {
             if (id != country.CountryId)
             {
@@ -107,9 +109,9 @@ namespace WebApplication1.Controllers
         }
 
         // GET: RiskCaseStatus/Delete/5
-        public async Task<IActionResult> Delete(int id)
+        public async Task<IActionResult> Delete(string id)
         {
-            if (id == 0 || _context.Countries == null)
+            if (id == null || _context.Countries == null)
             {
                 return NotFound();
             }
@@ -143,7 +145,7 @@ namespace WebApplication1.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        private bool CountryExists(int id)
+        private bool CountryExists(string id)
         {
           return (_context.Countries?.Any(e => e.CountryId == id)).GetValueOrDefault();
         }
