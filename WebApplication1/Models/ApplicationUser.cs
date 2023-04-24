@@ -18,11 +18,11 @@ namespace WebApplication1.Models
         [Required]
         public string LastName { get; set; }
         [NotMapped]
-        public int? StateId { get; set; }
+        public string? StateId { get; set; }
         public string? State { get; set; }
         public string? Country { get; set; }
         [NotMapped]
-        public int? CountryId { get; set; }
+        public string? CountryId { get; set; }
         [Required]
         public string? Password { get; set; }
         public bool isInRoleHomeIndex { get; set; }

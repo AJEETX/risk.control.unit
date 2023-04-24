@@ -102,6 +102,40 @@ async Task SeedDatabase() //can be placed at the very bottom under app.Run()
     await roleManager.CreateAsync(new IdentityRole(AppRoles.VendorSupervisor.ToString()));
     await roleManager.CreateAsync(new IdentityRole(AppRoles.VendorAgent.ToString()));
 
+    //CREATE RISK CASE DETAILS
+    var created = new RiskCaseStatus
+    {
+        Name = "CREATED",
+        Code = "CREATED"
+    };
+    await context.RiskCaseStatus.AddAsync(created);
+
+    var caseType = new RiskCaseType
+    {
+        Name = "CLAIMS",
+        Code = "CLAIMS",
+    };
+    
+    await context.RiskCaseType.AddAsync(caseType);
+
+    var country = new Country 
+    {
+        Name = "INDIA",
+        Code = "IND",
+    };
+    var currentCountry = await context.Countries.AddAsync(country);
+
+    var state = new State
+    {
+        CountryId= currentCountry.Entity.CountryId,
+        Name = "UTTAR PREDESH",
+        Code = "UP"
+    };
+
+    await context.States.AddAsync(state);
+
+    await context.SaveChangesAsync();
+    
     //Seed portal admin
     var portalAdmin = new ApplicationUser()
     {
@@ -193,7 +227,7 @@ async Task SeedDatabase() //can be placed at the very bottom under app.Run()
 
 
     //Seed client assigner
-    var clientAssigner= new ApplicationUser()
+    var clientAssigner = new ApplicationUser()
     {
         UserName = "client-assigner@admin.com",
         Email = "client-assigner@admin.com",
@@ -264,7 +298,7 @@ async Task SeedDatabase() //can be placed at the very bottom under app.Run()
 
 
     //Seed Vendor Admin
-    var vendorSupervisor= new ApplicationUser()
+    var vendorSupervisor = new ApplicationUser()
     {
         UserName = "vendor-supervisor@admin.com",
         Email = "vendor-supervisor@admin.com",
@@ -288,7 +322,7 @@ async Task SeedDatabase() //can be placed at the very bottom under app.Run()
 
 
     //Seed Vendor Admin
-    var vendorAgent= new ApplicationUser()
+    var vendorAgent = new ApplicationUser()
     {
         UserName = "vendor-agent@admin.com",
         Email = "vendor-agent@admin.com",
