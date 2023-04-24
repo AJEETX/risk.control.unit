@@ -261,6 +261,12 @@ namespace WebApplication1.Controllers
              return View();
         }
 
+        [HttpPost]
+        public async Task<IActionResult> Broadcast(string[] caseIds)
+        {
+            await Task.Delay(1);
+            return Ok();
+        }
         private bool RiskCaseExists(string id)
         {
             return (_context.RiskCase?.Any(e => e.RiskCaseId == id)).GetValueOrDefault();

@@ -251,7 +251,7 @@ async Task SeedDatabase() //can be placed at the very bottom under app.Run()
     var up = new State
     {
         CountryId= currentCountry.Entity.CountryId,
-        Name = "UTTAR PREDESH",
+        Name = "UTTAR PRADESH",
         Code = "UP"
     };
 
@@ -347,7 +347,15 @@ async Task SeedDatabase() //can be placed at the very bottom under app.Run()
     };
     
     var tasmaniaCityCode = await context.PinCode.AddAsync(tasmaniaCity); 
-          
+    
+    var torontoCity = new PinCode{
+        Name = "TORONTO",
+        Code = "9101",
+        State = ontarioState.Entity
+    };
+    
+    var torontoCityCode = await context.PinCode.AddAsync(tasmaniaCity);     
+
     var _case1 = new RiskCase
     {
         Name =  "TEST CLAIM CASE 1",
@@ -635,9 +643,9 @@ async Task SeedDatabase() //can be placed at the very bottom under app.Run()
         PhoneNumberConfirmed = true,
         Password = ApplicationUserOptions.Password,
         isSuperAdmin = true,
-        State = upState.Entity,
-        Country = currentCountry.Entity,
-        PinCode = bhelupurPinCode.Entity,
+        State = ontarioState.Entity,
+        Country = canadaCountry.Entity,
+        PinCode = torontoCityCode.Entity,
         ProfilePictureUrl = "img/admin.png"        
     };
     if (userManager.Users.All(u => u.Id != clientAdmin.Id))

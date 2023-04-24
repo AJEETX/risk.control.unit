@@ -96,3 +96,9 @@ table td {
   object-fit: cover;
   border-radius: 30px
 }
+
+.content-wrapper-main {
+  padding: 20px;
+  min-height: 530.031px;
+  background: white !important;
+}

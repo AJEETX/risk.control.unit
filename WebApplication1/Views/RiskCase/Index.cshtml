@@ -15,58 +15,64 @@
         </div>
     </form>
     <br />
-    <table class="table table-striped fixed-with-height">
-        <thead>
-            <tr>
-                <th>
-                    @Html.ActionLink("Name", "Index", new { sortOrder = ViewBag.NameSortParm })
-                </th>
-                <th>
-                    @Html.ActionLink("Description", "Index", new { sortOrder = ViewBag.NameSortParm })
-                </th>
-                <th>
-                    @Html.ActionLink("Case type", "Index", new { sortOrder = ViewBag.NameSortParm })
-                </th>
-                <th>
-                    @Html.ActionLink("Case status", "Index", new { sortOrder = ViewBag.NameSortParm })
-                </th>
-                <th>
-                    @Html.ActionLink("Created", "Index", new { sortOrder = ViewBag.DateSortParm })
-                </th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model)
-            {
+    <form asp-action="Broadcast" id="checkboxes" enctype="multipart/form-data">
+        <table class="table table-striped fixed-with-height">
+            <thead>
                 <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Name)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Description)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.RiskCaseType.Name)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.RiskCaseStatus.Name)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Created)
-                    </td>
-                    <td>
-                        <a class="btn btn-xs btn-info" asp-action="Details" asp-route-id="@item.RiskCaseId"><i
-                                class="fa fa-search"></i> View</a> &nbsp;
-                        <a class="btn btn-xs btn-warning" asp-action="Edit" asp-route-id="@item.RiskCaseId"><i
-                                class="fas fa-pen"></i> Edit</a> &nbsp;
-                        <a class="btn btn-xs btn-danger" asp-action="Delete" asp-route-id="@item.RiskCaseId"><i
-                                class="fas fa-trash"></i> Delete</a>
-                    </td>
+                    <th><input type="checkbox" id="checkall" /></th>
+                    <th>
+                        @Html.ActionLink("Name", "Index", new { sortOrder = ViewBag.NameSortParm })
+                    </th>
+                    <th>
+                        @Html.ActionLink("Description", "Index", new { sortOrder = ViewBag.NameSortParm })
+                    </th>
+                    <th>
+                        @Html.ActionLink("Case type", "Index", new { sortOrder = ViewBag.NameSortParm })
+                    </th>
+                    <th>
+                        @Html.ActionLink("Case status", "Index", new { sortOrder = ViewBag.NameSortParm })
+                    </th>
+                    <th>
+                        @Html.ActionLink("Created", "Index", new { sortOrder = ViewBag.DateSortParm })
+                    </th>
+                    <th>Actions</th>
                 </tr>
-            }
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            <input name="cbxcase" type="checkbox" />
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Description)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.RiskCaseType.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.RiskCaseStatus.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Created)
+                        </td>
+                        <td>
+                            <a class="btn btn-xs btn-info" asp-action="Details" asp-route-id="@item.RiskCaseId"><i
+                                    class="fa fa-search"></i> View</a> &nbsp;
+                            <a class="btn btn-xs btn-warning" asp-action="Edit" asp-route-id="@item.RiskCaseId"><i
+                                    class="fas fa-pen"></i> Edit</a> &nbsp;
+                            <a class="btn btn-xs btn-danger" asp-action="Delete" asp-route-id="@item.RiskCaseId"><i
+                                    class="fas fa-trash"></i> Delete</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </form>
     <br />
     @{
         var PageNumber = (int)@ViewBag.PageNumber;
@@ -77,22 +83,29 @@
         var ShowFirst = (bool)@ViewBag.ShowFirst;
         var ShowLast = (bool)@ViewBag.ShowLast;
     }
-
     <ul class="pagination">
         <li class="page-item @(!ShowFirst? "disabled":"")">
-            <a asp-page="/pagination" asp-route-CurrentPage="1" class="page-link"><i class="fas fa-fast-backward"></i></a>
+            <a asp-page="/pagination" asp-route-CurrentPage="1" class="page-link"><i
+                    class="fas fa-fast-backward"></i></a>
         </li>
         <li class="page-item @(!ShowPrevious? "disabled":"")">
-            <a asp-page="/pagination" asp-route-CurrentPage="@(PageNumber -1)" class="page-link"><i class="fas fa-step-backward"></i></a>
+            <a asp-page="/pagination" asp-route-CurrentPage="@(PageNumber -1)" class="page-link"><i
+                    class="fas fa-step-backward"></i></a>
         </li>
         <li class="page-item  @(!ShowNext? "disabled":"")">
-            <a asp-page="/pagination" asp-route-CurrentPage="@(PageNumber + 1)" class="page-link"><i class="fas fa-step-forward"></i></a>
+            <a asp-page="/pagination" asp-route-CurrentPage="@(PageNumber + 1)" class="page-link"><i
+                    class="fas fa-step-forward"></i></a>
         </li>
 
         <li class="page-item  @(!ShowLast? "disabled":"")">
-            <a asp-page="/pagination" asp-route-CurrentPage="@TotalPages" class="page-link"><i class="fas fa-fast-forward"></i></a>
+            <a asp-page="/pagination" asp-route-CurrentPage="@TotalPages" class="page-link"><i
+                    class="fas fa-fast-forward"></i></a>
         </li>
     </ul>
 </div>
-<div>
+<div class="card-footer text-right">
+    <a asp-action="Index" class="btn btn-secondary"> <i class="fa fa-window-close"></i>
+        Cancel</a>
+    <button id="broadcast" disabled type="submit" class="btn btn-success"><i class="fa fa-paper-plane" aria-hidden="true"></i> BROADCAST
+    </button>
 </div>
