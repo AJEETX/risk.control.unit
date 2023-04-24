@@ -54,16 +54,18 @@
                             <div class="form-group">
                                 <label asp-for="CountryId" class="control-label"></label>
                                 <select asp-for="CountryId" class="form-control" asp-items="ViewBag.CountryId" onchange="loadState(this)">
+                                    <option>--- SELECT COUNTRY ---</option>
                                 </select>
                             </div>
                             <div class="form-group">
                                 <label asp-for="StateId" class="control-label"></label>
                                 <select id="StateId" asp-for="StateId" class="form-control" asp-items="ViewBag.StateId">
+                                    <option>--- SELECT STATE ---</option>
                                 </select>
                             </div>
                             <div class="form-group">
                                 <label asp-for="Password" class="control-label"></label>
-                                <input type="password" asp-for="Password" class="form-control" />
+                                <input asp-for="Password" class="form-control" />
                             </div>
                             @if (!string.IsNullOrEmpty(Model.ProfilePictureUrl))
                             {
@@ -76,7 +78,7 @@
                             }
                             <div class="form-group">
                                 <label asp-for="ProfileImage" class="control-label"></label>
-                                <input asp-for="ProfileImage" type="file" accept="image/*" class="form-control" />
+                                <input asp-for="ProfileImage" type="file" class="form-control" />
                             </div>
                             <div class="card-footer text-right">
                                 <a asp-action="Index" class="btn btn-secondary"> <i class="fa fa-window-close"></i>

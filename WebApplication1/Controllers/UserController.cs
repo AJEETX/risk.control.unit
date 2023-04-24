@@ -55,8 +55,8 @@ namespace WebApplication1.Controllers
 
         public IActionResult Create()
         {
-            ViewData["CountryId"] = new SelectList(context.Country, "CountryId", "Code");
-            ViewData["StateId"] = new SelectList(context.State, "StateId", "Code");
+            ViewData["CountryId"] = new SelectList(context.Country, "CountryId", "Name");
+            ViewData["StateId"] = new SelectList(context.State, "StateId", "Name");
             return View();
         }
         [HttpPost, ActionName("GetStatesByCountryId")]
@@ -144,23 +144,24 @@ namespace WebApplication1.Controllers
                 try
                 {
                     var user = await userManager.FindByIdAsync(id);
-                    if(user?.ProfileImage != null && user.ProfileImage.Length >0 )
+                    if(applicationUser?.ProfileImage != null && applicationUser.ProfileImage.Length > 0 )
                     {
                         string newFileName = Guid.NewGuid().ToString();
-                        string fileExtension = Path.GetExtension(user.ProfileImage.FileName);
+                        string fileExtension = Path.GetExtension(applicationUser.ProfileImage.FileName);
                         newFileName += fileExtension;
                         var upload = Path.Combine(webHostEnvironment.WebRootPath, "upload", newFileName);
-                        user.ProfileImage.CopyTo(new FileStream(upload, FileMode.Create));
-                        user.ProfilePictureUrl = newFileName;
+                        applicationUser.ProfileImage.CopyTo(new FileStream(upload, FileMode.Create));
+                        applicationUser.ProfilePictureUrl = "upload/"+ newFileName;
                     }
 
                     if (user != null)
                     {
-                        user.PhoneNumber = applicationUser.PhoneNumber;
-                        user.ProfilePictureUrl = applicationUser.ProfilePictureUrl;
-                        user.FirstName = applicationUser.FirstName;
-                        user.LastName = applicationUser.LastName;
-                        if(!string.IsNullOrWhiteSpace(applicationUser.Password))
+                        user.ProfileImage = applicationUser?.ProfileImage ?? user.ProfileImage;
+                        user.ProfilePictureUrl = applicationUser?.ProfilePictureUrl ?? user.ProfilePictureUrl;
+                        user.PhoneNumber = applicationUser?.PhoneNumber ?? user.PhoneNumber;
+                        user.FirstName = applicationUser?.FirstName;
+                        user.LastName = applicationUser?.LastName;
+                        if(!string.IsNullOrWhiteSpace(applicationUser?.Password))
                         {
                             user.Password = applicationUser.Password;
                         }

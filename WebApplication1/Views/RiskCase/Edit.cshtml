@@ -26,12 +26,16 @@
                 </div>
                 <div class="form-group">
                     <label asp-for="RiskCaseTypeId" class="control-label"></label>
-                    <select asp-for="RiskCaseTypeId" class="form-control" asp-items="ViewBag.RiskCaseTypeId"></select>
+                    <select asp-for="RiskCaseTypeId" class="form-control" asp-items="ViewBag.RiskCaseTypeId">
+                        <option>--- SELECT CASE TYPE ---</option>
+                    </select>
                     <span asp-validation-for="RiskCaseTypeId" class="text-danger"></span>
                 </div>
                 <div class="form-group">
                     <label asp-for="RiskCaseStatusId" class="control-label"></label>
-                    <select asp-for="RiskCaseStatusId" class="form-control" asp-items="ViewBag.RiskCaseStatusId"></select>
+                    <select asp-for="RiskCaseStatusId" class="form-control" asp-items="ViewBag.RiskCaseStatusId">
+                        <option>--- SELECT CASE STATUS ---</option>
+                    </select>
                     <span asp-validation-for="RiskCaseStatusId" class="text-danger"></span>
                 </div>
                 <div class="form-group">
