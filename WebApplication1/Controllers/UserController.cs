@@ -43,11 +43,8 @@ namespace WebApplication1.Controllers
                 thisViewModel.ProfileImage = user?.ProfilePictureUrl ?? "img/no-image.png";
                 thisViewModel.FirstName = user.FirstName;
                 thisViewModel.LastName = user.LastName;
-                thisViewModel.Country = user.Country;
                 thisViewModel.CountryId = user.CountryId;
                 thisViewModel.StateId = user.StateId;
-                thisViewModel.State = user.State;
-
                 thisViewModel.Roles = await GetUserRoles(user);
                 UserList.Add(thisViewModel);
             }
@@ -84,7 +81,7 @@ namespace WebApplication1.Controllers
                     newFileName += fileExtension;
                     var upload = Path.Combine(webHostEnvironment.WebRootPath, "upload", newFileName);
                     user.ProfileImage.CopyTo(new FileStream(upload, FileMode.Create));
-                    user.ProfilePictureUrl = newFileName;
+                    user.ProfilePictureUrl = "upload/"+newFileName;
                 }
 
                 IdentityResult result = await userManager.CreateAsync(user, user.Password);

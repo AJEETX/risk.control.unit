@@ -38,6 +38,6 @@ function PopulateDropDown(dropDownId, list, selectedId) {
     $(dropDownId).empty();
     $(dropDownId).append("<option>--SELECT STATE--</option>")
     $.each(list, function (index, row) {
-        $(dropDownId).append("<option value='" + row.stateId + "'>" + row.stateName + "</option>")
+        $(dropDownId).append("<option value='" + row.stateId + "'>" + row.name + "</option>")
     });
 }

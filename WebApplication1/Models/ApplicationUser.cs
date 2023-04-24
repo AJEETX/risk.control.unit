@@ -17,24 +17,18 @@ namespace WebApplication1.Models
         public string FirstName { get; set; }
         [Required]
         public string LastName { get; set; }
-        [NotMapped]
-        public string? StateId { get; set; }
-        public string? State { get; set; }
-        public string? Country { get; set; }
-        [NotMapped]
-        public string? CountryId { get; set; }
+        [Required]
+        [Display(Name = "State name")]
+        public string StateId { get; set; }
+        [Display(Name = "State name")]
+        public State State { get; set; }
+        [Required]
+        [Display(Name = "Country name")]
+        public string CountryId { get; set; }
+        [Display(Name = "Country name")]
+        public Country Country { get; set; }
         [Required]
         public string? Password { get; set; }
-        public bool isInRoleHomeIndex { get; set; }
-        public bool isInRoleHomeAbout { get; set; }
-        public bool isInRoleHomeContact { get; set; }
-        public bool isInRoleApplicationUser { get; set; }
-
-        [Display(Name = "Home Roles")]
-        public bool HomeRole { get; set; } = false;
-
-        [Display(Name = "Roles")]
-        public bool ApplicationUserRole { get; set; } = false;
     }
     public class ApplicationRole : IdentityRole<Guid>
     {

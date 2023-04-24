@@ -11,9 +11,7 @@
         <div>
             <span class="brand-text font-weight-light">TALIC </span>
         </div>
-
     </a>
-
     <!-- Sidebar -->
     <div class="sidebar">
         <!-- Sidebar user (optional) -->
@@ -30,15 +28,14 @@
                 }
                 <div class="info">
                     <a href="#" class="d-block">
-                    @UserManager.GetUserAsync(User).Result?.FirstName @UserManager.GetUserAsync(User).Result?.LastName @{
-                    if (User.IsInRole(AppRoles.PortalAdmin.ToString()))
+                    @UserManager.GetUserAsync(User).Result?.FirstName @UserManager.GetUserAsync(User).Result?.LastName 
+                    @if (User.IsInRole(AppRoles.PortalAdmin.ToString()))
                     {
                         <span class="badge badge-danger">PA</span>
                     }
                     else if (User.IsInRole(AppRoles.ClientAdmin.ToString()))
                     {
                         <span class="badge badge-success">CA</span>
-                    }
                     }
                     </a>
                 </div>
@@ -59,12 +56,12 @@
                         </p>
                     </a>
                 </li>
-                <li class="nav-header">Investigation cases</li>
+                <li class="nav-header">INVESTIGATION <span class="badge badge-danger">*</span></li>
                 <li class="nav-item">
                     <a is-active-page asp-area="" asp-controller="RiskCase" asp-action="Index" class="nav-link">
                         <i class="nav-icon fas fa-users-cog"></i>
                         <p>
-                            Cases
+                            INVESTIGATION CASES
                         </p>
                     </a>
                 </li>
@@ -72,14 +69,14 @@
                     <a is-active-page asp-area="" asp-controller="RiskCaseType" asp-action="Index" class="nav-link">
                         <i class="nav-icon fas fa-cogs"></i>
                         <p>
-                            Case type
+                            LINE OF BUSINESS
                         </p>
                     </a>
                 </li>
                 <li class="nav-item">
                     <a is-active-page asp-area="" asp-controller="RiskCaseStatus" asp-action="Index" class="nav-link">
                         <i class="far fa-circle nav-icon"></i>
-                        <p>Case Status</p>
+                        <p>CASE STATUS</p>
                     </a>
                 </li>
  
@@ -92,7 +89,7 @@
                             <a is-active-page asp-area="" asp-controller="Roles" asp-action="Index" class="nav-link">
                                 <i class="nav-icon fas fa-user-lock"></i>
                                 <p>
-                                    Manage Roles
+                                    MANAGE ROLES
                                 </p>
                             </a>
                         </li>
@@ -100,7 +97,7 @@
                                     <a is-active-page asp-area="" asp-controller="User" asp-action="Index" class="nav-link">
                                 <i class="nav-icon fas fa-user-lock"></i>
                                 <p>
-                                    Manage User / Roles
+                                    MANAGE USER ROLES
                                 </p>
                             </a>
                         </li>
@@ -108,7 +105,7 @@
                             <a is-active-page asp-area="" asp-controller="Product" asp-action="Index" class="nav-link">
                                 <i class="nav-icon fas fa-user-lock"></i>
                                 <p>
-                                    Manage Product
+                                     MANAGE PERMISSION
                                 </p>
                             </a>
                         </li>
@@ -116,7 +113,7 @@
                             <a is-active-page asp-area="" asp-controller="Country" asp-action="Index" class="nav-link">
                                 <i class="nav-icon fas fa-user-lock"></i>
                                 <p>
-                                    Manage Country
+                                    MANAGE COUNTRY
                                 </p>
                             </a>
                         </li> 
@@ -124,14 +121,12 @@
                             <a is-active-page asp-area="" asp-controller="State" asp-action="Index" class="nav-link">
                                 <i class="nav-icon fas fa-user-lock"></i>
                                 <p>
-                                    Manage State
+                                    MANAGE STATE
                                 </p>
                             </a>
                         </li>                        
                     }
                 }
-
-
             </ul>
         </nav>
         <!-- /.sidebar-menu -->

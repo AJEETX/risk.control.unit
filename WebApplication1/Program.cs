@@ -108,38 +108,180 @@ async Task SeedDatabase() //can be placed at the very bottom under app.Run()
         Name = "CREATED",
         Code = "CREATED"
     };
-    var currentCaseStatus = await context.RiskCaseStatus.AddAsync(created);
+    var currentCaseStatus1 = await context.RiskCaseStatus.AddAsync(created);
+    var assigned = new RiskCaseStatus
+    {
+        Name = "ASSIGNED",
+        Code = "ASSIGNED"
+    };
 
-    var caseType = new RiskCaseType
+    var currentCaseStatus2 = await context.RiskCaseStatus.AddAsync(assigned);
+    var rejected = new RiskCaseStatus
+    {
+        Name = "REJECTED",
+        Code = "REJECTED"
+    };
+    
+    var currentCaseStatus3 = await context.RiskCaseStatus.AddAsync(rejected);
+    var accepted = new RiskCaseStatus
+    {
+        Name = "ACCEPTED",
+        Code = "ACCEPTED"
+    };
+    
+    var currentCaseStatus4 = await context.RiskCaseStatus.AddAsync(accepted);
+    var withdrawn = new RiskCaseStatus
+    {
+        Name = "WITHDRAWN",
+        Code = "WITHDRAWN"
+    };
+    
+    var currentCaseStatus5 = await context.RiskCaseStatus.AddAsync(withdrawn);
+
+    var clientCreatorCreated = new RiskCaseStatus
+    {
+        Name = "CLIENT_CREATOR_CREATED",
+        Code = "CLIENT_CREATOR_CREATED"
+    };
+    
+    var currentCaseStatus6 = await context.RiskCaseStatus.AddAsync(clientCreatorCreated);
+    
+    var clientAssignerAccepted = new RiskCaseStatus
+    {
+        Name = "CLIENT_ASSIGNER_ACCEPTED",
+        Code = "CLIENT_ASSIGNER_ACCEPTED"
+    };
+    
+    var currentCaseStatus7 = await context.RiskCaseStatus.AddAsync(clientAssignerAccepted);
+        
+    var vendorSupervisorAccepted = new RiskCaseStatus
+    {
+        Name = "VENDOR_SUPERVISOR_ACCEPTED",
+        Code = "VENDOR_SUPERVISOR_ACCEPTED"
+    };
+    
+    var currentCaseStatus8 = await context.RiskCaseStatus.AddAsync(vendorSupervisorAccepted);
+    var vendorAgentAccepted = new RiskCaseStatus
+    {
+        Name = "VENDOR_AGENT_ACCEPTED",
+        Code = "VENDOR_AGENT_ACCEPTED"
+    };
+    
+    var currentCaseStatus9 = await context.RiskCaseStatus.AddAsync(vendorAgentAccepted);        
+   var vendorAgentSubmitted = new RiskCaseStatus
+    {
+        Name = "VENDOR_AGENT_SUBMITTED",
+        Code = "VENDOR_AGENT_SUBMITTED"
+    };
+    
+    var currentCaseStatus10 = await context.RiskCaseStatus.AddAsync(vendorAgentSubmitted); 
+  
+   var vendorSupervisorSubmitted = new RiskCaseStatus
+    {
+        Name = "VENDOR_SUPERVISOR_SUBMITTED",
+        Code = "VENDOR_SUPERVISOR_SUBMITTED"
+    };
+    
+    var currentCaseStatus11 = await context.RiskCaseStatus.AddAsync(vendorSupervisorSubmitted); 
+
+   var clientAsssessorAccepted = new RiskCaseStatus
+    {
+        Name = "CLIENT_ASSESSOR_ACCEPTED",
+        Code = "CLIENT_ASSESSOR_ACCEPTED"
+    };
+    
+    var currentCaseStatus12 = await context.RiskCaseStatus.AddAsync(clientAsssessorAccepted); 
+
+   var clientAsssessorSubmitted = new RiskCaseStatus
+    {
+        Name = "CLIENT_ASSESSOR_SUBMITTED",
+        Code = "CLIENT_ASSESSOR_SUBMITTED"
+    };
+    
+    var currentCaseStatus13 = await context.RiskCaseStatus.AddAsync(clientAsssessorSubmitted);         
+   var clientAsssessorRejected = new RiskCaseStatus
+    {
+        Name = "CLIENT_ASSESSOR_REJECTED",
+        Code = "CLIENT_ASSESSOR_REJECTED"
+    };
+    
+    var currentCaseStatus14 = await context.RiskCaseStatus.AddAsync(clientAsssessorSubmitted);
+    var clientAsssessorReturnRejected = new RiskCaseStatus
+    {
+        Name = "CLIENT_ASSESSOR_RETURN_REJECTED",
+        Code = "CLIENT_ASSESSOR_RETURN_REJECTED"
+    };
+    
+    var currentCaseStatus15 = await context.RiskCaseStatus.AddAsync(clientAsssessorReturnRejected); 
+
+    var claims = new RiskCaseType
     {
         Name = "CLAIMS",
         Code = "CLAIMS",
     };
     
-    var currentCaseType = await context.RiskCaseType.AddAsync(caseType);
-
-    var country = new Country 
+    var currentCaseType1 = await context.RiskCaseType.AddAsync(claims);
+    var underwriting = new RiskCaseType
+    {
+        Name = "UNDERWRITING",
+        Code = "UNDERWRITING",
+    };
+    
+    var currentCaseType = await context.RiskCaseType.AddAsync(underwriting);
+    var india = new Country 
     {
         Name = "INDIA",
         Code = "IND",
     };
-    var currentCountry = await context.Country.AddAsync(country);
-
-    var state = new State
+    var currentCountry = await context.Country.AddAsync(india);
+    var australia = new Country 
+    {
+        Name = "AUSTRALIA",
+        Code = "AUS",
+    };
+    
+    var currentCountry2 = await context.Country.AddAsync(australia);
+    var up = new State
     {
         CountryId= currentCountry.Entity.CountryId,
         Name = "UTTAR PREDESH",
         Code = "UP"
     };
 
-    var currrentState = await context.State.AddAsync(state);
+    var currrentState = await context.State.AddAsync(up);
+    var delhi = new State
+    {
+        CountryId= currentCountry.Entity.CountryId,
+        Name = "NEW DELHI",
+        Code = "NDL"
+    };
+
+    var currrentState2 = await context.State.AddAsync(delhi);
+
+    var victoria = new State
+    {
+        CountryId= currentCountry2.Entity.CountryId,
+        Name = "VICTORIA",
+        Code = "VIC"
+    };
+
+    var currrentState3 = await context.State.AddAsync(victoria);   
+
+    var tasmania = new State
+    {
+        CountryId= currentCountry2.Entity.CountryId,
+        Name = "TASMANIA",
+        Code = "TAS"
+    };
+
+    var currrentState4 = await context.State.AddAsync(tasmania);        
 
     var _case1 = new RiskCase
     {
         Name =  "TEST CLAIM CASE 1",
         Description = "TEST CLAIM CASE DESCRIPTION",
         RiskCaseTypeId  =  currentCaseType.Entity.RiskCaseTypeId,
-        RiskCaseStatusId = currentCaseStatus.Entity.RiskCaseStatusId,
+        RiskCaseStatusId = currentCaseStatus1.Entity.RiskCaseStatusId,
         Created = DateTime.Now
     };
     var _case2 = new RiskCase
@@ -147,7 +289,7 @@ async Task SeedDatabase() //can be placed at the very bottom under app.Run()
         Name =  "TEST CLAIM CASE 2",
         Description = "TEST CLAIM CASE DESCRIPTION",
         RiskCaseTypeId  =  currentCaseType.Entity.RiskCaseTypeId,
-        RiskCaseStatusId = currentCaseStatus.Entity.RiskCaseStatusId,
+        RiskCaseStatusId = currentCaseStatus2.Entity.RiskCaseStatusId,
         Created = DateTime.Now
     };
     
@@ -156,7 +298,7 @@ async Task SeedDatabase() //can be placed at the very bottom under app.Run()
         Name =  "TEST CLAIM CASE 3",
         Description = "TEST CLAIM CASE DESCRIPTION",
         RiskCaseTypeId  =  currentCaseType.Entity.RiskCaseTypeId,
-        RiskCaseStatusId = currentCaseStatus.Entity.RiskCaseStatusId,
+        RiskCaseStatusId = currentCaseStatus3.Entity.RiskCaseStatusId,
         Created = DateTime.Now
     };
     var _case4 = new RiskCase
@@ -164,7 +306,7 @@ async Task SeedDatabase() //can be placed at the very bottom under app.Run()
         Name =  "TEST CLAIM CASE 4",
         Description = "TEST CLAIM CASE DESCRIPTION",
         RiskCaseTypeId  =  currentCaseType.Entity.RiskCaseTypeId,
-        RiskCaseStatusId = currentCaseStatus.Entity.RiskCaseStatusId,
+        RiskCaseStatusId = currentCaseStatus4.Entity.RiskCaseStatusId,
         Created = DateTime.Now
     };    
     var _case5 = new RiskCase
@@ -172,7 +314,7 @@ async Task SeedDatabase() //can be placed at the very bottom under app.Run()
         Name =  "TEST CLAIM CASE 5",
         Description = "TEST CLAIM CASE DESCRIPTION",
         RiskCaseTypeId  =  currentCaseType.Entity.RiskCaseTypeId,
-        RiskCaseStatusId = currentCaseStatus.Entity.RiskCaseStatusId,
+        RiskCaseStatusId = currentCaseStatus5.Entity.RiskCaseStatusId,
         Created = DateTime.Now
     };   
     var _case6 = new RiskCase
@@ -180,7 +322,7 @@ async Task SeedDatabase() //can be placed at the very bottom under app.Run()
         Name =  "TEST CLAIM CASE 6",
         Description = "TEST CLAIM CASE DESCRIPTION",
         RiskCaseTypeId  =  currentCaseType.Entity.RiskCaseTypeId,
-        RiskCaseStatusId = currentCaseStatus.Entity.RiskCaseStatusId,
+        RiskCaseStatusId = currentCaseStatus6.Entity.RiskCaseStatusId,
         Created = DateTime.Now
     };     
     var _case7 = new RiskCase
@@ -188,7 +330,7 @@ async Task SeedDatabase() //can be placed at the very bottom under app.Run()
         Name =  "TEST CLAIM CASE 7",
         Description = "TEST CLAIM CASE DESCRIPTION",
         RiskCaseTypeId  =  currentCaseType.Entity.RiskCaseTypeId,
-        RiskCaseStatusId = currentCaseStatus.Entity.RiskCaseStatusId,
+        RiskCaseStatusId = currentCaseStatus7.Entity.RiskCaseStatusId,
         Created = DateTime.Now
     };        
     var _case8 = new RiskCase
@@ -196,7 +338,7 @@ async Task SeedDatabase() //can be placed at the very bottom under app.Run()
         Name =  "TEST CLAIM CASE 8",
         Description = "TEST CLAIM CASE DESCRIPTION",
         RiskCaseTypeId  =  currentCaseType.Entity.RiskCaseTypeId,
-        RiskCaseStatusId = currentCaseStatus.Entity.RiskCaseStatusId,
+        RiskCaseStatusId = currentCaseStatus2.Entity.RiskCaseStatusId,
         Created = DateTime.Now
     };   
     var _case9 = new RiskCase
@@ -204,7 +346,7 @@ async Task SeedDatabase() //can be placed at the very bottom under app.Run()
         Name =  "TEST CLAIM CASE 9",
         Description = "TEST CLAIM CASE DESCRIPTION",
         RiskCaseTypeId  =  currentCaseType.Entity.RiskCaseTypeId,
-        RiskCaseStatusId = currentCaseStatus.Entity.RiskCaseStatusId,
+        RiskCaseStatusId = currentCaseStatus3.Entity.RiskCaseStatusId,
         Created = DateTime.Now
     };         
     var _case10 = new RiskCase
@@ -212,7 +354,7 @@ async Task SeedDatabase() //can be placed at the very bottom under app.Run()
         Name =  "TEST CLAIM CASE 10",
         Description = "TEST CLAIM CASE DESCRIPTION",
         RiskCaseTypeId  =  currentCaseType.Entity.RiskCaseTypeId,
-        RiskCaseStatusId = currentCaseStatus.Entity.RiskCaseStatusId,
+        RiskCaseStatusId = currentCaseStatus4.Entity.RiskCaseStatusId,
         Created = DateTime.Now
     };    
     var _case11 = new RiskCase
@@ -220,7 +362,7 @@ async Task SeedDatabase() //can be placed at the very bottom under app.Run()
         Name =  "TEST CLAIM CASE 11",
         Description = "TEST CLAIM CASE DESCRIPTION",
         RiskCaseTypeId  =  currentCaseType.Entity.RiskCaseTypeId,
-        RiskCaseStatusId = currentCaseStatus.Entity.RiskCaseStatusId,
+        RiskCaseStatusId = currentCaseStatus6.Entity.RiskCaseStatusId,
         Created = DateTime.Now
     };      
     var _case12 = new RiskCase
@@ -228,7 +370,7 @@ async Task SeedDatabase() //can be placed at the very bottom under app.Run()
         Name =  "TEST CLAIM CASE 12",
         Description = "TEST CLAIM CASE DESCRIPTION",
         RiskCaseTypeId  =  currentCaseType.Entity.RiskCaseTypeId,
-        RiskCaseStatusId = currentCaseStatus.Entity.RiskCaseStatusId,
+        RiskCaseStatusId = currentCaseStatus5.Entity.RiskCaseStatusId,
         Created = DateTime.Now
     };  
     var _case13 = new RiskCase
@@ -236,7 +378,7 @@ async Task SeedDatabase() //can be placed at the very bottom under app.Run()
         Name =  "TEST CLAIM CASE 13",
         Description = "TEST CLAIM CASE DESCRIPTION",
         RiskCaseTypeId  =  currentCaseType.Entity.RiskCaseTypeId,
-        RiskCaseStatusId = currentCaseStatus.Entity.RiskCaseStatusId,
+        RiskCaseStatusId = currentCaseStatus3.Entity.RiskCaseStatusId,
         Created = DateTime.Now
     };   
    var _case14 = new RiskCase
@@ -244,7 +386,7 @@ async Task SeedDatabase() //can be placed at the very bottom under app.Run()
         Name =  "TEST CLAIM CASE 14",
         Description = "TEST CLAIM CASE DESCRIPTION",
         RiskCaseTypeId  =  currentCaseType.Entity.RiskCaseTypeId,
-        RiskCaseStatusId = currentCaseStatus.Entity.RiskCaseStatusId,
+        RiskCaseStatusId = currentCaseStatus1.Entity.RiskCaseStatusId,
         Created = DateTime.Now
     };        
     
@@ -253,7 +395,7 @@ async Task SeedDatabase() //can be placed at the very bottom under app.Run()
         Name =  "TEST CLAIM CASE 15",
         Description = "TEST CLAIM CASE DESCRIPTION",
         RiskCaseTypeId  =  currentCaseType.Entity.RiskCaseTypeId,
-        RiskCaseStatusId = currentCaseStatus.Entity.RiskCaseStatusId,
+        RiskCaseStatusId = currentCaseStatus3.Entity.RiskCaseStatusId,
         Created = DateTime.Now
     };  
    var _case16 = new RiskCase
@@ -261,7 +403,7 @@ async Task SeedDatabase() //can be placed at the very bottom under app.Run()
         Name =  "TEST CLAIM CASE 16",
         Description = "TEST CLAIM CASE DESCRIPTION",
         RiskCaseTypeId  =  currentCaseType.Entity.RiskCaseTypeId,
-        RiskCaseStatusId = currentCaseStatus.Entity.RiskCaseStatusId,
+        RiskCaseStatusId = currentCaseStatus7.Entity.RiskCaseStatusId,
         Created = DateTime.Now
     };  
    var _case17 = new RiskCase
@@ -269,7 +411,7 @@ async Task SeedDatabase() //can be placed at the very bottom under app.Run()
         Name =  "TEST CLAIM CASE 17",
         Description = "TEST CLAIM CASE DESCRIPTION",
         RiskCaseTypeId  =  currentCaseType.Entity.RiskCaseTypeId,
-        RiskCaseStatusId = currentCaseStatus.Entity.RiskCaseStatusId,
+        RiskCaseStatusId = currentCaseStatus4.Entity.RiskCaseStatusId,
         Created = DateTime.Now
     };  
    var _case18 = new RiskCase
@@ -277,7 +419,7 @@ async Task SeedDatabase() //can be placed at the very bottom under app.Run()
         Name =  "TEST CLAIM CASE 18",
         Description = "TEST CLAIM CASE DESCRIPTION",
         RiskCaseTypeId  =  currentCaseType.Entity.RiskCaseTypeId,
-        RiskCaseStatusId = currentCaseStatus.Entity.RiskCaseStatusId,
+        RiskCaseStatusId = currentCaseStatus3.Entity.RiskCaseStatusId,
         Created = DateTime.Now
     };  
    var _case19 = new RiskCase
@@ -285,7 +427,7 @@ async Task SeedDatabase() //can be placed at the very bottom under app.Run()
         Name =  "TEST CLAIM CASE 19",
         Description = "TEST CLAIM CASE DESCRIPTION",
         RiskCaseTypeId  =  currentCaseType.Entity.RiskCaseTypeId,
-        RiskCaseStatusId = currentCaseStatus.Entity.RiskCaseStatusId,
+        RiskCaseStatusId = currentCaseStatus4.Entity.RiskCaseStatusId,
         Created = DateTime.Now
     };  
        var _case20 = new RiskCase
@@ -293,7 +435,7 @@ async Task SeedDatabase() //can be placed at the very bottom under app.Run()
         Name =  "TEST CLAIM CASE 20",
         Description = "TEST CLAIM CASE DESCRIPTION",
         RiskCaseTypeId  =  currentCaseType.Entity.RiskCaseTypeId,
-        RiskCaseStatusId = currentCaseStatus.Entity.RiskCaseStatusId,
+        RiskCaseStatusId = currentCaseStatus2.Entity.RiskCaseStatusId,
         Created = DateTime.Now
     };  
        var _case21 = new RiskCase
@@ -301,7 +443,7 @@ async Task SeedDatabase() //can be placed at the very bottom under app.Run()
         Name =  "TEST CLAIM CASE 21",
         Description = "TEST CLAIM CASE DESCRIPTION",
         RiskCaseTypeId  =  currentCaseType.Entity.RiskCaseTypeId,
-        RiskCaseStatusId = currentCaseStatus.Entity.RiskCaseStatusId,
+        RiskCaseStatusId = currentCaseStatus7.Entity.RiskCaseStatusId,
         Created = DateTime.Now
     };     
     var _case22 = new RiskCase
@@ -309,7 +451,7 @@ async Task SeedDatabase() //can be placed at the very bottom under app.Run()
         Name =  "TEST CLAIM CASE 22",
         Description = "TEST CLAIM CASE DESCRIPTION",
         RiskCaseTypeId  =  currentCaseType.Entity.RiskCaseTypeId,
-        RiskCaseStatusId = currentCaseStatus.Entity.RiskCaseStatusId,
+        RiskCaseStatusId = currentCaseStatus2.Entity.RiskCaseStatusId,
         Created = DateTime.Now
     }; 
     var _case23 = new RiskCase
@@ -317,7 +459,7 @@ async Task SeedDatabase() //can be placed at the very bottom under app.Run()
         Name =  "TEST CLAIM CASE 23",
         Description = "TEST CLAIM CASE DESCRIPTION",
         RiskCaseTypeId  =  currentCaseType.Entity.RiskCaseTypeId,
-        RiskCaseStatusId = currentCaseStatus.Entity.RiskCaseStatusId,
+        RiskCaseStatusId = currentCaseStatus4.Entity.RiskCaseStatusId,
         Created = DateTime.Now
     };  
 
@@ -326,7 +468,7 @@ async Task SeedDatabase() //can be placed at the very bottom under app.Run()
         Name =  "TEST CLAIM CASE 24",
         Description = "TEST CLAIM CASE DESCRIPTION",
         RiskCaseTypeId  =  currentCaseType.Entity.RiskCaseTypeId,
-        RiskCaseStatusId = currentCaseStatus.Entity.RiskCaseStatusId,
+        RiskCaseStatusId = currentCaseStatus5.Entity.RiskCaseStatusId,
         Created = DateTime.Now
     };  
 
@@ -335,7 +477,7 @@ async Task SeedDatabase() //can be placed at the very bottom under app.Run()
         Name =  "TEST CLAIM CASE 25",
         Description = "TEST CLAIM CASE DESCRIPTION",
         RiskCaseTypeId  =  currentCaseType.Entity.RiskCaseTypeId,
-        RiskCaseStatusId = currentCaseStatus.Entity.RiskCaseStatusId,
+        RiskCaseStatusId = currentCaseStatus2.Entity.RiskCaseStatusId,
         Created = DateTime.Now
     };  
                                                                         
@@ -377,9 +519,9 @@ async Task SeedDatabase() //can be placed at the very bottom under app.Run()
         Password = ApplicationUserOptions.Password,
         EmailConfirmed = true,
         PhoneNumberConfirmed = true,
-        StateId = currrentState.Entity.StateId,
-        CountryId = currentCountry.Entity.CountryId,
-        ProfilePictureUrl = "img/admin.png"
+        State = currrentState.Entity,
+        Country = currentCountry.Entity,
+        ProfilePictureUrl = "img/superadmin.jpg"
     };
     if (userManager.Users.All(u => u.Id != portalAdmin.Id))
     {
@@ -420,6 +562,9 @@ async Task SeedDatabase() //can be placed at the very bottom under app.Run()
         PhoneNumberConfirmed = true,
         Password = ApplicationUserOptions.Password,
         isSuperAdmin = true,
+        State = currrentState.Entity,
+        Country = currentCountry.Entity,
+        ProfilePictureUrl = "img/admin.png"        
     };
     if (userManager.Users.All(u => u.Id != clientAdmin.Id))
     {
@@ -447,7 +592,10 @@ async Task SeedDatabase() //can be placed at the very bottom under app.Run()
         EmailConfirmed = true,
         Password = ApplicationUserOptions.Password,
         PhoneNumberConfirmed = true,
-        isSuperAdmin = true
+        isSuperAdmin = true,
+        State = currrentState.Entity,
+        Country = currentCountry.Entity,
+        ProfilePictureUrl = "img/creator.jpg"        
     };
     if (userManager.Users.All(u => u.Id != clientCreator.Id))
     {
@@ -470,7 +618,10 @@ async Task SeedDatabase() //can be placed at the very bottom under app.Run()
         EmailConfirmed = true,
         PhoneNumberConfirmed = true,
         Password = ApplicationUserOptions.Password,
-        isSuperAdmin = true
+        isSuperAdmin = true,
+        State = currrentState.Entity,
+        Country = currentCountry.Entity,
+        ProfilePictureUrl = "img/assigner.png"        
     };
     if (userManager.Users.All(u => u.Id != clientAssigner.Id))
     {
@@ -492,7 +643,10 @@ async Task SeedDatabase() //can be placed at the very bottom under app.Run()
         EmailConfirmed = true,
         PhoneNumberConfirmed = true,
         Password = ApplicationUserOptions.Password,
-        isSuperAdmin = true
+        isSuperAdmin = true,
+        State = currrentState.Entity,
+        Country = currentCountry.Entity,
+        ProfilePictureUrl = "img/assessor.png"        
     };
     if (userManager.Users.All(u => u.Id != clientAssessor.Id))
     {
@@ -515,7 +669,10 @@ async Task SeedDatabase() //can be placed at the very bottom under app.Run()
         EmailConfirmed = true,
         PhoneNumberConfirmed = true,
         Password = ApplicationUserOptions.Password,
-        isSuperAdmin = true
+        isSuperAdmin = true,
+        State = currrentState.Entity,
+        Country = currentCountry.Entity,
+        ProfilePictureUrl = "img/vendor-admin.png"        
     };
     if (userManager.Users.All(u => u.Id != vendorAdmin.Id))
     {
@@ -541,7 +698,10 @@ async Task SeedDatabase() //can be placed at the very bottom under app.Run()
         EmailConfirmed = true,
         PhoneNumberConfirmed = true,
         Password = ApplicationUserOptions.Password,
-        isSuperAdmin = true
+        isSuperAdmin = true,
+        State = currrentState.Entity,
+        Country = currentCountry.Entity,
+        ProfilePictureUrl = "img/supervisor.png"        
     };
     if (userManager.Users.All(u => u.Id != vendorSupervisor.Id))
     {
@@ -565,7 +725,10 @@ async Task SeedDatabase() //can be placed at the very bottom under app.Run()
         EmailConfirmed = true,
         PhoneNumberConfirmed = true,
         Password = ApplicationUserOptions.Password,
-        isSuperAdmin = true
+        isSuperAdmin = true,
+        State = currrentState.Entity,
+        Country = currentCountry.Entity,
+        ProfilePictureUrl = "img/agent.jpg"        
     };
     if (userManager.Users.All(u => u.Id != vendorAgent.Id))
     {
