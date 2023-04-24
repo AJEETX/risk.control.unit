@@ -137,6 +137,26 @@ namespace WebApplication1.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "PinCode",
+                columns: table => new
+                {
+                    PinCodeId = table.Column<string>(type: "TEXT", nullable: false),
+                    Name = table.Column<string>(type: "TEXT", nullable: false),
+                    Code = table.Column<string>(type: "TEXT", nullable: false),
+                    StateId = table.Column<string>(type: "TEXT", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_PinCode", x => x.PinCodeId);
+                    table.ForeignKey(
+                        name: "FK_PinCode_State_StateId",
+                        column: x => x.StateId,
+                        principalTable: "State",
+                        principalColumn: "StateId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "AspNetUsers",
                 columns: table => new
                 {
@@ -146,6 +166,7 @@ namespace WebApplication1.Migrations
                     ProfilePicture = table.Column<byte[]>(type: "BLOB", nullable: true),
                     FirstName = table.Column<string>(type: "TEXT", nullable: false),
                     LastName = table.Column<string>(type: "TEXT", nullable: false),
+                    PinCodeId = table.Column<string>(type: "TEXT", nullable: false),
                     StateId = table.Column<string>(type: "TEXT", nullable: false),
                     CountryId = table.Column<string>(type: "TEXT", nullable: false),
                     Password = table.Column<string>(type: "TEXT", nullable: false),
@@ -172,6 +193,12 @@ namespace WebApplication1.Migrations
                         column: x => x.CountryId,
                         principalTable: "Country",
                         principalColumn: "CountryId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_AspNetUsers_PinCode_PinCodeId",
+                        column: x => x.PinCodeId,
+                        principalTable: "PinCode",
+                        principalColumn: "PinCodeId",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_AspNetUsers_State_StateId",
@@ -303,6 +330,11 @@ namespace WebApplication1.Migrations
                 column: "CountryId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_AspNetUsers_PinCodeId",
+                table: "AspNetUsers",
+                column: "PinCodeId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_AspNetUsers_StateId",
                 table: "AspNetUsers",
                 column: "StateId");
@@ -312,6 +344,11 @@ namespace WebApplication1.Migrations
                 table: "AspNetUsers",
                 column: "NormalizedUserName",
                 unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_PinCode_StateId",
+                table: "PinCode",
+                column: "StateId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_RiskCase_RiskCaseStatusId",
@@ -361,6 +398,9 @@ namespace WebApplication1.Migrations
 
             migrationBuilder.DropTable(
                 name: "RiskCaseType");
+
+            migrationBuilder.DropTable(
+                name: "PinCode");
 
             migrationBuilder.DropTable(
                 name: "State");

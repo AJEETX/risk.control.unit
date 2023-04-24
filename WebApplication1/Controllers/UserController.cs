@@ -33,7 +33,7 @@ namespace WebApplication1.Controllers
         }
         public async Task<IActionResult> Index()
         {
-            var users = await userManager.Users.Include(u => u.Country).Include(u => u.State).ToListAsync();
+            var users = await userManager.Users.Include(u => u.Country).Include(u => u.State).Include(u => u.PinCode).ToListAsync();
             foreach (Models.ApplicationUser user in users)
             {
                 var thisViewModel = new UsersViewModel();
@@ -47,6 +47,8 @@ namespace WebApplication1.Controllers
                 thisViewModel.CountryId = user.CountryId;
                 thisViewModel.StateId = user.StateId;
                 thisViewModel.State = user.State.Name;
+                thisViewModel.PinCode = user.PinCode.Name;
+                thisViewModel.PinCodeId = user.PinCode.PinCodeId;
                 thisViewModel.Roles = await GetUserRoles(user);
                 UserList.Add(thisViewModel);
             }
@@ -56,7 +58,6 @@ namespace WebApplication1.Controllers
         public IActionResult Create()
         {
             ViewData["CountryId"] = new SelectList(context.Country, "CountryId", "Name");
-            ViewData["StateId"] = new SelectList(context.State, "StateId", "Name");
             return View();
         }
         [HttpPost, ActionName("GetStatesByCountryId")]
@@ -68,6 +69,17 @@ namespace WebApplication1.Controllers
                 states = await context.State.Where(s => s.CountryId.Equals(cId)).ToListAsync();
             }
             return Json(states);
+        }
+
+        [HttpPost, ActionName("GetPinCodesByStateId")]
+        public async Task<JsonResult> GetPinCodesByStateId(string stateId) {
+            string sId;
+            var pinCodes = new List <PinCode> ();
+            if (!string.IsNullOrEmpty(stateId)) {
+                sId = stateId;
+                pinCodes = await context.PinCode.Where(s => s.StateId.Equals(sId)).ToListAsync();
+            }
+            return Json(pinCodes);
         }
 
         [HttpPost]
@@ -103,6 +115,7 @@ namespace WebApplication1.Controllers
         {
             ViewData["CountryId"] = new SelectList(context.Country, "CountryId", "Name",user?.CountryId);
             ViewData["StateId"] = new SelectList(context.State.Where(s => s.CountryId == user.CountryId ), "StateId", "Name", user?.StateId);
+            ViewData["PinCodeId"] = new SelectList(context.PinCode.Where(s => s.StateId == user.StateId ), "PinCodeId", "Name", user?.PinCodeId);
         }
         public async Task<IActionResult> Edit(string userId)
         {
@@ -171,6 +184,8 @@ namespace WebApplication1.Controllers
                         user.CountryId = applicationUser.CountryId;
                         user.State = applicationUser.State;
                         user.StateId = applicationUser.StateId;
+                        user.PinCode = applicationUser.PinCode;
+                        user.PinCodeId = applicationUser.PinCodeId;                        
                         var result = await userManager.UpdateAsync(user);
                         if (result.Succeeded)
                         {

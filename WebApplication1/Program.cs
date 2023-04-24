@@ -199,7 +199,7 @@ async Task SeedDatabase() //can be placed at the very bottom under app.Run()
     };
     
     var currentCaseStatus13 = await context.RiskCaseStatus.AddAsync(clientAsssessorSubmitted);         
-   var clientAsssessorRejected = new RiskCaseStatus
+    var clientAsssessorRejected = new RiskCaseStatus
     {
         Name = "CLIENT_ASSESSOR_REJECTED",
         Code = "CLIENT_ASSESSOR_REJECTED"
@@ -240,7 +240,14 @@ async Task SeedDatabase() //can be placed at the very bottom under app.Run()
         Code = "AUS",
     };
     
-    var currentCountry2 = await context.Country.AddAsync(australia);
+    var australiaCountry = await context.Country.AddAsync(australia);
+    var canada = new Country 
+    {
+        Name = "CANADA",
+        Code = "CAN",
+    };
+    
+    var canadaCountry = await context.Country.AddAsync(canada);    
     var up = new State
     {
         CountryId= currentCountry.Entity.CountryId,
@@ -248,34 +255,99 @@ async Task SeedDatabase() //can be placed at the very bottom under app.Run()
         Code = "UP"
     };
 
-    var currrentState = await context.State.AddAsync(up);
+    var upState = await context.State.AddAsync(up);
+    var ontario = new State
+    {
+        CountryId= canadaCountry.Entity.CountryId,
+        Name = "ONTARIO",
+        Code = "ON"
+    };
+
+    var ontarioState = await context.State.AddAsync(ontario);   
+
     var delhi = new State
     {
-        CountryId= currentCountry.Entity.CountryId,
+        CountryId = currentCountry.Entity.CountryId,
         Name = "NEW DELHI",
         Code = "NDL"
     };
 
-    var currrentState2 = await context.State.AddAsync(delhi);
+    var delhiState = await context.State.AddAsync(delhi);
 
     var victoria = new State
     {
-        CountryId= currentCountry2.Entity.CountryId,
+        CountryId= australiaCountry.Entity.CountryId,
         Name = "VICTORIA",
         Code = "VIC"
     };
 
-    var currrentState3 = await context.State.AddAsync(victoria);   
+    var victoriaState = await context.State.AddAsync(victoria);   
 
     var tasmania = new State
     {
-        CountryId= currentCountry2.Entity.CountryId,
+        CountryId= australiaCountry.Entity.CountryId,
         Name = "TASMANIA",
         Code = "TAS"
     };
 
-    var currrentState4 = await context.State.AddAsync(tasmania);        
+    var tasmaniaState = await context.State.AddAsync(tasmania); 
 
+    var newDelhi = new PinCode{
+        Name = "NEW DELHI",
+        Code = "110001",
+        State = delhiState.Entity
+    };
+
+    var newDelhiPinCode = await context.PinCode.AddAsync(newDelhi);
+
+    var northDelhi = new PinCode{
+        Name = "NORTH DELHI",
+        Code = "110002",
+        State = delhiState.Entity
+    };
+
+    var northDelhiPinCode = await context.PinCode.AddAsync(northDelhi);    
+
+    var indirapuram = new PinCode{
+        Name = "INDIRAPURAM",
+        Code = "201014",
+        State = upState.Entity
+    };
+
+    var indiraPuramPinCode = await context.PinCode.AddAsync(indirapuram);
+
+    var bhelupur = new PinCode{
+        Name = "BHELUPUR",
+        Code = "221001",
+        State = upState.Entity
+    };
+
+    var bhelupurPinCode = await context.PinCode.AddAsync(bhelupur);
+
+    var forestHill = new PinCode{
+        Name = "FOREST HILL",
+        Code = "3131",
+        State = victoriaState.Entity
+    };
+
+    var forestHillPinCode = await context.PinCode.AddAsync(forestHill);   
+
+    var vermont = new PinCode{
+        Name = "VERMONT",
+        Code = "3133",
+        State = victoriaState.Entity
+    };
+    
+    var vermontPinCode = await context.PinCode.AddAsync(vermont);        
+
+    var tasmaniaCity = new PinCode{
+        Name = "TASMANIA CITY",
+        Code = "7000",
+        State = tasmaniaState.Entity
+    };
+    
+    var tasmaniaCityCode = await context.PinCode.AddAsync(tasmaniaCity); 
+          
     var _case1 = new RiskCase
     {
         Name =  "TEST CLAIM CASE 1",
@@ -519,8 +591,9 @@ async Task SeedDatabase() //can be placed at the very bottom under app.Run()
         Password = ApplicationUserOptions.Password,
         EmailConfirmed = true,
         PhoneNumberConfirmed = true,
-        State = currrentState.Entity,
+        State = upState.Entity,
         Country = currentCountry.Entity,
+        PinCode = indiraPuramPinCode.Entity,
         ProfilePictureUrl = "img/superadmin.jpg"
     };
     if (userManager.Users.All(u => u.Id != portalAdmin.Id))
@@ -562,8 +635,9 @@ async Task SeedDatabase() //can be placed at the very bottom under app.Run()
         PhoneNumberConfirmed = true,
         Password = ApplicationUserOptions.Password,
         isSuperAdmin = true,
-        State = currrentState.Entity,
+        State = upState.Entity,
         Country = currentCountry.Entity,
+        PinCode = bhelupurPinCode.Entity,
         ProfilePictureUrl = "img/admin.png"        
     };
     if (userManager.Users.All(u => u.Id != clientAdmin.Id))
@@ -593,8 +667,9 @@ async Task SeedDatabase() //can be placed at the very bottom under app.Run()
         Password = ApplicationUserOptions.Password,
         PhoneNumberConfirmed = true,
         isSuperAdmin = true,
-        State = currrentState.Entity,
+        State = upState.Entity,
         Country = currentCountry.Entity,
+        PinCode = indiraPuramPinCode.Entity,
         ProfilePictureUrl = "img/creator.jpg"        
     };
     if (userManager.Users.All(u => u.Id != clientCreator.Id))
@@ -619,7 +694,8 @@ async Task SeedDatabase() //can be placed at the very bottom under app.Run()
         PhoneNumberConfirmed = true,
         Password = ApplicationUserOptions.Password,
         isSuperAdmin = true,
-        State = currrentState.Entity,
+        PinCode = northDelhiPinCode.Entity,
+        State = delhiState.Entity,
         Country = currentCountry.Entity,
         ProfilePictureUrl = "img/assigner.png"        
     };
@@ -644,7 +720,8 @@ async Task SeedDatabase() //can be placed at the very bottom under app.Run()
         PhoneNumberConfirmed = true,
         Password = ApplicationUserOptions.Password,
         isSuperAdmin = true,
-        State = currrentState.Entity,
+        PinCode = northDelhiPinCode.Entity,
+        State = delhiState.Entity,
         Country = currentCountry.Entity,
         ProfilePictureUrl = "img/assessor.png"        
     };
@@ -670,7 +747,8 @@ async Task SeedDatabase() //can be placed at the very bottom under app.Run()
         PhoneNumberConfirmed = true,
         Password = ApplicationUserOptions.Password,
         isSuperAdmin = true,
-        State = currrentState.Entity,
+        PinCode = indiraPuramPinCode.Entity,
+        State = upState.Entity,
         Country = currentCountry.Entity,
         ProfilePictureUrl = "img/vendor-admin.png"        
     };
@@ -699,7 +777,8 @@ async Task SeedDatabase() //can be placed at the very bottom under app.Run()
         PhoneNumberConfirmed = true,
         Password = ApplicationUserOptions.Password,
         isSuperAdmin = true,
-        State = currrentState.Entity,
+        PinCode = indiraPuramPinCode.Entity,
+        State = upState.Entity,
         Country = currentCountry.Entity,
         ProfilePictureUrl = "img/supervisor.png"        
     };
@@ -726,7 +805,8 @@ async Task SeedDatabase() //can be placed at the very bottom under app.Run()
         PhoneNumberConfirmed = true,
         Password = ApplicationUserOptions.Password,
         isSuperAdmin = true,
-        State = currrentState.Entity,
+        PinCode = indiraPuramPinCode.Entity,
+        State = upState.Entity,
         Country = currentCountry.Entity,
         ProfilePictureUrl = "img/agent.jpg"        
     };

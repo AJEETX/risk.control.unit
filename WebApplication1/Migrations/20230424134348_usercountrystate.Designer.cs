@@ -11,7 +11,7 @@ using WebApplication1.Data;
 namespace WebApplication1.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230424091220_usercountrystate")]
+    [Migration("20230424134348_usercountrystate")]
     partial class usercountrystate
     {
         /// <inheritdoc />
@@ -209,6 +209,10 @@ namespace WebApplication1.Migrations
                     b.Property<bool>("PhoneNumberConfirmed")
                         .HasColumnType("INTEGER");
 
+                    b.Property<string>("PinCodeId")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
                     b.Property<byte[]>("ProfilePicture")
                         .HasColumnType("BLOB");
 
@@ -243,6 +247,8 @@ namespace WebApplication1.Migrations
                         .IsUnique()
                         .HasDatabaseName("UserNameIndex");
 
+                    b.HasIndex("PinCodeId");
+
                     b.HasIndex("StateId");
 
                     b.ToTable("AspNetUsers", (string)null);
@@ -265,6 +271,31 @@ namespace WebApplication1.Migrations
                     b.HasKey("CountryId");
 
                     b.ToTable("Country");
+                });
+
+            modelBuilder.Entity("WebApplication1.Models.PinCode", b =>
+                {
+                    b.Property<string>("PinCodeId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Code")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("StateId")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("PinCodeId");
+
+                    b.HasIndex("StateId");
+
+                    b.ToTable("PinCode");
                 });
 
             modelBuilder.Entity("WebApplication1.Models.RiskCase", b =>
@@ -429,6 +460,12 @@ namespace WebApplication1.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("WebApplication1.Models.PinCode", "PinCode")
+                        .WithMany()
+                        .HasForeignKey("PinCodeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("WebApplication1.Models.State", "State")
                         .WithMany()
                         .HasForeignKey("StateId")
@@ -436,6 +473,19 @@ namespace WebApplication1.Migrations
                         .IsRequired();
 
                     b.Navigation("Country");
+
+                    b.Navigation("PinCode");
+
+                    b.Navigation("State");
+                });
+
+            modelBuilder.Entity("WebApplication1.Models.PinCode", b =>
+                {
+                    b.HasOne("WebApplication1.Models.State", "State")
+                        .WithMany()
+                        .HasForeignKey("StateId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("State");
                 });

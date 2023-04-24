@@ -3,6 +3,9 @@
     $('#CountryId').change(function(){
         loadState($(this));
     });
+    $('#StateId').change(function(){
+        loadPinCode($(this));
+    });    
     $("#btnDeleteImage").click(function () {
         var id = $(this).attr("data-id");
         $.ajax({
@@ -31,12 +34,25 @@
 function loadState(obj) {
     var value = obj.value;
     $.post("GetStatesByCountryId", { countryId: value }, function (data) {
-        PopulateDropDown("#StateId", data);
+        PopulateDropDown("#StateId", data, "<option>--SELECT STATE--</option>");
     });
 }
-function PopulateDropDown(dropDownId, list, selectedId) {
+function loadPinCode(obj) {
+    var value = obj.value;
+    $.post("GetPinCodesByStateId", { stateId: value }, function (data) {
+        PopulatePinCodeDropDown("#PinCodeId", data, "<option>--SELECT PINCODE--</option>");
+    });
+}
+function PopulatePinCodeDropDown(dropDownId, list, option) {
     $(dropDownId).empty();
-    $(dropDownId).append("<option>--SELECT STATE--</option>")
+    $(dropDownId).append(option)
+    $.each(list, function (index, row) {
+        $(dropDownId).append("<option value='" + row.pinCodeId + "'>" + row.name + "</option>")
+    });
+}
+function PopulateDropDown(dropDownId, list, option) {
+    $(dropDownId).empty();
+    $(dropDownId).append(option)
     $.each(list, function (index, row) {
         $(dropDownId).append("<option value='" + row.stateId + "'>" + row.name + "</option>")
     });

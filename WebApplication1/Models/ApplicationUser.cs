@@ -18,6 +18,11 @@ namespace WebApplication1.Models
         [Required]
         public string LastName { get; set; }
         [Required]
+        [Display(Name = "PinCode name")]
+        public string PinCodeId { get; set; }
+        [Display(Name = "PinCode name")]
+        public PinCode PinCode { get; set; }        
+        [Required]
         [Display(Name = "State name")]
         public string StateId { get; set; }
         [Display(Name = "State name")]

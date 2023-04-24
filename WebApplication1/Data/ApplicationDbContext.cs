@@ -21,5 +21,6 @@ namespace WebApplication1.Data
         public virtual DbSet<RiskCaseStatus> RiskCaseStatus { get; set; }
         public virtual DbSet<Country> Country { get; set; }
         public virtual DbSet<State> State { get; set; }
+        public virtual DbSet<PinCode> PinCode { get; set; }
     }
 }

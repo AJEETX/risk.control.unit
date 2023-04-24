@@ -30,3 +30,19 @@ public class State
     [Display(Name = "Country name")]
     public Country Country { get; set; }
 }
+public class PinCode
+{
+    [Key]
+    [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+    public string PinCodeId { get; set; }
+    [Display(Name = "PinCode name")]
+    public string Name { get; set; }
+    [Display(Name = "PinCode")]
+    [Required]
+    public string Code { get; set; }      
+    [Required]
+    [Display(Name = "State name")]
+    public  string StateId { get; set; }
+    [Display(Name = "State name")]
+    public State State { get; set; }
+}
