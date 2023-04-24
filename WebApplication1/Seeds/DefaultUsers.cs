@@ -7,10 +7,10 @@ namespace WebApplication1.Seeds
 {
     public static class DefaultUsers
     {
-        public static async Task SeedBasicUserAsync(UserManager<IdentityUser> userManager, RoleManager<IdentityRole> roleManager)
+        public static async Task SeedBasicUserAsync(UserManager<ApplicationUser> userManager, RoleManager<ApplicationRole> roleManager)
         {
             //Seed Default User
-            var defaultUser = new IdentityUser
+            var defaultUser = new ApplicationUser
             {
                 UserName = "basicuser@gmail.com",
                 Email = "basicuser@gmail.com",
@@ -28,10 +28,10 @@ namespace WebApplication1.Seeds
             }
         }
 
-        public static async Task SeedSuperAdminAsync(UserManager<IdentityUser> userManager, RoleManager<IdentityRole> roleManager)
+        public static async Task SeedSuperAdminAsync(UserManager<ApplicationUser> userManager, RoleManager<ApplicationRole> roleManager)
         {
             //Seed Default User
-            var defaultUser = new IdentityUser
+            var defaultUser = new ApplicationUser
             {
                 UserName = "superadmin@gmail.com",
                 Email = "superadmin@gmail.com",
@@ -52,13 +52,13 @@ namespace WebApplication1.Seeds
             }
         }
 
-        private async static Task SeedClaimsForSuperAdmin(this RoleManager<IdentityRole> roleManager)
+        private async static Task SeedClaimsForSuperAdmin(this RoleManager<ApplicationRole> roleManager)
         {
             var adminRole = await roleManager.FindByNameAsync("SuperAdmin");
             await roleManager.AddPermissionClaim(adminRole, "Products");
         }
 
-        public static async Task AddPermissionClaim(this RoleManager<IdentityRole> roleManager, IdentityRole role, string module)
+        public static async Task AddPermissionClaim(this RoleManager<ApplicationRole> roleManager, ApplicationRole role, string module)
         {
             var allClaims = await roleManager.GetClaimsAsync(role);
             var allPermissions = Permissions.GeneratePermissionsForModule(module);

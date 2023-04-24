@@ -23,20 +23,20 @@ namespace WebApplication1.Controllers
         // GET: RiskCaseStatus
         public async Task<IActionResult> Index()
         {
-              return _context.Countries != null ? 
-                          View(await _context.Countries.ToListAsync()) :
-                          Problem("Entity set 'ApplicationDbContext.Countries'  is null.");
+              return _context.Country != null ? 
+                          View(await _context.Country.ToListAsync()) :
+                          Problem("Entity set 'ApplicationDbContext.Country'  is null.");
         }
 
         // GET: RiskCaseStatus/Details/5
         public async Task<IActionResult> Details(string id)
         {
-            if (id == null || _context.Countries == null)
+            if (id == null || _context.Country == null)
             {
                 return NotFound();
             }
 
-            var country = await _context.Countries
+            var country = await _context.Country
                 .FirstOrDefaultAsync(m => m.CountryId == id);
             if (country == null)
             {
@@ -60,12 +60,12 @@ namespace WebApplication1.Controllers
         // GET: RiskCaseStatus/Edit/5
         public async Task<IActionResult> Edit(string id)
         {
-            if (id == null || _context.Countries == null)
+            if (id == null || _context.Country == null)
             {
                 return NotFound();
             }
 
-            var country = await _context.Countries.FirstOrDefaultAsync(c => c.CountryId == id);
+            var country = await _context.Country.FirstOrDefaultAsync(c => c.CountryId == id);
             if (country == null)
             {
                 return NotFound();
@@ -111,12 +111,12 @@ namespace WebApplication1.Controllers
         // GET: RiskCaseStatus/Delete/5
         public async Task<IActionResult> Delete(string id)
         {
-            if (id == null || _context.Countries == null)
+            if (id == null || _context.Country == null)
             {
                 return NotFound();
             }
 
-            var country = await _context.Countries
+            var country = await _context.Country
                 .FirstOrDefaultAsync(m => m.CountryId == id);
             if (country == null)
             {
@@ -131,14 +131,14 @@ namespace WebApplication1.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            if (_context.Countries == null)
+            if (_context.Country == null)
             {
-                return Problem("Entity set 'ApplicationDbContext.Countries'  is null.");
+                return Problem("Entity set 'ApplicationDbContext.Country'  is null.");
             }
-            var country = await _context.Countries.FindAsync(id);
+            var country = await _context.Country.FindAsync(id);
             if (country != null)
             {
-                _context.Countries.Remove(country);
+                _context.Country.Remove(country);
             }
             
             await _context.SaveChangesAsync();
@@ -147,7 +147,7 @@ namespace WebApplication1.Controllers
 
         private bool CountryExists(string id)
         {
-          return (_context.Countries?.Any(e => e.CountryId == id)).GetValueOrDefault();
+          return (_context.Country?.Any(e => e.CountryId == id)).GetValueOrDefault();
         }
     }
 }

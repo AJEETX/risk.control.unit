@@ -23,21 +23,21 @@ namespace WebApplication1.Controllers
         // GET: RiskCaseStatus
         public async Task<IActionResult> Index()
         {
-            ViewData["CountryId"] = new SelectList(_context.Countries, "CountryId", "Code");
-            return _context.States != null ?
-                        View(await _context.States.Include(s => s.Country).ToListAsync()) :
-                        Problem("Entity set 'ApplicationDbContext.States'  is null.");
+            ViewData["CountryId"] = new SelectList(_context.Country, "CountryId", "Code");
+            return _context.State != null ?
+                        View(await _context.State.Include(s => s.Country).ToListAsync()) :
+                        Problem("Entity set 'ApplicationDbContext.State'  is null.");
         }
 
         // GET: RiskCaseStatus/Details/5
         public async Task<IActionResult> Details(string id)
         {
-            if (id == null || _context.States == null)
+            if (id == null || _context.State == null)
             {
                 return NotFound();
             }
 
-            var state = await _context.States.Include(s => s.Country)
+            var state = await _context.State.Include(s => s.Country)
                 .FirstOrDefaultAsync(m => m.StateId == id);
             if (state == null)
             {
@@ -64,12 +64,12 @@ namespace WebApplication1.Controllers
         // GET: RiskCaseStatus/Edit/5
         public async Task<IActionResult> Edit(string id)
         {
-            if (id == null || _context.States == null)
+            if (id == null || _context.State == null)
             {
                 return NotFound();
             }
 
-            var state = await _context.States.FirstOrDefaultAsync(c => c.StateId == id);
+            var state = await _context.State.FirstOrDefaultAsync(c => c.StateId == id);
             if (state == null)
             {
                 return NotFound();
@@ -115,12 +115,12 @@ namespace WebApplication1.Controllers
         // GET: RiskCaseStatus/Delete/5
         public async Task<IActionResult> Delete(string id)
         {
-            if (id == null || _context.States == null)
+            if (id == null || _context.State == null)
             {
                 return NotFound();
             }
 
-            var state = await _context.States
+            var state = await _context.State
                 .FirstOrDefaultAsync(m => m.StateId == id);
             if (state == null)
             {
@@ -135,14 +135,14 @@ namespace WebApplication1.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            if (_context.States == null)
+            if (_context.State == null)
             {
-                return Problem("Entity set 'ApplicationDbContext.States'  is null.");
+                return Problem("Entity set 'ApplicationDbContext.State'  is null.");
             }
-            var state = await _context.States.FindAsync(id);
+            var state = await _context.State.FindAsync(id);
             if (state != null)
             {
-                _context.States.Remove(state);
+                _context.State.Remove(state);
             }
 
             await _context.SaveChangesAsync();
@@ -151,7 +151,7 @@ namespace WebApplication1.Controllers
 
         private bool StateExists(string id)
         {
-            return (_context.States?.Any(e => e.StateId == id)).GetValueOrDefault();
+            return (_context.State?.Any(e => e.StateId == id)).GetValueOrDefault();
         }
     }
 }

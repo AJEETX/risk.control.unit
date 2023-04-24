@@ -23,7 +23,7 @@ builder.Services.AddControllersWithViews().AddRazorRuntimeCompilation().AddNToas
 });
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlite("Data Source=rcu00.db"));
-builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
+builder.Services.AddIdentity<ApplicationUser, ApplicationRole>(options =>
 {
     options.User.RequireUniqueEmail = true;
 })
@@ -83,7 +83,7 @@ async Task SeedDatabase() //can be placed at the very bottom under app.Run()
     using var scope = app.Services.CreateScope();
     using var context = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
     var userManager = scope.ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
-    var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+    var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<ApplicationRole>>();
     context.Database.EnsureCreated();
 
     //check for users
@@ -93,14 +93,14 @@ async Task SeedDatabase() //can be placed at the very bottom under app.Run()
     }
 
     //CREATE ROLES
-    await roleManager.CreateAsync(new IdentityRole(AppRoles.PortalAdmin.ToString()));
-    await roleManager.CreateAsync(new IdentityRole(AppRoles.ClientAdmin.ToString()));
-    await roleManager.CreateAsync(new IdentityRole(AppRoles.VendorAdmin.ToString()));
-    await roleManager.CreateAsync(new IdentityRole(AppRoles.ClientCreator.ToString()));
-    await roleManager.CreateAsync(new IdentityRole(AppRoles.ClientAssigner.ToString()));
-    await roleManager.CreateAsync(new IdentityRole(AppRoles.ClientAssessor.ToString()));
-    await roleManager.CreateAsync(new IdentityRole(AppRoles.VendorSupervisor.ToString()));
-    await roleManager.CreateAsync(new IdentityRole(AppRoles.VendorAgent.ToString()));
+    await roleManager.CreateAsync(new ApplicationRole(AppRoles.PortalAdmin.ToString().Substring(0,2).ToUpper(), AppRoles.PortalAdmin.ToString()));
+    await roleManager.CreateAsync(new ApplicationRole(AppRoles.ClientAdmin.ToString().Substring(0,2).ToUpper(), AppRoles.ClientAdmin.ToString()));
+    await roleManager.CreateAsync(new ApplicationRole(AppRoles.VendorAdmin.ToString().Substring(0,2).ToUpper(), AppRoles.VendorAdmin.ToString()));
+    await roleManager.CreateAsync(new ApplicationRole(AppRoles.ClientCreator.ToString().Substring(0,2).ToUpper(), AppRoles.ClientCreator.ToString()));
+    await roleManager.CreateAsync(new ApplicationRole(AppRoles.ClientAssigner.ToString().Substring(0,2).ToUpper(), AppRoles.ClientAssigner.ToString()));
+    await roleManager.CreateAsync(new ApplicationRole(AppRoles.ClientAssessor.ToString().Substring(0,2).ToUpper(), AppRoles.ClientAssessor.ToString()));
+    await roleManager.CreateAsync(new ApplicationRole(AppRoles.VendorSupervisor.ToString().Substring(0,2).ToUpper(), AppRoles.VendorSupervisor.ToString()));
+    await roleManager.CreateAsync(new ApplicationRole(AppRoles.VendorAgent.ToString().Substring(0,2).ToUpper(), AppRoles.VendorAgent.ToString()));
 
     //CREATE RISK CASE DETAILS
     var created = new RiskCaseStatus
@@ -108,7 +108,7 @@ async Task SeedDatabase() //can be placed at the very bottom under app.Run()
         Name = "CREATED",
         Code = "CREATED"
     };
-    await context.RiskCaseStatus.AddAsync(created);
+    var currentCaseStatus = await context.RiskCaseStatus.AddAsync(created);
 
     var caseType = new RiskCaseType
     {
@@ -116,14 +116,14 @@ async Task SeedDatabase() //can be placed at the very bottom under app.Run()
         Code = "CLAIMS",
     };
     
-    await context.RiskCaseType.AddAsync(caseType);
+    var currentCaseType = await context.RiskCaseType.AddAsync(caseType);
 
     var country = new Country 
     {
         Name = "INDIA",
         Code = "IND",
     };
-    var currentCountry = await context.Countries.AddAsync(country);
+    var currentCountry = await context.Country.AddAsync(country);
 
     var state = new State
     {
@@ -132,10 +132,45 @@ async Task SeedDatabase() //can be placed at the very bottom under app.Run()
         Code = "UP"
     };
 
-    await context.States.AddAsync(state);
+    var currrentState = await context.State.AddAsync(state);
+
+    var _case = new RiskCase
+    {
+        Name =  "TEST CLAIM CASE",
+        Description = "TEST CLAIM CASE DESCRIPTION",
+        RiskCaseTypeId  =  currentCaseType.Entity.RiskCaseTypeId,
+        RiskCaseStatusId = currentCaseStatus.Entity.RiskCaseStatusId,
+        Created = DateTime.Now
+    };
+
+    await context.RiskCase.AddAsync(_case);
+    await context.RiskCase.AddAsync(_case);
+    await context.RiskCase.AddAsync(_case);
+    await context.RiskCase.AddAsync(_case);
+    await context.RiskCase.AddAsync(_case);
+    await context.RiskCase.AddAsync(_case);
+    await context.RiskCase.AddAsync(_case);
+    await context.RiskCase.AddAsync(_case);
+    await context.RiskCase.AddAsync(_case);
+    await context.RiskCase.AddAsync(_case);
+    await context.RiskCase.AddAsync(_case);
+    await context.RiskCase.AddAsync(_case);
+    await context.RiskCase.AddAsync(_case);
+    await context.RiskCase.AddAsync(_case);
+    await context.RiskCase.AddAsync(_case);
+    await context.RiskCase.AddAsync(_case);
+    await context.RiskCase.AddAsync(_case);
+    await context.RiskCase.AddAsync(_case);
+    await context.RiskCase.AddAsync(_case);
+    await context.RiskCase.AddAsync(_case);
+    await context.RiskCase.AddAsync(_case);
+    await context.RiskCase.AddAsync(_case);
+    await context.RiskCase.AddAsync(_case);
+    await context.RiskCase.AddAsync(_case);
+    await context.RiskCase.AddAsync(_case);
 
     await context.SaveChangesAsync();
-    
+
     //Seed portal admin
     var portalAdmin = new ApplicationUser()
     {
@@ -146,6 +181,9 @@ async Task SeedDatabase() //can be placed at the very bottom under app.Run()
         Password = ApplicationUserOptions.Password,
         EmailConfirmed = true,
         PhoneNumberConfirmed = true,
+        StateId = currrentState.Entity.StateId,
+        CountryId = currentCountry.Entity.CountryId,
+        ProfilePictureUrl = "img/admin.png"
     };
     if (userManager.Users.All(u => u.Id != portalAdmin.Id))
     {

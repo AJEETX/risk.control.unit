@@ -22,7 +22,7 @@
                 <th>Name</th>
                 <th>Country</th>
                 <th>Roles</th>
-                <th>Role Type</th>
+                <th>Code</th>
                 <th>Action</th>
             </tr>
         </thead>
@@ -31,26 +31,7 @@
             {
                 <tr>
                     <td>
-                        @{
-                            var defaultImage = "/img/user.jpg";
-
-                            var img = user.ProfileImage;
-
-                            if (string.IsNullOrWhiteSpace(img) || defaultImage == img)
-
-                            {
-                                img = "/img/user.jpg";
-
-                            }
-
-                            else
-
-                            {
-                                img = "upload/" + img;
-
-                            }
-                        }
-                        <img src="@img" height="30" alt="No image" />
+                        <img src="@user.ProfileImage" height="30" alt="No image" />
                     </td>
                     <td>@user.Email</td>
                     <td>@user.FirstName @user.LastName</td>
@@ -59,7 +40,7 @@
                         @foreach (var role in user.Roles)
 
                         {
-                            <span class="badge badge-info">@role</span>
+                            <span class="badge badge-info">@role.</span>
                         }
                     </td>
                     <td>

@@ -1,15 +1,16 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using WebApplication1.Helpers;
+using WebApplication1.Models;
 using WebApplication1.Models.ViewModel;
 
 namespace WebApplication1.Controllers
 {
     public class PermissionController : Controller
     {
-        private readonly RoleManager<IdentityRole> _roleManager;
+        private readonly RoleManager<ApplicationRole> _roleManager;
 
-        public PermissionController(RoleManager<IdentityRole> roleManager)
+        public PermissionController(RoleManager<ApplicationRole> roleManager)
         {
             _roleManager = roleManager;
         }

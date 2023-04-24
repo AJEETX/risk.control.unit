@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using System.Reflection;
 using System.Security.Claims;
+using WebApplication1.Models;
 using WebApplication1.Models.ViewModel;
 
 namespace WebApplication1.Helpers
@@ -17,7 +18,7 @@ namespace WebApplication1.Helpers
             }
         }
 
-        public static async Task AddPermissionClaim(this RoleManager<IdentityRole> roleManager, IdentityRole role, string permission)
+        public static async Task AddPermissionClaim(this RoleManager<ApplicationRole> roleManager, ApplicationRole role, string permission)
         {
             var allClaims = await roleManager.GetClaimsAsync(role);
             if (!allClaims.Any(a => a.Type == "Permission" && a.Value == permission))

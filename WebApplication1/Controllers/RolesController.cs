@@ -2,13 +2,14 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Data;
+using WebApplication1.Models;
 
 namespace WebApplication1.Controllers
 {
     public class RolesController : Controller
     {
-        private readonly RoleManager<IdentityRole> _roleManager;
-        public RolesController(RoleManager<IdentityRole> roleManager)
+        private readonly RoleManager<ApplicationRole> _roleManager;
+        public RolesController(RoleManager<ApplicationRole> roleManager)
         {
             _roleManager = roleManager;
         }
@@ -21,17 +22,17 @@ namespace WebApplication1.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(string roleName)
+        public async Task<IActionResult> Create(string roleName, string roleCode)
         {
             if (roleName != null)
             {
-                await _roleManager.CreateAsync(new IdentityRole(roleName.Trim()));
+                await _roleManager.CreateAsync(new ApplicationRole(roleCode, roleName.Trim()));
             }
             return RedirectToAction(nameof(Index));
         }
         public async Task<IActionResult> Edit(string Id)
         {
-            IdentityRole role = null;
+            ApplicationRole role = null;
             if (!string.IsNullOrEmpty(Id))
             {
                 role = await _roleManager.FindByIdAsync(Id);
@@ -43,11 +44,11 @@ namespace WebApplication1.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(IdentityRole role)
+        public async Task<IActionResult> Edit(ApplicationRole role)
         {
             if (role is not null)
             {
-                var existingRole = await _roleManager.FindByIdAsync(role.Id);
+                var existingRole = await _roleManager.FindByIdAsync(role.Id.ToString());
                 existingRole.Name = role.Name;
                 await _roleManager.UpdateAsync(existingRole);
                 return RedirectToAction(nameof(Index));

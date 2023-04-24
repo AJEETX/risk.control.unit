@@ -1,10 +1,11 @@
-﻿@model List<IdentityRole>
+﻿@model List<ApplicationRole>
 
 <div>
     <h4>Roles Manager</h4>
     <form method="post" action="roles/create"  asp-antiforgery="true">
         <div class="input-group col-4" style="padding:0px;">
-            <input autocomplete="off" name="roleName" type="text" class="form-control">
+            <input autocomplete="off" name="roleCode" type="text" class="form-control" placeholder="role code">
+            <input autocomplete="off" name="roleName" type="text" class="form-control" placeholder="role name">
             <span class="input-group-append">
                 <button type="submit" class="btn btn-success"><i class="fas fa-plus"></i> Role</button>
             </span>

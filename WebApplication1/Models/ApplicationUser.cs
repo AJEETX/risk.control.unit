@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace WebApplication1.Models
 {
-    public partial class ApplicationUser : IdentityUser
+    public partial class ApplicationUser : IdentityUser<Guid>
     {
         [FileExtensions(Extensions = "jpg,jpeg,png")]
         public string? ProfilePictureUrl { get; set; }
@@ -35,5 +35,14 @@ namespace WebApplication1.Models
 
         [Display(Name = "Roles")]
         public bool ApplicationUserRole { get; set; } = false;
+    }
+    public class ApplicationRole : IdentityRole<Guid>
+    {
+        public ApplicationRole(string code, string name)
+        {
+            Name = name;
+            Code = code;
+        }
+        public string Code { get; set; }
     }
 }

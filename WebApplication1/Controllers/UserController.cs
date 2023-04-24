@@ -12,7 +12,7 @@ namespace WebApplication1.Controllers
     public class UserController : Controller
     {
         private readonly UserManager<ApplicationUser> userManager;
-        private readonly RoleManager<IdentityRole> roleManager;
+        private readonly RoleManager<ApplicationRole> roleManager;
         private readonly IWebHostEnvironment webHostEnvironment;
         public List<UsersViewModel> UserList;
         private readonly ApplicationDbContext context;
@@ -20,7 +20,7 @@ namespace WebApplication1.Controllers
 
         public UserController(UserManager<ApplicationUser> userManager,
             IPasswordHasher<ApplicationUser> passwordHasher,
-            RoleManager<IdentityRole> roleManager,
+            RoleManager<ApplicationRole> roleManager,
             IWebHostEnvironment webHostEnvironment,
             ApplicationDbContext context)
         {
@@ -37,7 +37,7 @@ namespace WebApplication1.Controllers
             foreach (Models.ApplicationUser user in users)
             {
                 var thisViewModel = new UsersViewModel();
-                thisViewModel.UserId = user.Id;
+                thisViewModel.UserId = user.Id.ToString();
                 thisViewModel.Email = user?.Email;
                 thisViewModel.UserName = user?.UserName;
                 thisViewModel.ProfileImage = user?.ProfilePictureUrl;
@@ -56,8 +56,8 @@ namespace WebApplication1.Controllers
 
         public IActionResult Create()
         {
-            ViewData["CountryId"] = new SelectList(context.Countries, "CountryId", "Code");
-            ViewData["StateId"] = new SelectList(context.States, "StateId", "Code");
+            ViewData["CountryId"] = new SelectList(context.Country, "CountryId", "Code");
+            ViewData["StateId"] = new SelectList(context.State, "StateId", "Code");
             return View();
         }
         [HttpPost, ActionName("GetStatesByCountryId")]
@@ -66,16 +66,16 @@ namespace WebApplication1.Controllers
             var states = new List <State> ();
             if (!string.IsNullOrEmpty(countryId)) {
                 cId = Convert.ToInt32(countryId);
-                states = await context.States.Where(s => s.CountryId.Equals(cId)).ToListAsync();
+                states = await context.State.Where(s => s.CountryId.Equals(cId)).ToListAsync();
             }
             return Json(states);
         }
-        
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(ApplicationUser user)
         {
-            user.Id = Guid.NewGuid().ToString();
+            user.Id = Guid.NewGuid();
             {
                 if(user.ProfileImage != null && user.ProfileImage.Length >0 )
                 {
@@ -102,8 +102,8 @@ namespace WebApplication1.Controllers
         }
         private void GetCountryStateEdit(ApplicationUser? user)
         {
-            ViewData["CountryId"] = new SelectList(context.Countries, "CountryId", "Name",user?.CountryId);
-            ViewData["StateId"] = new SelectList(context.States, "StateId", "Name", user?.StateId);
+            ViewData["CountryId"] = new SelectList(context.Country, "CountryId", "Name",user?.CountryId);
+            ViewData["StateId"] = new SelectList(context.State, "StateId", "Name", user?.StateId);
         }
         public async Task<IActionResult> Edit(string userId)
         {
@@ -122,10 +122,10 @@ namespace WebApplication1.Controllers
         [HttpPost]
         public async Task<IActionResult> DeleteImage(string id)
         {
-            var user = await context.ApplicationUser.FirstOrDefaultAsync(a => a.Id == id);
+            var user = await context.ApplicationUser.FirstOrDefaultAsync(a => a.Id.ToString() == id);
             if(user is not null)
             {
-                user.ProfilePictureUrl = null; 
+                user.ProfilePictureUrl = null;
                 await context.SaveChangesAsync();
                 return Ok(new { message = "succes", succeeded = true });
             }
@@ -136,7 +136,7 @@ namespace WebApplication1.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(string id, [FromForm] ApplicationUser applicationUser)
         {
-            if (id != applicationUser.Id)
+            if (id != applicationUser.Id.ToString())
             {
                 return NotFound();
             }
@@ -169,9 +169,9 @@ namespace WebApplication1.Controllers
                         user.UserName = applicationUser.UserName;
                         user.Country = applicationUser.Country;
                         user.CountryId = applicationUser.CountryId;
-                        user.State= applicationUser.State;
-                        user.StateId= applicationUser.StateId;
-                        var result  = await userManager.UpdateAsync(user);
+                        user.State = applicationUser.State;
+                        user.StateId = applicationUser.StateId;
+                        var result = await userManager.UpdateAsync(user);
                         if (result.Succeeded)
                         {
                             return RedirectToAction("Index");
@@ -195,6 +195,7 @@ namespace WebApplication1.Controllers
         private async Task<List<string>> GetUserRoles(Models.ApplicationUser user)
         {
             return new List<string>(await userManager.GetRolesAsync(user));
+            // return new List<string>(await userManager.GetRolesAsync(user));
         }
     }
 }

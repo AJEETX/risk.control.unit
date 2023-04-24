@@ -13,10 +13,10 @@ namespace WebApplication1.Controllers
     {
     private readonly SignInManager<Models.ApplicationUser> signInManager;
         private readonly UserManager<Models.ApplicationUser> userManager;
-        private readonly RoleManager<IdentityRole> roleManager;
+        private readonly RoleManager<ApplicationRole> roleManager;
         private readonly IToastNotification toastNotification;
 
-        public UserRolesController(UserManager<Models.ApplicationUser> userManager, RoleManager<IdentityRole> roleManager,
+        public UserRolesController(UserManager<Models.ApplicationUser> userManager, RoleManager<ApplicationRole> roleManager,
             SignInManager<Models.ApplicationUser> signInManager, IToastNotification toastNotification)
         {
             this.userManager = userManager;
@@ -38,7 +38,7 @@ namespace WebApplication1.Controllers
             {
                 var userRoleViewModel = new UserRoleViewModel
                 {
-                    RoleId = role.Id,
+                    RoleId = role.Id.ToString(),
                     RoleName = role.Name
                 };
                 if (await userManager.IsInRoleAsync(user, role.Name))
@@ -73,7 +73,7 @@ namespace WebApplication1.Controllers
             await SeedSuperAdminAsync(userManager, roleManager);
             return RedirectToAction("Index", new { userId = id });
         }
-        private static async Task SeedSuperAdminAsync(UserManager<Models.ApplicationUser> userManager, RoleManager<IdentityRole> roleManager)
+        private static async Task SeedSuperAdminAsync(UserManager<Models.ApplicationUser> userManager, RoleManager<ApplicationRole> roleManager)
         {
             //Seed portal User
             var portalAdmin = new Models.ApplicationUser()
@@ -103,13 +103,13 @@ namespace WebApplication1.Controllers
                 await SeedClaimsForSuperAdmin(roleManager);
             }
         }
-        private async static Task SeedClaimsForSuperAdmin(RoleManager<IdentityRole> roleManager)
+        private async static Task SeedClaimsForSuperAdmin(RoleManager<ApplicationRole> roleManager)
         {
             var adminRole = await roleManager.FindByNameAsync(AppRoles.PortalAdmin.ToString());
             await AddPermissionClaim(roleManager, adminRole, "Products");
         }
 
-        public static async Task AddPermissionClaim(RoleManager<IdentityRole> roleManager, IdentityRole role, string module)
+        public static async Task AddPermissionClaim(RoleManager<ApplicationRole> roleManager, ApplicationRole role, string module)
         {
             var allClaims = await roleManager.GetClaimsAsync(role);
             var allPermissions = Permissions.GeneratePermissionsForModule(module);
