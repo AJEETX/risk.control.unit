@@ -65,13 +65,11 @@
                                 <label asp-for="Password" class="control-label"></label>
                                 <input type="password" asp-for="Password" class="form-control" />
                             </div>
-
                             @if (!string.IsNullOrEmpty(Model.ProfilePictureUrl))
-
                             {
                                 <div class="form-group" id="delete-image-main">
                                     <label asp-for="ProfileImage"></label>
-                                    <img height="150" src="/upload/@Model.ProfilePictureUrl" />
+                                    <img height="150" src="/@Model.ProfilePictureUrl" />
                                     <button id="btnDeleteImage" data-id="@Model.Id" type="button"
                                         class="btn btn-danger">Delete Image</button>
                                 </div>

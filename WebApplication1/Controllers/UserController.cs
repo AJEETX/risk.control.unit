@@ -102,7 +102,7 @@ namespace WebApplication1.Controllers
         private void GetCountryStateEdit(ApplicationUser? user)
         {
             ViewData["CountryId"] = new SelectList(context.Country, "CountryId", "Name",user?.CountryId);
-            ViewData["StateId"] = new SelectList(context.State, "StateId", "Name", user?.StateId);
+            ViewData["StateId"] = new SelectList(context.State.Where(s => s.CountryId == user.CountryId ), "StateId", "Name", user?.StateId);
         }
         public async Task<IActionResult> Edit(string userId)
         {
