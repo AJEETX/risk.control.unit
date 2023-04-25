@@ -40,6 +40,7 @@
             </thead>
             <tbody>
                 @foreach (var item in Model)
+
                 {
                     <tr>
                         <td>
@@ -72,15 +73,20 @@
                 }
             </tbody>
         </table>
-    </form>
     <br />
     @{
         var PageNumber = (int)@ViewBag.PageNumber;
+
         var PageSize = (int)@ViewBag.PageSize;
+
         var TotalPages = (int)@ViewBag.TotalPages;
+
         var ShowPrevious = (bool)@ViewBag.ShowPrevious;
+
         var ShowNext = (bool)@ViewBag.ShowNext;
+
         var ShowFirst = (bool)@ViewBag.ShowFirst;
+
         var ShowLast = (bool)@ViewBag.ShowLast;
     }
     <ul class="pagination">
@@ -102,10 +108,12 @@
                     class="fas fa-fast-forward"></i></a>
         </li>
     </ul>
-</div>
-<div class="card-footer text-right">
-    <a asp-action="Index" class="btn btn-secondary"> <i class="fa fa-window-close"></i>
-        Cancel</a>
-    <button id="broadcast" disabled type="submit" class="btn btn-success"><i class="fa fa-paper-plane" aria-hidden="true"></i> BROADCAST
-    </button>
+    <div class="card-footer text-right">
+        <a asp-action="Index" class="btn btn-secondary"> <i class="fa fa-window-close"></i>
+            Cancel</a>
+        <button id="broadcast" disabled type="submit" class="btn btn-success"><i class="fa fa-paper-plane"
+                aria-hidden="true"></i> BROADCAST
+        </button>
+    </div>
+    </form>
 </div>
