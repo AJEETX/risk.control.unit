@@ -368,7 +368,7 @@ async Task SeedDatabase() //can be placed at the very bottom under app.Run()
     {
         Name =  "TEST CLAIM CASE 1",
         Description = "TEST CLAIM CASE DESCRIPTION",
-        InvestigationCaseTypeId  =  currentCaseType.Entity.LineOfBusinessId,
+        LineOfBusinessId  =  currentCaseType.Entity.LineOfBusinessId,
         InvestigationCaseStatusId = currentCaseStatus1.Entity.InvestigationCaseStatusId,
         Created = DateTime.Now
     };
@@ -376,7 +376,7 @@ async Task SeedDatabase() //can be placed at the very bottom under app.Run()
     {
         Name =  "TEST CLAIM CASE 2",
         Description = "TEST CLAIM CASE DESCRIPTION",
-        InvestigationCaseTypeId  =  currentCaseType.Entity.LineOfBusinessId,
+        LineOfBusinessId  =  currentCaseType.Entity.LineOfBusinessId,
         InvestigationCaseStatusId = currentCaseStatus2.Entity.InvestigationCaseStatusId,
         Created = DateTime.Now
     };
@@ -385,7 +385,7 @@ async Task SeedDatabase() //can be placed at the very bottom under app.Run()
     {
         Name =  "TEST CLAIM CASE 3",
         Description = "TEST CLAIM CASE DESCRIPTION",
-        InvestigationCaseTypeId  =  currentCaseType.Entity.LineOfBusinessId,
+        LineOfBusinessId  =  currentCaseType.Entity.LineOfBusinessId,
         InvestigationCaseStatusId = currentCaseStatus3.Entity.InvestigationCaseStatusId,
         Created = DateTime.Now
     };
@@ -393,7 +393,7 @@ async Task SeedDatabase() //can be placed at the very bottom under app.Run()
     {
         Name =  "TEST CLAIM CASE 4",
         Description = "TEST CLAIM CASE DESCRIPTION",
-        InvestigationCaseTypeId  =  currentCaseType.Entity.LineOfBusinessId,
+        LineOfBusinessId  =  currentCaseType.Entity.LineOfBusinessId,
         InvestigationCaseStatusId = currentCaseStatus4.Entity.InvestigationCaseStatusId,
         Created = DateTime.Now
     };    
@@ -401,7 +401,7 @@ async Task SeedDatabase() //can be placed at the very bottom under app.Run()
     {
         Name =  "TEST CLAIM CASE 5",
         Description = "TEST CLAIM CASE DESCRIPTION",
-        InvestigationCaseTypeId  =  currentCaseType.Entity.LineOfBusinessId,
+        LineOfBusinessId  =  currentCaseType.Entity.LineOfBusinessId,
         InvestigationCaseStatusId = currentCaseStatus5.Entity.InvestigationCaseStatusId,
         Created = DateTime.Now
     };   
@@ -409,7 +409,7 @@ async Task SeedDatabase() //can be placed at the very bottom under app.Run()
     {
         Name =  "TEST CLAIM CASE 6",
         Description = "TEST CLAIM CASE DESCRIPTION",
-        InvestigationCaseTypeId  =  currentCaseType.Entity.LineOfBusinessId,
+        LineOfBusinessId  =  currentCaseType.Entity.LineOfBusinessId,
         InvestigationCaseStatusId = currentCaseStatus6.Entity.InvestigationCaseStatusId,
         Created = DateTime.Now
     };     
@@ -417,7 +417,7 @@ async Task SeedDatabase() //can be placed at the very bottom under app.Run()
     {
         Name =  "TEST CLAIM CASE 7",
         Description = "TEST CLAIM CASE DESCRIPTION",
-        InvestigationCaseTypeId  =  currentCaseType.Entity.LineOfBusinessId,
+        LineOfBusinessId  =  currentCaseType.Entity.LineOfBusinessId,
         InvestigationCaseStatusId = currentCaseStatus7.Entity.InvestigationCaseStatusId,
         Created = DateTime.Now
     };        
@@ -425,7 +425,7 @@ async Task SeedDatabase() //can be placed at the very bottom under app.Run()
     {
         Name =  "TEST CLAIM CASE 8",
         Description = "TEST CLAIM CASE DESCRIPTION",
-        InvestigationCaseTypeId  =  currentCaseType.Entity.LineOfBusinessId,
+        LineOfBusinessId  =  currentCaseType.Entity.LineOfBusinessId,
         InvestigationCaseStatusId = currentCaseStatus2.Entity.InvestigationCaseStatusId,
         Created = DateTime.Now
     };   
@@ -433,7 +433,7 @@ async Task SeedDatabase() //can be placed at the very bottom under app.Run()
     {
         Name =  "TEST CLAIM CASE 9",
         Description = "TEST CLAIM CASE DESCRIPTION",
-        InvestigationCaseTypeId  =  currentCaseType.Entity.LineOfBusinessId,
+        LineOfBusinessId  =  currentCaseType.Entity.LineOfBusinessId,
         InvestigationCaseStatusId = currentCaseStatus3.Entity.InvestigationCaseStatusId,
         Created = DateTime.Now
     };         
@@ -441,7 +441,7 @@ async Task SeedDatabase() //can be placed at the very bottom under app.Run()
     {
         Name =  "TEST CLAIM CASE 10",
         Description = "TEST CLAIM CASE DESCRIPTION",
-        InvestigationCaseTypeId  =  currentCaseType.Entity.LineOfBusinessId,
+        LineOfBusinessId  =  currentCaseType.Entity.LineOfBusinessId,
         InvestigationCaseStatusId = currentCaseStatus4.Entity.InvestigationCaseStatusId,
         Created = DateTime.Now
     };    
@@ -449,7 +449,7 @@ async Task SeedDatabase() //can be placed at the very bottom under app.Run()
     {
         Name =  "TEST CLAIM CASE 11",
         Description = "TEST CLAIM CASE DESCRIPTION",
-        InvestigationCaseTypeId  =  currentCaseType.Entity.LineOfBusinessId,
+        LineOfBusinessId  =  currentCaseType.Entity.LineOfBusinessId,
         InvestigationCaseStatusId = currentCaseStatus6.Entity.InvestigationCaseStatusId,
         Created = DateTime.Now
     };      
@@ -457,7 +457,7 @@ async Task SeedDatabase() //can be placed at the very bottom under app.Run()
     {
         Name =  "TEST CLAIM CASE 12",
         Description = "TEST CLAIM CASE DESCRIPTION",
-        InvestigationCaseTypeId  =  currentCaseType.Entity.LineOfBusinessId,
+        LineOfBusinessId  =  currentCaseType.Entity.LineOfBusinessId,
         InvestigationCaseStatusId = currentCaseStatus5.Entity.InvestigationCaseStatusId,
         Created = DateTime.Now
     };  
@@ -465,7 +465,7 @@ async Task SeedDatabase() //can be placed at the very bottom under app.Run()
     {
         Name =  "TEST CLAIM CASE 13",
         Description = "TEST CLAIM CASE DESCRIPTION",
-        InvestigationCaseTypeId  =  currentCaseType.Entity.LineOfBusinessId,
+        LineOfBusinessId  =  currentCaseType.Entity.LineOfBusinessId,
         InvestigationCaseStatusId = currentCaseStatus3.Entity.InvestigationCaseStatusId,
         Created = DateTime.Now
     };   
@@ -473,7 +473,7 @@ async Task SeedDatabase() //can be placed at the very bottom under app.Run()
     {
         Name =  "TEST CLAIM CASE 14",
         Description = "TEST CLAIM CASE DESCRIPTION",
-        InvestigationCaseTypeId  =  currentCaseType.Entity.LineOfBusinessId,
+        LineOfBusinessId  =  currentCaseType.Entity.LineOfBusinessId,
         InvestigationCaseStatusId = currentCaseStatus1.Entity.InvestigationCaseStatusId,
         Created = DateTime.Now
     };        
@@ -482,7 +482,7 @@ async Task SeedDatabase() //can be placed at the very bottom under app.Run()
     {
         Name =  "TEST CLAIM CASE 15",
         Description = "TEST CLAIM CASE DESCRIPTION",
-        InvestigationCaseTypeId  =  currentCaseType.Entity.LineOfBusinessId,
+        LineOfBusinessId  =  currentCaseType.Entity.LineOfBusinessId,
         InvestigationCaseStatusId = currentCaseStatus3.Entity.InvestigationCaseStatusId,
         Created = DateTime.Now
     };  
@@ -490,7 +490,7 @@ async Task SeedDatabase() //can be placed at the very bottom under app.Run()
     {
         Name =  "TEST CLAIM CASE 16",
         Description = "TEST CLAIM CASE DESCRIPTION",
-        InvestigationCaseTypeId  =  currentCaseType.Entity.LineOfBusinessId,
+        LineOfBusinessId  =  currentCaseType.Entity.LineOfBusinessId,
         InvestigationCaseStatusId = currentCaseStatus7.Entity.InvestigationCaseStatusId,
         Created = DateTime.Now
     };  
@@ -498,7 +498,7 @@ async Task SeedDatabase() //can be placed at the very bottom under app.Run()
     {
         Name =  "TEST CLAIM CASE 17",
         Description = "TEST CLAIM CASE DESCRIPTION",
-        InvestigationCaseTypeId  =  currentCaseType.Entity.LineOfBusinessId,
+        LineOfBusinessId  =  currentCaseType.Entity.LineOfBusinessId,
         InvestigationCaseStatusId = currentCaseStatus4.Entity.InvestigationCaseStatusId,
         Created = DateTime.Now
     };  
@@ -506,7 +506,7 @@ async Task SeedDatabase() //can be placed at the very bottom under app.Run()
     {
         Name =  "TEST CLAIM CASE 18",
         Description = "TEST CLAIM CASE DESCRIPTION",
-        InvestigationCaseTypeId  =  currentCaseType.Entity.LineOfBusinessId,
+        LineOfBusinessId  =  currentCaseType.Entity.LineOfBusinessId,
         InvestigationCaseStatusId = currentCaseStatus3.Entity.InvestigationCaseStatusId,
         Created = DateTime.Now
     };  
@@ -514,7 +514,7 @@ async Task SeedDatabase() //can be placed at the very bottom under app.Run()
     {
         Name =  "TEST CLAIM CASE 19",
         Description = "TEST CLAIM CASE DESCRIPTION",
-        InvestigationCaseTypeId  =  currentCaseType.Entity.LineOfBusinessId,
+        LineOfBusinessId  =  currentCaseType.Entity.LineOfBusinessId,
         InvestigationCaseStatusId = currentCaseStatus4.Entity.InvestigationCaseStatusId,
         Created = DateTime.Now
     };  
@@ -522,7 +522,7 @@ async Task SeedDatabase() //can be placed at the very bottom under app.Run()
     {
         Name =  "TEST CLAIM CASE 20",
         Description = "TEST CLAIM CASE DESCRIPTION",
-        InvestigationCaseTypeId  =  currentCaseType.Entity.LineOfBusinessId,
+        LineOfBusinessId  =  currentCaseType.Entity.LineOfBusinessId,
         InvestigationCaseStatusId = currentCaseStatus2.Entity.InvestigationCaseStatusId,
         Created = DateTime.Now
     };  
@@ -530,7 +530,7 @@ async Task SeedDatabase() //can be placed at the very bottom under app.Run()
     {
         Name =  "TEST CLAIM CASE 21",
         Description = "TEST CLAIM CASE DESCRIPTION",
-        InvestigationCaseTypeId  =  currentCaseType.Entity.LineOfBusinessId,
+        LineOfBusinessId  =  currentCaseType.Entity.LineOfBusinessId,
         InvestigationCaseStatusId = currentCaseStatus7.Entity.InvestigationCaseStatusId,
         Created = DateTime.Now
     };     
@@ -538,7 +538,7 @@ async Task SeedDatabase() //can be placed at the very bottom under app.Run()
     {
         Name =  "TEST CLAIM CASE 22",
         Description = "TEST CLAIM CASE DESCRIPTION",
-        InvestigationCaseTypeId  =  currentCaseType.Entity.LineOfBusinessId,
+        LineOfBusinessId  =  currentCaseType.Entity.LineOfBusinessId,
         InvestigationCaseStatusId = currentCaseStatus2.Entity.InvestigationCaseStatusId,
         Created = DateTime.Now
     }; 
@@ -546,7 +546,7 @@ async Task SeedDatabase() //can be placed at the very bottom under app.Run()
     {
         Name =  "TEST CLAIM CASE 23",
         Description = "TEST CLAIM CASE DESCRIPTION",
-        InvestigationCaseTypeId  =  currentCaseType.Entity.LineOfBusinessId,
+        LineOfBusinessId  =  currentCaseType.Entity.LineOfBusinessId,
         InvestigationCaseStatusId = currentCaseStatus4.Entity.InvestigationCaseStatusId,
         Created = DateTime.Now
     };  
@@ -555,7 +555,7 @@ async Task SeedDatabase() //can be placed at the very bottom under app.Run()
     {
         Name =  "TEST CLAIM CASE 24",
         Description = "TEST CLAIM CASE DESCRIPTION",
-        InvestigationCaseTypeId  =  currentCaseType.Entity.LineOfBusinessId,
+        LineOfBusinessId  =  currentCaseType.Entity.LineOfBusinessId,
         InvestigationCaseStatusId = currentCaseStatus5.Entity.InvestigationCaseStatusId,
         Created = DateTime.Now
     };  
@@ -564,7 +564,7 @@ async Task SeedDatabase() //can be placed at the very bottom under app.Run()
     {
         Name =  "TEST CLAIM CASE 25",
         Description = "TEST CLAIM CASE DESCRIPTION",
-        InvestigationCaseTypeId  =  currentCaseType.Entity.LineOfBusinessId,
+        LineOfBusinessId  =  currentCaseType.Entity.LineOfBusinessId,
         InvestigationCaseStatusId = currentCaseStatus2.Entity.InvestigationCaseStatusId,
         Created = DateTime.Now
     };  

@@ -25,15 +25,15 @@
                     <span asp-validation-for="Description" class="text-danger"></span>
                 </div>
                 <div class="form-group">
-                    <label asp-for="InvestigationCaseTypeId" class="control-label"></label>
-                    <select asp-for="InvestigationCaseTypeId" class="form-control" asp-items="ViewBag.RiskCaseTypeId">
+                    <label asp-for="LineOfBusinessId" class="control-label"></label>
+                    <select asp-for="LineOfBusinessId" class="form-control" asp-items="ViewBag.LineOfBusinessId">
                         <option>--- SELECT CASE TYPE ---</option>
                     </select>
-                    <span asp-validation-for="InvestigationCaseTypeId" class="text-danger"></span>
+                    <span asp-validation-for="LineOfBusinessId" class="text-danger"></span>
                 </div>
                 <div class="form-group">
                     <label asp-for="InvestigationCaseStatusId" class="control-label"></label>
-                    <select asp-for="InvestigationCaseStatusId" class="form-control" asp-items="ViewBag.RiskCaseStatusId">
+                    <select asp-for="InvestigationCaseStatusId" class="form-control" asp-items="ViewBag.InvestigationCaseStatusId">
                         <option>--- SELECT CASE STATUS ---</option>
                     </select>
                     <span asp-validation-for="InvestigationCaseStatusId" class="text-danger"></span>

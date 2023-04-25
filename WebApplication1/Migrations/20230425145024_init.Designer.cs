@@ -11,7 +11,7 @@ using WebApplication1.Data;
 namespace WebApplication1.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230425142659_init")]
+    [Migration("20230425145024_init")]
     partial class init
     {
         /// <inheritdoc />

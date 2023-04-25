@@ -12,7 +12,7 @@ namespace WebApplication1.Models
         public string Description { get; set; }
         [Required]
         [Display(Name = "Case type")]
-        public string InvestigationCaseTypeId { get; set; }
+        public string LineOfBusinessId { get; set; }
         [Display(Name = "Case type")]
         public LineOfBusiness LineOfBusiness { get; set; }
         [Required]

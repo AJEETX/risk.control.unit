@@ -36,14 +36,14 @@ namespace WebApplication1.Controllers
                 return NotFound();
             }
 
-            var riskCaseType = await _context.LineOfBusiness
+            var lineOfBusiness = await _context.LineOfBusiness
                 .FirstOrDefaultAsync(m => m.LineOfBusinessId == id);
-            if (riskCaseType == null)
+            if (lineOfBusiness == null)
             {
                 return NotFound();
             }
 
-            return View(riskCaseType);
+            return View(lineOfBusiness);
         }
 
         // GET: RiskCaseTypes/Create
@@ -57,9 +57,9 @@ namespace WebApplication1.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(LineOfBusiness riskCaseType)
+        public async Task<IActionResult> Create(LineOfBusiness lineOfBusiness)
         {
-            _context.Add(riskCaseType);
+            _context.Add(lineOfBusiness);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
@@ -72,12 +72,12 @@ namespace WebApplication1.Controllers
                 return NotFound();
             }
 
-            var riskCaseType = await _context.LineOfBusiness.FindAsync(id);
-            if (riskCaseType == null)
+            var lineOfBusiness = await _context.LineOfBusiness.FindAsync(id);
+            if (lineOfBusiness == null)
             {
                 return NotFound();
             }
-            return View(riskCaseType);
+            return View(lineOfBusiness);
         }
 
         // POST: RiskCaseTypes/Edit/5
@@ -85,9 +85,9 @@ namespace WebApplication1.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(string id, LineOfBusiness riskCaseType)
+        public async Task<IActionResult> Edit(string id, LineOfBusiness lineOfBusiness)
         {
-            if (id != riskCaseType.LineOfBusinessId)
+            if (id != lineOfBusiness.LineOfBusinessId)
             {
                 return NotFound();
             }
@@ -96,12 +96,12 @@ namespace WebApplication1.Controllers
             {
                 try
                 {
-                    _context.Update(riskCaseType);
+                    _context.Update(lineOfBusiness);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!RiskCaseTypeExists(riskCaseType.LineOfBusinessId))
+                    if (!lineOfBusinessTypeExists(lineOfBusiness.LineOfBusinessId))
                     {
                         return NotFound();
                     }
@@ -112,7 +112,7 @@ namespace WebApplication1.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(riskCaseType);
+            return View(lineOfBusiness);
         }
 
         // GET: RiskCaseTypes/Delete/5
@@ -123,14 +123,14 @@ namespace WebApplication1.Controllers
                 return NotFound();
             }
 
-            var riskCaseType = await _context.LineOfBusiness
+            var lineOfBusiness = await _context.LineOfBusiness
                 .FirstOrDefaultAsync(m => m.LineOfBusinessId == id);
-            if (riskCaseType == null)
+            if (lineOfBusiness == null)
             {
                 return NotFound();
             }
 
-            return View(riskCaseType);
+            return View(lineOfBusiness);
         }
 
         // POST: RiskCaseTypes/Delete/5
@@ -142,17 +142,17 @@ namespace WebApplication1.Controllers
             {
                 return Problem("Entity set 'ApplicationDbContext.RiskCaseType'  is null.");
             }
-            var riskCaseType = await _context.LineOfBusiness.FindAsync(id);
-            if (riskCaseType != null)
+            var lineOfBusiness = await _context.LineOfBusiness.FindAsync(id);
+            if (lineOfBusiness != null)
             {
-                _context.LineOfBusiness.Remove(riskCaseType);
+                _context.LineOfBusiness.Remove(lineOfBusiness);
             }
 
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool RiskCaseTypeExists(string id)
+        private bool lineOfBusinessTypeExists(string id)
         {
             return (_context.LineOfBusiness?.Any(e => e.LineOfBusinessId == id)).GetValueOrDefault();
         }

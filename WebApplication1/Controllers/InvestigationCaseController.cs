@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Data;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Hosting;
+﻿using System.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -88,23 +82,23 @@ namespace WebApplication1.Controllers
                 return NotFound();
             }
 
-            var riskCase = await _context.InvestigationCase
+            var investigationCase = await _context.InvestigationCase
                 .Include(r => r.InvestigationCaseStatus)
                 .Include(r => r.LineOfBusiness)
                 .FirstOrDefaultAsync(m => m.InvestigationId == id);
-            if (riskCase == null)
+            if (investigationCase == null)
             {
                 return NotFound();
             }
 
-            return View(riskCase);
+            return View(investigationCase);
         }
 
         // GET: RiskCases/Create
         public IActionResult Create()
         {
-            ViewData["RiskCaseStatusId"] = new SelectList(_context.InvestigationCaseStatus, "RiskCaseStatusId", "Code");
-            ViewData["RiskCaseTypeId"] = new SelectList(_context.LineOfBusiness, "RiskCaseTypeId", "Code");
+            ViewBag.InvestigationCaseStatusId = new SelectList(_context.InvestigationCaseStatus, "InvestigationCaseStatusId", "Name");
+            ViewBag.LineOfBusinessId = new SelectList(_context.LineOfBusiness, "LineOfBusinessId", "Name");
             return View();
         }
 
@@ -113,9 +107,9 @@ namespace WebApplication1.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(InvestigationCase riskCase)
+        public async Task<IActionResult> Create(InvestigationCase investigationCase)
         {
-            _context.Add(riskCase);
+            _context.Add(investigationCase);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
@@ -128,14 +122,14 @@ namespace WebApplication1.Controllers
                 return NotFound();
             }
 
-            var riskCase = await _context.InvestigationCase.FindAsync(id);
-            if (riskCase == null)
+            var investigationCase = await _context.InvestigationCase.FindAsync(id);
+            if (investigationCase == null)
             {
                 return NotFound();
             }
-            ViewData["RiskCaseStatusId"] = new SelectList(_context.InvestigationCaseStatus, "RiskCaseStatusId", "Name", riskCase.InvestigationCaseStatusId);
-            ViewData["RiskCaseTypeId"] = new SelectList(_context.LineOfBusiness, "RiskCaseTypeId", "Name", riskCase.InvestigationCaseTypeId);
-            return View(riskCase);
+            ViewBag.InvestigationCaseStatusId = new SelectList(_context.InvestigationCaseStatus, "InvestigationCaseStatusId", "Name", investigationCase.InvestigationCaseStatusId);
+            ViewBag.LineOfBusinessId = new SelectList(_context.LineOfBusiness, "LineOfBusinessId", "Name", investigationCase.LineOfBusinessId);
+            return View(investigationCase);
         }
 
         // POST: RiskCases/Edit/5
@@ -143,21 +137,21 @@ namespace WebApplication1.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(string id, [Bind("RiskCaseId,Name,Description,RiskCaseTypeId,RiskCaseStatusId,Created")] InvestigationCase riskCase)
+        public async Task<IActionResult> Edit(string id, InvestigationCase investigationCase)
         {
-            if (id != riskCase.InvestigationId)
+            if (id != investigationCase.InvestigationId)
             {
                 return NotFound();
             }
 
             try
             {
-                _context.Update(riskCase);
+                _context.Update(investigationCase);
                 await _context.SaveChangesAsync();
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!RiskCaseExists(riskCase.InvestigationId))
+                if (!InvestigationCaseExists(investigationCase.InvestigationId))
                 {
                     return NotFound();
                 }
@@ -177,16 +171,16 @@ namespace WebApplication1.Controllers
                 return NotFound();
             }
 
-            var riskCase = await _context.InvestigationCase
+            var investigationCase = await _context.InvestigationCase
                 .Include(r => r.InvestigationCaseStatus)
                 .Include(r => r.LineOfBusiness)
                 .FirstOrDefaultAsync(m => m.InvestigationId == id);
-            if (riskCase == null)
+            if (investigationCase == null)
             {
                 return NotFound();
             }
 
-            return View(riskCase);
+            return View(investigationCase);
         }
 
         // POST: RiskCases/Delete/5
@@ -198,10 +192,10 @@ namespace WebApplication1.Controllers
             {
                 return Problem("Entity set 'ApplicationDbContext.RiskCase'  is null.");
             }
-            var riskCase = await _context.InvestigationCase.FindAsync(id);
-            if (riskCase != null)
+            var investigationCase = await _context.InvestigationCase.FindAsync(id);
+            if (investigationCase != null)
             {
-                _context.InvestigationCase.Remove(riskCase);
+                _context.InvestigationCase.Remove(investigationCase);
             }
 
             await _context.SaveChangesAsync();
@@ -267,7 +261,7 @@ namespace WebApplication1.Controllers
             await Task.Delay(1);
             return Ok();
         }
-        private bool RiskCaseExists(string id)
+        private bool InvestigationCaseExists(string id)
         {
             return (_context.InvestigationCase?.Any(e => e.InvestigationId == id)).GetValueOrDefault();
         }

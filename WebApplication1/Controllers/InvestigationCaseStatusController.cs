@@ -36,14 +36,14 @@ namespace WebApplication1.Controllers
                 return NotFound();
             }
 
-            var riskCaseStatus = await _context.InvestigationCaseStatus
+            var investigationCaseStatus = await _context.InvestigationCaseStatus
                 .FirstOrDefaultAsync(m => m.InvestigationCaseStatusId == id);
-            if (riskCaseStatus == null)
+            if (investigationCaseStatus == null)
             {
                 return NotFound();
             }
 
-            return View(riskCaseStatus);
+            return View(investigationCaseStatus);
         }
 
         // GET: RiskCaseStatus/Create
@@ -57,9 +57,9 @@ namespace WebApplication1.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(InvestigationCaseStatus riskCaseStatus)
+        public async Task<IActionResult> Create(InvestigationCaseStatus investigationCaseStatus)
         {
-            _context.Add(riskCaseStatus);
+            _context.Add(investigationCaseStatus);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
@@ -72,12 +72,12 @@ namespace WebApplication1.Controllers
                 return NotFound();
             }
 
-            var riskCaseStatus = await _context.InvestigationCaseStatus.FindAsync(id);
-            if (riskCaseStatus == null)
+            var investigationCaseStatus = await _context.InvestigationCaseStatus.FindAsync(id);
+            if (investigationCaseStatus == null)
             {
                 return NotFound();
             }
-            return View(riskCaseStatus);
+            return View(investigationCaseStatus);
         }
 
         // POST: RiskCaseStatus/Edit/5
@@ -85,9 +85,9 @@ namespace WebApplication1.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(string id, [Bind("RiskCaseStatusId,Name,Code,Created")] InvestigationCaseStatus riskCaseStatus)
+        public async Task<IActionResult> Edit(string id, InvestigationCaseStatus investigationCaseStatus)
         {
-            if (id != riskCaseStatus.InvestigationCaseStatusId)
+            if (id != investigationCaseStatus.InvestigationCaseStatusId)
             {
                 return NotFound();
             }
@@ -96,12 +96,12 @@ namespace WebApplication1.Controllers
             {
                 try
                 {
-                    _context.Update(riskCaseStatus);
+                    _context.Update(investigationCaseStatus);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!RiskCaseStatusExists(riskCaseStatus.InvestigationCaseStatusId))
+                    if (!InvestigationCaseStatusExists(investigationCaseStatus.InvestigationCaseStatusId))
                     {
                         return NotFound();
                     }
@@ -112,7 +112,7 @@ namespace WebApplication1.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(riskCaseStatus);
+            return View(investigationCaseStatus);
         }
 
         // GET: RiskCaseStatus/Delete/5
@@ -123,14 +123,14 @@ namespace WebApplication1.Controllers
                 return NotFound();
             }
 
-            var riskCaseStatus = await _context.InvestigationCaseStatus
+            var investigationCaseStatus = await _context.InvestigationCaseStatus
                 .FirstOrDefaultAsync(m => m.InvestigationCaseStatusId == id);
-            if (riskCaseStatus == null)
+            if (investigationCaseStatus == null)
             {
                 return NotFound();
             }
 
-            return View(riskCaseStatus);
+            return View(investigationCaseStatus);
         }
 
         // POST: RiskCaseStatus/Delete/5
@@ -142,17 +142,17 @@ namespace WebApplication1.Controllers
             {
                 return Problem("Entity set 'ApplicationDbContext.RiskCaseStatus'  is null.");
             }
-            var riskCaseStatus = await _context.InvestigationCaseStatus.FindAsync(id);
-            if (riskCaseStatus != null)
+            var investigationCaseStatus = await _context.InvestigationCaseStatus.FindAsync(id);
+            if (investigationCaseStatus != null)
             {
-                _context.InvestigationCaseStatus.Remove(riskCaseStatus);
+                _context.InvestigationCaseStatus.Remove(investigationCaseStatus);
             }
             
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool RiskCaseStatusExists(string id)
+        private bool InvestigationCaseStatusExists(string id)
         {
           return (_context.InvestigationCaseStatus?.Any(e => e.InvestigationCaseStatusId == id)).GetValueOrDefault();
         }
