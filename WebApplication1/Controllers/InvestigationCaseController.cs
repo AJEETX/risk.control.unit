@@ -13,12 +13,12 @@ using WebApplication1.Models;
 
 namespace WebApplication1.Controllers
 {
-    public class RiskCaseController : Controller
+    public class InvestigationCaseController : Controller
     {
         private readonly ApplicationDbContext _context;
         private readonly IWebHostEnvironment webHostEnvironment;
 
-        public RiskCaseController(ApplicationDbContext context, IWebHostEnvironment webHostEnvironment)
+        public InvestigationCaseController(ApplicationDbContext context, IWebHostEnvironment webHostEnvironment)
         {
             _context = context;
             this.webHostEnvironment = webHostEnvironment;
@@ -39,15 +39,15 @@ namespace WebApplication1.Controllers
             }
 
             ViewBag.CurrentFilter = searchString;
-            var cases = _context.RiskCase.Include(r => r.RiskCaseStatus).Include(r => r.RiskCaseType).AsQueryable();
+            var cases = _context.InvestigationCase.Include(r => r.InvestigationCaseStatus).Include(r => r.LineOfBusiness).AsQueryable();
              if (!String.IsNullOrEmpty(searchString))
             {
                 cases = cases.Where(s => 
                  s.Name.ToLower().Contains(searchString.Trim().ToLower()) ||
-                 s.RiskCaseStatus.Name.ToLower().Contains(searchString.Trim().ToLower()) ||
-                 s.RiskCaseStatus.Code.ToLower().Contains(searchString.Trim().ToLower()) ||
-                 s.RiskCaseType.Name.ToLower().Contains(searchString.Trim().ToLower()) ||
-                 s.RiskCaseType.Code.ToLower().Contains(searchString.Trim().ToLower()) ||
+                 s.InvestigationCaseStatus.Name.ToLower().Contains(searchString.Trim().ToLower()) ||
+                 s.InvestigationCaseStatus.Code.ToLower().Contains(searchString.Trim().ToLower()) ||
+                 s.LineOfBusiness.Name.ToLower().Contains(searchString.Trim().ToLower()) ||
+                 s.LineOfBusiness.Code.ToLower().Contains(searchString.Trim().ToLower()) ||
                  s.Description.ToLower().Contains(searchString.Trim().ToLower())
                  );
             }
@@ -83,15 +83,15 @@ namespace WebApplication1.Controllers
         // GET: RiskCases/Details/5
         public async Task<IActionResult> Details(string id)
         {
-            if (id == null || _context.RiskCase == null)
+            if (id == null || _context.InvestigationCase == null)
             {
                 return NotFound();
             }
 
-            var riskCase = await _context.RiskCase
-                .Include(r => r.RiskCaseStatus)
-                .Include(r => r.RiskCaseType)
-                .FirstOrDefaultAsync(m => m.RiskCaseId == id);
+            var riskCase = await _context.InvestigationCase
+                .Include(r => r.InvestigationCaseStatus)
+                .Include(r => r.LineOfBusiness)
+                .FirstOrDefaultAsync(m => m.InvestigationId == id);
             if (riskCase == null)
             {
                 return NotFound();
@@ -103,8 +103,8 @@ namespace WebApplication1.Controllers
         // GET: RiskCases/Create
         public IActionResult Create()
         {
-            ViewData["RiskCaseStatusId"] = new SelectList(_context.RiskCaseStatus, "RiskCaseStatusId", "Code");
-            ViewData["RiskCaseTypeId"] = new SelectList(_context.RiskCaseType, "RiskCaseTypeId", "Code");
+            ViewData["RiskCaseStatusId"] = new SelectList(_context.InvestigationCaseStatus, "RiskCaseStatusId", "Code");
+            ViewData["RiskCaseTypeId"] = new SelectList(_context.LineOfBusiness, "RiskCaseTypeId", "Code");
             return View();
         }
 
@@ -113,7 +113,7 @@ namespace WebApplication1.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(RiskCase riskCase)
+        public async Task<IActionResult> Create(InvestigationCase riskCase)
         {
             _context.Add(riskCase);
             await _context.SaveChangesAsync();
@@ -123,18 +123,18 @@ namespace WebApplication1.Controllers
         // GET: RiskCases/Edit/5
         public async Task<IActionResult> Edit(string id)
         {
-            if (id == null || _context.RiskCase == null)
+            if (id == null || _context.InvestigationCase == null)
             {
                 return NotFound();
             }
 
-            var riskCase = await _context.RiskCase.FindAsync(id);
+            var riskCase = await _context.InvestigationCase.FindAsync(id);
             if (riskCase == null)
             {
                 return NotFound();
             }
-            ViewData["RiskCaseStatusId"] = new SelectList(_context.RiskCaseStatus, "RiskCaseStatusId", "Name", riskCase.RiskCaseStatusId);
-            ViewData["RiskCaseTypeId"] = new SelectList(_context.RiskCaseType, "RiskCaseTypeId", "Name", riskCase.RiskCaseTypeId);
+            ViewData["RiskCaseStatusId"] = new SelectList(_context.InvestigationCaseStatus, "RiskCaseStatusId", "Name", riskCase.InvestigationCaseStatusId);
+            ViewData["RiskCaseTypeId"] = new SelectList(_context.LineOfBusiness, "RiskCaseTypeId", "Name", riskCase.InvestigationCaseTypeId);
             return View(riskCase);
         }
 
@@ -143,9 +143,9 @@ namespace WebApplication1.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(string id, [Bind("RiskCaseId,Name,Description,RiskCaseTypeId,RiskCaseStatusId,Created")] RiskCase riskCase)
+        public async Task<IActionResult> Edit(string id, [Bind("RiskCaseId,Name,Description,RiskCaseTypeId,RiskCaseStatusId,Created")] InvestigationCase riskCase)
         {
-            if (id != riskCase.RiskCaseId)
+            if (id != riskCase.InvestigationId)
             {
                 return NotFound();
             }
@@ -157,7 +157,7 @@ namespace WebApplication1.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!RiskCaseExists(riskCase.RiskCaseId))
+                if (!RiskCaseExists(riskCase.InvestigationId))
                 {
                     return NotFound();
                 }
@@ -172,15 +172,15 @@ namespace WebApplication1.Controllers
         // GET: RiskCases/Delete/5
         public async Task<IActionResult> Delete(string id)
         {
-            if (id == null || _context.RiskCase == null)
+            if (id == null || _context.InvestigationCase == null)
             {
                 return NotFound();
             }
 
-            var riskCase = await _context.RiskCase
-                .Include(r => r.RiskCaseStatus)
-                .Include(r => r.RiskCaseType)
-                .FirstOrDefaultAsync(m => m.RiskCaseId == id);
+            var riskCase = await _context.InvestigationCase
+                .Include(r => r.InvestigationCaseStatus)
+                .Include(r => r.LineOfBusiness)
+                .FirstOrDefaultAsync(m => m.InvestigationId == id);
             if (riskCase == null)
             {
                 return NotFound();
@@ -194,14 +194,14 @@ namespace WebApplication1.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(string id)
         {
-            if (_context.RiskCase == null)
+            if (_context.InvestigationCase == null)
             {
                 return Problem("Entity set 'ApplicationDbContext.RiskCase'  is null.");
             }
-            var riskCase = await _context.RiskCase.FindAsync(id);
+            var riskCase = await _context.InvestigationCase.FindAsync(id);
             if (riskCase != null)
             {
-                _context.RiskCase.Remove(riskCase);
+                _context.InvestigationCase.Remove(riskCase);
             }
 
             await _context.SaveChangesAsync();
@@ -269,7 +269,7 @@ namespace WebApplication1.Controllers
         }
         private bool RiskCaseExists(string id)
         {
-            return (_context.RiskCase?.Any(e => e.RiskCaseId == id)).GetValueOrDefault();
+            return (_context.InvestigationCase?.Any(e => e.InvestigationId == id)).GetValueOrDefault();
         }
     }
 }

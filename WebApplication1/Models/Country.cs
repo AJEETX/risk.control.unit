@@ -45,4 +45,9 @@ public class PinCode
     public  string StateId { get; set; }
     [Display(Name = "State name")]
     public State State { get; set; }
+    [Required]
+    [Display(Name = "Country name")]
+    public string CountryId { get; set; }
+    [Display(Name = "Country name")]
+    public Country Country { get; set; }
 }

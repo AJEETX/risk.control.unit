@@ -1,4 +1,4 @@
-﻿@model IEnumerable<WebApplication1.Models.RiskCaseStatus>
+﻿@model IEnumerable<WebApplication1.Models.InvestigationCaseStatus>
 
 @{
     ViewData["Title"] = "Index";
@@ -45,11 +45,11 @@
                     @Html.DisplayFor(modelItem => item.Created)
                 </td>
                 <td>
-                    <a class="btn btn-xs btn-info" asp-action="Details" asp-route-id="@item.RiskCaseStatusId"><i
+                    <a class="btn btn-xs btn-info" asp-action="Details" asp-route-id="@item.InvestigationCaseStatusId"><i
                             class="fa fa-search"></i> View</a> &nbsp;
-                    <a class="btn btn-xs btn-warning" asp-action="Edit" asp-route-id="@item.RiskCaseStatusId"><i
+                    <a class="btn btn-xs btn-warning" asp-action="Edit" asp-route-id="@item.InvestigationCaseStatusId"><i
                             class="fas fa-pen"></i> Edit</a> &nbsp;
-                    <a class="btn btn-xs btn-danger" asp-action="Delete" asp-route-id="@item.RiskCaseStatusId"><i
+                    <a class="btn btn-xs btn-danger" asp-action="Delete" asp-route-id="@item.InvestigationCaseStatusId"><i
                             class="fas fa-trash"></i> Delete</a>
                 </td>
             </tr>

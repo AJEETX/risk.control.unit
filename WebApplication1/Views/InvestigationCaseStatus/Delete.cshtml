@@ -1,11 +1,12 @@
-﻿@model WebApplication1.Models.RiskCaseStatus
+﻿@model WebApplication1.Models.InvestigationCaseStatus
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Delete";
 }
 
-<h1>Details</h1>
+<h1>Delete</h1>
 
+<h3>Are you sure you want to delete this?</h3>
 <div>
     <h4>RiskCaseStatus</h4>
     <hr />
@@ -29,8 +30,12 @@
             @Html.DisplayFor(model => model.Created)
         </dd>
     </dl>
-</div>
-<div>
-     <a asp-action="Index" class="btn btn-secondary"><i class="fa fa-window-close"></i> Cancel</a> &nbsp;
-    <a class="btn btn-warning" asp-action="Edit" asp-route-id="@Model?.RiskCaseStatusId"><i class="fas fa-pen"></i> Edit</a>
+    
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="InvestigationCaseStatusId" />
+            <div class="form-group">
+                <a asp-action="Index" class="btn btn-secondary"><i class="fa fa-window-close"></i> Cancel </a> &nbsp;
+                <button type="submit" class="btn btn-danger"><i class="fas fa-trash"></i> Delete</button>
+            </div>
+    </form>
 </div>

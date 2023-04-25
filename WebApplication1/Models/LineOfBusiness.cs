@@ -3,11 +3,11 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace WebApplication1.Models
 {
-    public class RiskCaseType
+    public class LineOfBusiness
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public string RiskCaseTypeId { get; set; }
+        public string LineOfBusinessId { get; set; }
         [Display(Name = "Case type")]
         [Required]
         public string Name { get; set; }

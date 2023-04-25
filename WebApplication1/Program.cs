@@ -103,137 +103,137 @@ async Task SeedDatabase() //can be placed at the very bottom under app.Run()
     await roleManager.CreateAsync(new ApplicationRole(AppRoles.VendorAgent.ToString().Substring(0,2).ToUpper(), AppRoles.VendorAgent.ToString()));
 
     //CREATE RISK CASE DETAILS
-    var created = new RiskCaseStatus
+    var created = new InvestigationCaseStatus
     {
         Name = "CREATED",
         Code = "CREATED"
     };
-    var currentCaseStatus1 = await context.RiskCaseStatus.AddAsync(created);
-    var assigned = new RiskCaseStatus
+    var currentCaseStatus1 = await context.InvestigationCaseStatus.AddAsync(created);
+    var assigned = new InvestigationCaseStatus
     {
         Name = "ASSIGNED",
         Code = "ASSIGNED"
     };
 
-    var currentCaseStatus2 = await context.RiskCaseStatus.AddAsync(assigned);
-    var rejected = new RiskCaseStatus
+    var currentCaseStatus2 = await context.InvestigationCaseStatus.AddAsync(assigned);
+    var rejected = new InvestigationCaseStatus
     {
         Name = "REJECTED",
         Code = "REJECTED"
     };
     
-    var currentCaseStatus3 = await context.RiskCaseStatus.AddAsync(rejected);
-    var accepted = new RiskCaseStatus
+    var currentCaseStatus3 = await context.InvestigationCaseStatus.AddAsync(rejected);
+    var accepted = new InvestigationCaseStatus
     {
         Name = "ACCEPTED",
         Code = "ACCEPTED"
     };
     
-    var currentCaseStatus4 = await context.RiskCaseStatus.AddAsync(accepted);
-    var withdrawn = new RiskCaseStatus
+    var currentCaseStatus4 = await context.InvestigationCaseStatus.AddAsync(accepted);
+    var withdrawn = new InvestigationCaseStatus
     {
         Name = "WITHDRAWN",
         Code = "WITHDRAWN"
     };
     
-    var currentCaseStatus5 = await context.RiskCaseStatus.AddAsync(withdrawn);
+    var currentCaseStatus5 = await context.InvestigationCaseStatus.AddAsync(withdrawn);
 
-    var clientCreatorCreated = new RiskCaseStatus
+    var clientCreatorCreated = new InvestigationCaseStatus
     {
         Name = "CLIENT_CREATOR_CREATED",
         Code = "CLIENT_CREATOR_CREATED"
     };
     
-    var currentCaseStatus6 = await context.RiskCaseStatus.AddAsync(clientCreatorCreated);
+    var currentCaseStatus6 = await context.InvestigationCaseStatus.AddAsync(clientCreatorCreated);
     
-    var clientAssignerAccepted = new RiskCaseStatus
+    var clientAssignerAccepted = new InvestigationCaseStatus
     {
         Name = "CLIENT_ASSIGNER_ACCEPTED",
         Code = "CLIENT_ASSIGNER_ACCEPTED"
     };
     
-    var currentCaseStatus7 = await context.RiskCaseStatus.AddAsync(clientAssignerAccepted);
+    var currentCaseStatus7 = await context.InvestigationCaseStatus.AddAsync(clientAssignerAccepted);
         
-    var vendorSupervisorAccepted = new RiskCaseStatus
+    var vendorSupervisorAccepted = new InvestigationCaseStatus
     {
         Name = "VENDOR_SUPERVISOR_ACCEPTED",
         Code = "VENDOR_SUPERVISOR_ACCEPTED"
     };
     
-    var currentCaseStatus8 = await context.RiskCaseStatus.AddAsync(vendorSupervisorAccepted);
-    var vendorAgentAccepted = new RiskCaseStatus
+    var currentCaseStatus8 = await context.InvestigationCaseStatus.AddAsync(vendorSupervisorAccepted);
+    var vendorAgentAccepted = new InvestigationCaseStatus
     {
         Name = "VENDOR_AGENT_ACCEPTED",
         Code = "VENDOR_AGENT_ACCEPTED"
     };
     
-    var currentCaseStatus9 = await context.RiskCaseStatus.AddAsync(vendorAgentAccepted);        
-   var vendorAgentSubmitted = new RiskCaseStatus
+    var currentCaseStatus9 = await context.InvestigationCaseStatus.AddAsync(vendorAgentAccepted);        
+   var vendorAgentSubmitted = new InvestigationCaseStatus
     {
         Name = "VENDOR_AGENT_SUBMITTED",
         Code = "VENDOR_AGENT_SUBMITTED"
     };
     
-    var currentCaseStatus10 = await context.RiskCaseStatus.AddAsync(vendorAgentSubmitted); 
+    var currentCaseStatus10 = await context.InvestigationCaseStatus.AddAsync(vendorAgentSubmitted); 
   
-   var vendorSupervisorSubmitted = new RiskCaseStatus
+   var vendorSupervisorSubmitted = new InvestigationCaseStatus
     {
         Name = "VENDOR_SUPERVISOR_SUBMITTED",
         Code = "VENDOR_SUPERVISOR_SUBMITTED"
     };
     
-    var currentCaseStatus11 = await context.RiskCaseStatus.AddAsync(vendorSupervisorSubmitted); 
+    var currentCaseStatus11 = await context.InvestigationCaseStatus.AddAsync(vendorSupervisorSubmitted); 
 
-   var clientAsssessorAccepted = new RiskCaseStatus
+   var clientAsssessorAccepted = new InvestigationCaseStatus
     {
         Name = "CLIENT_ASSESSOR_ACCEPTED",
         Code = "CLIENT_ASSESSOR_ACCEPTED"
     };
     
-    var currentCaseStatus12 = await context.RiskCaseStatus.AddAsync(clientAsssessorAccepted); 
+    var currentCaseStatus12 = await context.InvestigationCaseStatus.AddAsync(clientAsssessorAccepted); 
 
-   var clientAsssessorSubmitted = new RiskCaseStatus
+   var clientAsssessorSubmitted = new InvestigationCaseStatus
     {
         Name = "CLIENT_ASSESSOR_SUBMITTED",
         Code = "CLIENT_ASSESSOR_SUBMITTED"
     };
     
-    var currentCaseStatus13 = await context.RiskCaseStatus.AddAsync(clientAsssessorSubmitted);         
-    var clientAsssessorRejected = new RiskCaseStatus
+    var currentCaseStatus13 = await context.InvestigationCaseStatus.AddAsync(clientAsssessorSubmitted);         
+    var clientAsssessorRejected = new InvestigationCaseStatus
     {
         Name = "CLIENT_ASSESSOR_REJECTED",
         Code = "CLIENT_ASSESSOR_REJECTED"
     };
     
-    var currentCaseStatus14 = await context.RiskCaseStatus.AddAsync(clientAsssessorSubmitted);
-    var clientAsssessorReturnRejected = new RiskCaseStatus
+    var currentCaseStatus14 = await context.InvestigationCaseStatus.AddAsync(clientAsssessorSubmitted);
+    var clientAsssessorReturnRejected = new InvestigationCaseStatus
     {
         Name = "CLIENT_ASSESSOR_RETURN_REJECTED",
         Code = "CLIENT_ASSESSOR_RETURN_REJECTED"
     };
     
-    var currentCaseStatus15 = await context.RiskCaseStatus.AddAsync(clientAsssessorReturnRejected); 
+    var currentCaseStatus15 = await context.InvestigationCaseStatus.AddAsync(clientAsssessorReturnRejected); 
 
-    var claims = new RiskCaseType
+    var claims = new LineOfBusiness
     {
         Name = "CLAIMS",
         Code = "CLAIMS",
     };
     
-    var currentCaseType1 = await context.RiskCaseType.AddAsync(claims);
-    var underwriting = new RiskCaseType
+    var currentCaseType1 = await context.LineOfBusiness.AddAsync(claims);
+    var underwriting = new LineOfBusiness
     {
         Name = "UNDERWRITING",
         Code = "UNDERWRITING",
     };
     
-    var currentCaseType = await context.RiskCaseType.AddAsync(underwriting);
+    var currentCaseType = await context.LineOfBusiness.AddAsync(underwriting);
     var india = new Country 
     {
         Name = "INDIA",
         Code = "IND",
     };
-    var currentCountry = await context.Country.AddAsync(india);
+    var indiaCountry = await context.Country.AddAsync(india);
     var australia = new Country 
     {
         Name = "AUSTRALIA",
@@ -250,7 +250,7 @@ async Task SeedDatabase() //can be placed at the very bottom under app.Run()
     var canadaCountry = await context.Country.AddAsync(canada);    
     var up = new State
     {
-        CountryId= currentCountry.Entity.CountryId,
+        CountryId= indiaCountry.Entity.CountryId,
         Name = "UTTAR PRADESH",
         Code = "UP"
     };
@@ -267,7 +267,7 @@ async Task SeedDatabase() //can be placed at the very bottom under app.Run()
 
     var delhi = new State
     {
-        CountryId = currentCountry.Entity.CountryId,
+        CountryId = indiaCountry.Entity.CountryId,
         Name = "NEW DELHI",
         Code = "NDL"
     };
@@ -295,7 +295,8 @@ async Task SeedDatabase() //can be placed at the very bottom under app.Run()
     var newDelhi = new PinCode{
         Name = "NEW DELHI",
         Code = "110001",
-        State = delhiState.Entity
+        State = delhiState.Entity,
+        Country = indiaCountry.Entity
     };
 
     var newDelhiPinCode = await context.PinCode.AddAsync(newDelhi);
@@ -303,7 +304,8 @@ async Task SeedDatabase() //can be placed at the very bottom under app.Run()
     var northDelhi = new PinCode{
         Name = "NORTH DELHI",
         Code = "110002",
-        State = delhiState.Entity
+        State = delhiState.Entity,
+        Country = indiaCountry.Entity
     };
 
     var northDelhiPinCode = await context.PinCode.AddAsync(northDelhi);    
@@ -311,7 +313,8 @@ async Task SeedDatabase() //can be placed at the very bottom under app.Run()
     var indirapuram = new PinCode{
         Name = "INDIRAPURAM",
         Code = "201014",
-        State = upState.Entity
+        State = upState.Entity,
+        Country = indiaCountry.Entity
     };
 
     var indiraPuramPinCode = await context.PinCode.AddAsync(indirapuram);
@@ -319,7 +322,8 @@ async Task SeedDatabase() //can be placed at the very bottom under app.Run()
     var bhelupur = new PinCode{
         Name = "BHELUPUR",
         Code = "221001",
-        State = upState.Entity
+        State = upState.Entity,
+        Country = indiaCountry.Entity
     };
 
     var bhelupurPinCode = await context.PinCode.AddAsync(bhelupur);
@@ -327,7 +331,8 @@ async Task SeedDatabase() //can be placed at the very bottom under app.Run()
     var forestHill = new PinCode{
         Name = "FOREST HILL",
         Code = "3131",
-        State = victoriaState.Entity
+        State = victoriaState.Entity,
+        Country = australiaCountry.Entity
     };
 
     var forestHillPinCode = await context.PinCode.AddAsync(forestHill);   
@@ -335,257 +340,260 @@ async Task SeedDatabase() //can be placed at the very bottom under app.Run()
     var vermont = new PinCode{
         Name = "VERMONT",
         Code = "3133",
-        State = victoriaState.Entity
+        State = victoriaState.Entity,
+        Country = australiaCountry.Entity
     };
-    
+
     var vermontPinCode = await context.PinCode.AddAsync(vermont);        
 
     var tasmaniaCity = new PinCode{
         Name = "TASMANIA CITY",
         Code = "7000",
-        State = tasmaniaState.Entity
+        State = tasmaniaState.Entity,
+        Country = australiaCountry.Entity
     };
-    
+
     var tasmaniaCityCode = await context.PinCode.AddAsync(tasmaniaCity); 
     
     var torontoCity = new PinCode{
         Name = "TORONTO",
         Code = "9101",
-        State = ontarioState.Entity
+        State = ontarioState.Entity,
+        Country = canadaCountry.Entity
     };
-    
+
     var torontoCityCode = await context.PinCode.AddAsync(tasmaniaCity);     
 
-    var _case1 = new RiskCase
+    var _case1 = new InvestigationCase
     {
         Name =  "TEST CLAIM CASE 1",
         Description = "TEST CLAIM CASE DESCRIPTION",
-        RiskCaseTypeId  =  currentCaseType.Entity.RiskCaseTypeId,
-        RiskCaseStatusId = currentCaseStatus1.Entity.RiskCaseStatusId,
+        InvestigationCaseTypeId  =  currentCaseType.Entity.LineOfBusinessId,
+        InvestigationCaseStatusId = currentCaseStatus1.Entity.InvestigationCaseStatusId,
         Created = DateTime.Now
     };
-    var _case2 = new RiskCase
+    var _case2 = new InvestigationCase
     {
         Name =  "TEST CLAIM CASE 2",
         Description = "TEST CLAIM CASE DESCRIPTION",
-        RiskCaseTypeId  =  currentCaseType.Entity.RiskCaseTypeId,
-        RiskCaseStatusId = currentCaseStatus2.Entity.RiskCaseStatusId,
+        InvestigationCaseTypeId  =  currentCaseType.Entity.LineOfBusinessId,
+        InvestigationCaseStatusId = currentCaseStatus2.Entity.InvestigationCaseStatusId,
         Created = DateTime.Now
     };
     
-    var _case3 = new RiskCase
+    var _case3 = new InvestigationCase
     {
         Name =  "TEST CLAIM CASE 3",
         Description = "TEST CLAIM CASE DESCRIPTION",
-        RiskCaseTypeId  =  currentCaseType.Entity.RiskCaseTypeId,
-        RiskCaseStatusId = currentCaseStatus3.Entity.RiskCaseStatusId,
+        InvestigationCaseTypeId  =  currentCaseType.Entity.LineOfBusinessId,
+        InvestigationCaseStatusId = currentCaseStatus3.Entity.InvestigationCaseStatusId,
         Created = DateTime.Now
     };
-    var _case4 = new RiskCase
+    var _case4 = new InvestigationCase
     {
         Name =  "TEST CLAIM CASE 4",
         Description = "TEST CLAIM CASE DESCRIPTION",
-        RiskCaseTypeId  =  currentCaseType.Entity.RiskCaseTypeId,
-        RiskCaseStatusId = currentCaseStatus4.Entity.RiskCaseStatusId,
+        InvestigationCaseTypeId  =  currentCaseType.Entity.LineOfBusinessId,
+        InvestigationCaseStatusId = currentCaseStatus4.Entity.InvestigationCaseStatusId,
         Created = DateTime.Now
     };    
-    var _case5 = new RiskCase
+    var _case5 = new InvestigationCase
     {
         Name =  "TEST CLAIM CASE 5",
         Description = "TEST CLAIM CASE DESCRIPTION",
-        RiskCaseTypeId  =  currentCaseType.Entity.RiskCaseTypeId,
-        RiskCaseStatusId = currentCaseStatus5.Entity.RiskCaseStatusId,
+        InvestigationCaseTypeId  =  currentCaseType.Entity.LineOfBusinessId,
+        InvestigationCaseStatusId = currentCaseStatus5.Entity.InvestigationCaseStatusId,
         Created = DateTime.Now
     };   
-    var _case6 = new RiskCase
+    var _case6 = new InvestigationCase
     {
         Name =  "TEST CLAIM CASE 6",
         Description = "TEST CLAIM CASE DESCRIPTION",
-        RiskCaseTypeId  =  currentCaseType.Entity.RiskCaseTypeId,
-        RiskCaseStatusId = currentCaseStatus6.Entity.RiskCaseStatusId,
+        InvestigationCaseTypeId  =  currentCaseType.Entity.LineOfBusinessId,
+        InvestigationCaseStatusId = currentCaseStatus6.Entity.InvestigationCaseStatusId,
         Created = DateTime.Now
     };     
-    var _case7 = new RiskCase
+    var _case7 = new InvestigationCase
     {
         Name =  "TEST CLAIM CASE 7",
         Description = "TEST CLAIM CASE DESCRIPTION",
-        RiskCaseTypeId  =  currentCaseType.Entity.RiskCaseTypeId,
-        RiskCaseStatusId = currentCaseStatus7.Entity.RiskCaseStatusId,
+        InvestigationCaseTypeId  =  currentCaseType.Entity.LineOfBusinessId,
+        InvestigationCaseStatusId = currentCaseStatus7.Entity.InvestigationCaseStatusId,
         Created = DateTime.Now
     };        
-    var _case8 = new RiskCase
+    var _case8 = new InvestigationCase
     {
         Name =  "TEST CLAIM CASE 8",
         Description = "TEST CLAIM CASE DESCRIPTION",
-        RiskCaseTypeId  =  currentCaseType.Entity.RiskCaseTypeId,
-        RiskCaseStatusId = currentCaseStatus2.Entity.RiskCaseStatusId,
+        InvestigationCaseTypeId  =  currentCaseType.Entity.LineOfBusinessId,
+        InvestigationCaseStatusId = currentCaseStatus2.Entity.InvestigationCaseStatusId,
         Created = DateTime.Now
     };   
-    var _case9 = new RiskCase
+    var _case9 = new InvestigationCase
     {
         Name =  "TEST CLAIM CASE 9",
         Description = "TEST CLAIM CASE DESCRIPTION",
-        RiskCaseTypeId  =  currentCaseType.Entity.RiskCaseTypeId,
-        RiskCaseStatusId = currentCaseStatus3.Entity.RiskCaseStatusId,
+        InvestigationCaseTypeId  =  currentCaseType.Entity.LineOfBusinessId,
+        InvestigationCaseStatusId = currentCaseStatus3.Entity.InvestigationCaseStatusId,
         Created = DateTime.Now
     };         
-    var _case10 = new RiskCase
+    var _case10 = new InvestigationCase
     {
         Name =  "TEST CLAIM CASE 10",
         Description = "TEST CLAIM CASE DESCRIPTION",
-        RiskCaseTypeId  =  currentCaseType.Entity.RiskCaseTypeId,
-        RiskCaseStatusId = currentCaseStatus4.Entity.RiskCaseStatusId,
+        InvestigationCaseTypeId  =  currentCaseType.Entity.LineOfBusinessId,
+        InvestigationCaseStatusId = currentCaseStatus4.Entity.InvestigationCaseStatusId,
         Created = DateTime.Now
     };    
-    var _case11 = new RiskCase
+    var _case11 = new InvestigationCase
     {
         Name =  "TEST CLAIM CASE 11",
         Description = "TEST CLAIM CASE DESCRIPTION",
-        RiskCaseTypeId  =  currentCaseType.Entity.RiskCaseTypeId,
-        RiskCaseStatusId = currentCaseStatus6.Entity.RiskCaseStatusId,
+        InvestigationCaseTypeId  =  currentCaseType.Entity.LineOfBusinessId,
+        InvestigationCaseStatusId = currentCaseStatus6.Entity.InvestigationCaseStatusId,
         Created = DateTime.Now
     };      
-    var _case12 = new RiskCase
+    var _case12 = new InvestigationCase
     {
         Name =  "TEST CLAIM CASE 12",
         Description = "TEST CLAIM CASE DESCRIPTION",
-        RiskCaseTypeId  =  currentCaseType.Entity.RiskCaseTypeId,
-        RiskCaseStatusId = currentCaseStatus5.Entity.RiskCaseStatusId,
+        InvestigationCaseTypeId  =  currentCaseType.Entity.LineOfBusinessId,
+        InvestigationCaseStatusId = currentCaseStatus5.Entity.InvestigationCaseStatusId,
         Created = DateTime.Now
     };  
-    var _case13 = new RiskCase
+    var _case13 = new InvestigationCase
     {
         Name =  "TEST CLAIM CASE 13",
         Description = "TEST CLAIM CASE DESCRIPTION",
-        RiskCaseTypeId  =  currentCaseType.Entity.RiskCaseTypeId,
-        RiskCaseStatusId = currentCaseStatus3.Entity.RiskCaseStatusId,
+        InvestigationCaseTypeId  =  currentCaseType.Entity.LineOfBusinessId,
+        InvestigationCaseStatusId = currentCaseStatus3.Entity.InvestigationCaseStatusId,
         Created = DateTime.Now
     };   
-   var _case14 = new RiskCase
+   var _case14 = new InvestigationCase
     {
         Name =  "TEST CLAIM CASE 14",
         Description = "TEST CLAIM CASE DESCRIPTION",
-        RiskCaseTypeId  =  currentCaseType.Entity.RiskCaseTypeId,
-        RiskCaseStatusId = currentCaseStatus1.Entity.RiskCaseStatusId,
+        InvestigationCaseTypeId  =  currentCaseType.Entity.LineOfBusinessId,
+        InvestigationCaseStatusId = currentCaseStatus1.Entity.InvestigationCaseStatusId,
         Created = DateTime.Now
     };        
     
-   var _case15 = new RiskCase
+   var _case15 = new InvestigationCase
     {
         Name =  "TEST CLAIM CASE 15",
         Description = "TEST CLAIM CASE DESCRIPTION",
-        RiskCaseTypeId  =  currentCaseType.Entity.RiskCaseTypeId,
-        RiskCaseStatusId = currentCaseStatus3.Entity.RiskCaseStatusId,
+        InvestigationCaseTypeId  =  currentCaseType.Entity.LineOfBusinessId,
+        InvestigationCaseStatusId = currentCaseStatus3.Entity.InvestigationCaseStatusId,
         Created = DateTime.Now
     };  
-   var _case16 = new RiskCase
+   var _case16 = new InvestigationCase
     {
         Name =  "TEST CLAIM CASE 16",
         Description = "TEST CLAIM CASE DESCRIPTION",
-        RiskCaseTypeId  =  currentCaseType.Entity.RiskCaseTypeId,
-        RiskCaseStatusId = currentCaseStatus7.Entity.RiskCaseStatusId,
+        InvestigationCaseTypeId  =  currentCaseType.Entity.LineOfBusinessId,
+        InvestigationCaseStatusId = currentCaseStatus7.Entity.InvestigationCaseStatusId,
         Created = DateTime.Now
     };  
-   var _case17 = new RiskCase
+   var _case17 = new InvestigationCase
     {
         Name =  "TEST CLAIM CASE 17",
         Description = "TEST CLAIM CASE DESCRIPTION",
-        RiskCaseTypeId  =  currentCaseType.Entity.RiskCaseTypeId,
-        RiskCaseStatusId = currentCaseStatus4.Entity.RiskCaseStatusId,
+        InvestigationCaseTypeId  =  currentCaseType.Entity.LineOfBusinessId,
+        InvestigationCaseStatusId = currentCaseStatus4.Entity.InvestigationCaseStatusId,
         Created = DateTime.Now
     };  
-   var _case18 = new RiskCase
+   var _case18 = new InvestigationCase
     {
         Name =  "TEST CLAIM CASE 18",
         Description = "TEST CLAIM CASE DESCRIPTION",
-        RiskCaseTypeId  =  currentCaseType.Entity.RiskCaseTypeId,
-        RiskCaseStatusId = currentCaseStatus3.Entity.RiskCaseStatusId,
+        InvestigationCaseTypeId  =  currentCaseType.Entity.LineOfBusinessId,
+        InvestigationCaseStatusId = currentCaseStatus3.Entity.InvestigationCaseStatusId,
         Created = DateTime.Now
     };  
-   var _case19 = new RiskCase
+   var _case19 = new InvestigationCase
     {
         Name =  "TEST CLAIM CASE 19",
         Description = "TEST CLAIM CASE DESCRIPTION",
-        RiskCaseTypeId  =  currentCaseType.Entity.RiskCaseTypeId,
-        RiskCaseStatusId = currentCaseStatus4.Entity.RiskCaseStatusId,
+        InvestigationCaseTypeId  =  currentCaseType.Entity.LineOfBusinessId,
+        InvestigationCaseStatusId = currentCaseStatus4.Entity.InvestigationCaseStatusId,
         Created = DateTime.Now
     };  
-       var _case20 = new RiskCase
+       var _case20 = new InvestigationCase
     {
         Name =  "TEST CLAIM CASE 20",
         Description = "TEST CLAIM CASE DESCRIPTION",
-        RiskCaseTypeId  =  currentCaseType.Entity.RiskCaseTypeId,
-        RiskCaseStatusId = currentCaseStatus2.Entity.RiskCaseStatusId,
+        InvestigationCaseTypeId  =  currentCaseType.Entity.LineOfBusinessId,
+        InvestigationCaseStatusId = currentCaseStatus2.Entity.InvestigationCaseStatusId,
         Created = DateTime.Now
     };  
-       var _case21 = new RiskCase
+       var _case21 = new InvestigationCase
     {
         Name =  "TEST CLAIM CASE 21",
         Description = "TEST CLAIM CASE DESCRIPTION",
-        RiskCaseTypeId  =  currentCaseType.Entity.RiskCaseTypeId,
-        RiskCaseStatusId = currentCaseStatus7.Entity.RiskCaseStatusId,
+        InvestigationCaseTypeId  =  currentCaseType.Entity.LineOfBusinessId,
+        InvestigationCaseStatusId = currentCaseStatus7.Entity.InvestigationCaseStatusId,
         Created = DateTime.Now
     };     
-    var _case22 = new RiskCase
+    var _case22 = new InvestigationCase
     {
         Name =  "TEST CLAIM CASE 22",
         Description = "TEST CLAIM CASE DESCRIPTION",
-        RiskCaseTypeId  =  currentCaseType.Entity.RiskCaseTypeId,
-        RiskCaseStatusId = currentCaseStatus2.Entity.RiskCaseStatusId,
+        InvestigationCaseTypeId  =  currentCaseType.Entity.LineOfBusinessId,
+        InvestigationCaseStatusId = currentCaseStatus2.Entity.InvestigationCaseStatusId,
         Created = DateTime.Now
     }; 
-    var _case23 = new RiskCase
+    var _case23 = new InvestigationCase
     {
         Name =  "TEST CLAIM CASE 23",
         Description = "TEST CLAIM CASE DESCRIPTION",
-        RiskCaseTypeId  =  currentCaseType.Entity.RiskCaseTypeId,
-        RiskCaseStatusId = currentCaseStatus4.Entity.RiskCaseStatusId,
+        InvestigationCaseTypeId  =  currentCaseType.Entity.LineOfBusinessId,
+        InvestigationCaseStatusId = currentCaseStatus4.Entity.InvestigationCaseStatusId,
         Created = DateTime.Now
     };  
 
-    var _case24 = new RiskCase
+    var _case24 = new InvestigationCase
     {
         Name =  "TEST CLAIM CASE 24",
         Description = "TEST CLAIM CASE DESCRIPTION",
-        RiskCaseTypeId  =  currentCaseType.Entity.RiskCaseTypeId,
-        RiskCaseStatusId = currentCaseStatus5.Entity.RiskCaseStatusId,
+        InvestigationCaseTypeId  =  currentCaseType.Entity.LineOfBusinessId,
+        InvestigationCaseStatusId = currentCaseStatus5.Entity.InvestigationCaseStatusId,
         Created = DateTime.Now
     };  
 
-    var _case25 = new RiskCase
+    var _case25 = new InvestigationCase
     {
         Name =  "TEST CLAIM CASE 25",
         Description = "TEST CLAIM CASE DESCRIPTION",
-        RiskCaseTypeId  =  currentCaseType.Entity.RiskCaseTypeId,
-        RiskCaseStatusId = currentCaseStatus2.Entity.RiskCaseStatusId,
+        InvestigationCaseTypeId  =  currentCaseType.Entity.LineOfBusinessId,
+        InvestigationCaseStatusId = currentCaseStatus2.Entity.InvestigationCaseStatusId,
         Created = DateTime.Now
     };  
                                                                         
-    await context.RiskCase.AddAsync(_case1);
-    await context.RiskCase.AddAsync(_case2);
-    await context.RiskCase.AddAsync(_case3);
-    await context.RiskCase.AddAsync(_case4);
-    await context.RiskCase.AddAsync(_case5);
-    await context.RiskCase.AddAsync(_case6);
-    await context.RiskCase.AddAsync(_case7);
-    await context.RiskCase.AddAsync(_case8);
-    await context.RiskCase.AddAsync(_case9);
-    await context.RiskCase.AddAsync(_case10);
-    await context.RiskCase.AddAsync(_case11);
-    await context.RiskCase.AddAsync(_case12);
-    await context.RiskCase.AddAsync(_case13);
-    await context.RiskCase.AddAsync(_case14);
-    await context.RiskCase.AddAsync(_case15);
-    await context.RiskCase.AddAsync(_case16);
-    await context.RiskCase.AddAsync(_case17);
-    await context.RiskCase.AddAsync(_case18);
-    await context.RiskCase.AddAsync(_case19);
-    await context.RiskCase.AddAsync(_case20);
-    await context.RiskCase.AddAsync(_case21);
-    await context.RiskCase.AddAsync(_case22);
-    await context.RiskCase.AddAsync(_case23);
-    await context.RiskCase.AddAsync(_case24);
-    await context.RiskCase.AddAsync(_case25);
+    await context.InvestigationCase.AddAsync(_case1);
+    await context.InvestigationCase.AddAsync(_case2);
+    await context.InvestigationCase.AddAsync(_case3);
+    await context.InvestigationCase.AddAsync(_case4);
+    await context.InvestigationCase.AddAsync(_case5);
+    await context.InvestigationCase.AddAsync(_case6);
+    await context.InvestigationCase.AddAsync(_case7);
+    await context.InvestigationCase.AddAsync(_case8);
+    await context.InvestigationCase.AddAsync(_case9);
+    await context.InvestigationCase.AddAsync(_case10);
+    await context.InvestigationCase.AddAsync(_case11);
+    await context.InvestigationCase.AddAsync(_case12);
+    await context.InvestigationCase.AddAsync(_case13);
+    await context.InvestigationCase.AddAsync(_case14);
+    await context.InvestigationCase.AddAsync(_case15);
+    await context.InvestigationCase.AddAsync(_case16);
+    await context.InvestigationCase.AddAsync(_case17);
+    await context.InvestigationCase.AddAsync(_case18);
+    await context.InvestigationCase.AddAsync(_case19);
+    await context.InvestigationCase.AddAsync(_case20);
+    await context.InvestigationCase.AddAsync(_case21);
+    await context.InvestigationCase.AddAsync(_case22);
+    await context.InvestigationCase.AddAsync(_case23);
+    await context.InvestigationCase.AddAsync(_case24);
+    await context.InvestigationCase.AddAsync(_case25);
 
     await context.SaveChangesAsync();
 
@@ -600,7 +608,7 @@ async Task SeedDatabase() //can be placed at the very bottom under app.Run()
         EmailConfirmed = true,
         PhoneNumberConfirmed = true,
         State = upState.Entity,
-        Country = currentCountry.Entity,
+        Country = indiaCountry.Entity,
         PinCode = indiraPuramPinCode.Entity,
         ProfilePictureUrl = "img/superadmin.jpg"
     };
@@ -676,7 +684,7 @@ async Task SeedDatabase() //can be placed at the very bottom under app.Run()
         PhoneNumberConfirmed = true,
         isSuperAdmin = true,
         State = upState.Entity,
-        Country = currentCountry.Entity,
+        Country = indiaCountry.Entity,
         PinCode = indiraPuramPinCode.Entity,
         ProfilePictureUrl = "img/creator.jpg"        
     };
@@ -704,7 +712,7 @@ async Task SeedDatabase() //can be placed at the very bottom under app.Run()
         isSuperAdmin = true,
         PinCode = northDelhiPinCode.Entity,
         State = delhiState.Entity,
-        Country = currentCountry.Entity,
+        Country = indiaCountry.Entity,
         ProfilePictureUrl = "img/assigner.png"        
     };
     if (userManager.Users.All(u => u.Id != clientAssigner.Id))
@@ -730,7 +738,7 @@ async Task SeedDatabase() //can be placed at the very bottom under app.Run()
         isSuperAdmin = true,
         PinCode = northDelhiPinCode.Entity,
         State = delhiState.Entity,
-        Country = currentCountry.Entity,
+        Country = indiaCountry.Entity,
         ProfilePictureUrl = "img/assessor.png"        
     };
     if (userManager.Users.All(u => u.Id != clientAssessor.Id))
@@ -757,7 +765,7 @@ async Task SeedDatabase() //can be placed at the very bottom under app.Run()
         isSuperAdmin = true,
         PinCode = indiraPuramPinCode.Entity,
         State = upState.Entity,
-        Country = currentCountry.Entity,
+        Country = indiaCountry.Entity,
         ProfilePictureUrl = "img/vendor-admin.png"        
     };
     if (userManager.Users.All(u => u.Id != vendorAdmin.Id))
@@ -787,7 +795,7 @@ async Task SeedDatabase() //can be placed at the very bottom under app.Run()
         isSuperAdmin = true,
         PinCode = indiraPuramPinCode.Entity,
         State = upState.Entity,
-        Country = currentCountry.Entity,
+        Country = indiaCountry.Entity,
         ProfilePictureUrl = "img/supervisor.png"        
     };
     if (userManager.Users.All(u => u.Id != vendorSupervisor.Id))
@@ -815,7 +823,7 @@ async Task SeedDatabase() //can be placed at the very bottom under app.Run()
         isSuperAdmin = true,
         PinCode = indiraPuramPinCode.Entity,
         State = upState.Entity,
-        Country = currentCountry.Entity,
+        Country = indiaCountry.Entity,
         ProfilePictureUrl = "img/agent.jpg"        
     };
     if (userManager.Users.All(u => u.Id != vendorAgent.Id))

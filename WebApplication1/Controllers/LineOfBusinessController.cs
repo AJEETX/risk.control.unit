@@ -11,83 +11,83 @@ using WebApplication1.Models;
 
 namespace WebApplication1.Controllers
 {
-    public class RiskCaseStatusController : Controller
+    public class LineOfBusinessController : Controller
     {
         private readonly ApplicationDbContext _context;
 
-        public RiskCaseStatusController(ApplicationDbContext context)
+        public LineOfBusinessController(ApplicationDbContext context)
         {
             _context = context;
         }
 
-        // GET: RiskCaseStatus
+        // GET: RiskCaseTypes
         public async Task<IActionResult> Index()
         {
-              return _context.RiskCaseStatus != null ? 
-                          View(await _context.RiskCaseStatus.ToListAsync()) :
-                          Problem("Entity set 'ApplicationDbContext.RiskCaseStatus'  is null.");
+            return _context.LineOfBusiness != null ?
+                        View(await _context.LineOfBusiness.ToListAsync()) :
+                        Problem("Entity set 'ApplicationDbContext.RiskCaseType'  is null.");
         }
 
-        // GET: RiskCaseStatus/Details/5
+        // GET: RiskCaseTypes/Details/5
         public async Task<IActionResult> Details(string id)
         {
-            if (id == null || _context.RiskCaseStatus == null)
+            if (id == null || _context.LineOfBusiness == null)
             {
                 return NotFound();
             }
 
-            var riskCaseStatus = await _context.RiskCaseStatus
-                .FirstOrDefaultAsync(m => m.RiskCaseStatusId == id);
-            if (riskCaseStatus == null)
+            var riskCaseType = await _context.LineOfBusiness
+                .FirstOrDefaultAsync(m => m.LineOfBusinessId == id);
+            if (riskCaseType == null)
             {
                 return NotFound();
             }
 
-            return View(riskCaseStatus);
+            return View(riskCaseType);
         }
 
-        // GET: RiskCaseStatus/Create
+        // GET: RiskCaseTypes/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: RiskCaseStatus/Create
+        // POST: RiskCaseTypes/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(RiskCaseStatus riskCaseStatus)
+        public async Task<IActionResult> Create(LineOfBusiness riskCaseType)
         {
-            _context.Add(riskCaseStatus);
+            _context.Add(riskCaseType);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        // GET: RiskCaseStatus/Edit/5
+        // GET: RiskCaseTypes/Edit/5
         public async Task<IActionResult> Edit(string id)
         {
-            if (id == null || _context.RiskCaseStatus == null)
+            if (id == null || _context.LineOfBusiness == null)
             {
                 return NotFound();
             }
 
-            var riskCaseStatus = await _context.RiskCaseStatus.FindAsync(id);
-            if (riskCaseStatus == null)
+            var riskCaseType = await _context.LineOfBusiness.FindAsync(id);
+            if (riskCaseType == null)
             {
                 return NotFound();
             }
-            return View(riskCaseStatus);
+            return View(riskCaseType);
         }
 
-        // POST: RiskCaseStatus/Edit/5
+        // POST: RiskCaseTypes/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(string id, [Bind("RiskCaseStatusId,Name,Code,Created")] RiskCaseStatus riskCaseStatus)
+        public async Task<IActionResult> Edit(string id, LineOfBusiness riskCaseType)
         {
-            if (id != riskCaseStatus.RiskCaseStatusId)
+            if (id != riskCaseType.LineOfBusinessId)
             {
                 return NotFound();
             }
@@ -96,12 +96,12 @@ namespace WebApplication1.Controllers
             {
                 try
                 {
-                    _context.Update(riskCaseStatus);
+                    _context.Update(riskCaseType);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!RiskCaseStatusExists(riskCaseStatus.RiskCaseStatusId))
+                    if (!RiskCaseTypeExists(riskCaseType.LineOfBusinessId))
                     {
                         return NotFound();
                     }
@@ -112,49 +112,49 @@ namespace WebApplication1.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(riskCaseStatus);
+            return View(riskCaseType);
         }
 
-        // GET: RiskCaseStatus/Delete/5
+        // GET: RiskCaseTypes/Delete/5
         public async Task<IActionResult> Delete(string id)
         {
-            if (id == null || _context.RiskCaseStatus == null)
+            if (id == null || _context.LineOfBusiness == null)
             {
                 return NotFound();
             }
 
-            var riskCaseStatus = await _context.RiskCaseStatus
-                .FirstOrDefaultAsync(m => m.RiskCaseStatusId == id);
-            if (riskCaseStatus == null)
+            var riskCaseType = await _context.LineOfBusiness
+                .FirstOrDefaultAsync(m => m.LineOfBusinessId == id);
+            if (riskCaseType == null)
             {
                 return NotFound();
             }
 
-            return View(riskCaseStatus);
+            return View(riskCaseType);
         }
 
-        // POST: RiskCaseStatus/Delete/5
+        // POST: RiskCaseTypes/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(string id)
         {
-            if (_context.RiskCaseStatus == null)
+            if (_context.LineOfBusiness == null)
             {
-                return Problem("Entity set 'ApplicationDbContext.RiskCaseStatus'  is null.");
+                return Problem("Entity set 'ApplicationDbContext.RiskCaseType'  is null.");
             }
-            var riskCaseStatus = await _context.RiskCaseStatus.FindAsync(id);
-            if (riskCaseStatus != null)
+            var riskCaseType = await _context.LineOfBusiness.FindAsync(id);
+            if (riskCaseType != null)
             {
-                _context.RiskCaseStatus.Remove(riskCaseStatus);
+                _context.LineOfBusiness.Remove(riskCaseType);
             }
-            
+
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool RiskCaseStatusExists(string id)
+        private bool RiskCaseTypeExists(string id)
         {
-          return (_context.RiskCaseStatus?.Any(e => e.RiskCaseStatusId == id)).GetValueOrDefault();
+            return (_context.LineOfBusiness?.Any(e => e.LineOfBusinessId == id)).GetValueOrDefault();
         }
     }
 }

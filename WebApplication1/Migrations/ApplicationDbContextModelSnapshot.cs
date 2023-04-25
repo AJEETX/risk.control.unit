@@ -270,6 +270,87 @@ namespace WebApplication1.Migrations
                     b.ToTable("Country");
                 });
 
+            modelBuilder.Entity("WebApplication1.Models.InvestigationCase", b =>
+                {
+                    b.Property<string>("InvestigationId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("Created")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("InvestigationCaseStatusId")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("InvestigationCaseTypeId")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("LineOfBusinessId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("InvestigationId");
+
+                    b.HasIndex("InvestigationCaseStatusId");
+
+                    b.HasIndex("LineOfBusinessId");
+
+                    b.ToTable("InvestigationCase");
+                });
+
+            modelBuilder.Entity("WebApplication1.Models.InvestigationCaseStatus", b =>
+                {
+                    b.Property<string>("InvestigationCaseStatusId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Code")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("Created")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("InvestigationCaseStatusId");
+
+                    b.ToTable("InvestigationCaseStatus");
+                });
+
+            modelBuilder.Entity("WebApplication1.Models.LineOfBusiness", b =>
+                {
+                    b.Property<string>("LineOfBusinessId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Code")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("Created")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("LineOfBusinessId");
+
+                    b.ToTable("LineOfBusiness");
+                });
+
             modelBuilder.Entity("WebApplication1.Models.PinCode", b =>
                 {
                     b.Property<string>("PinCodeId")
@@ -277,6 +358,10 @@ namespace WebApplication1.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Code")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("CountryId")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
@@ -290,87 +375,11 @@ namespace WebApplication1.Migrations
 
                     b.HasKey("PinCodeId");
 
+                    b.HasIndex("CountryId");
+
                     b.HasIndex("StateId");
 
                     b.ToTable("PinCode");
-                });
-
-            modelBuilder.Entity("WebApplication1.Models.RiskCase", b =>
-                {
-                    b.Property<string>("RiskCaseId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("TEXT");
-
-                    b.Property<DateTime>("Created")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("RiskCaseStatusId")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("RiskCaseTypeId")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("RiskCaseId");
-
-                    b.HasIndex("RiskCaseStatusId");
-
-                    b.HasIndex("RiskCaseTypeId");
-
-                    b.ToTable("RiskCase");
-                });
-
-            modelBuilder.Entity("WebApplication1.Models.RiskCaseStatus", b =>
-                {
-                    b.Property<string>("RiskCaseStatusId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Code")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<DateTime>("Created")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("RiskCaseStatusId");
-
-                    b.ToTable("RiskCaseStatus");
-                });
-
-            modelBuilder.Entity("WebApplication1.Models.RiskCaseType", b =>
-                {
-                    b.Property<string>("RiskCaseTypeId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Code")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<DateTime>("Created")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("RiskCaseTypeId");
-
-                    b.ToTable("RiskCaseType");
                 });
 
             modelBuilder.Entity("WebApplication1.Models.State", b =>
@@ -476,34 +485,40 @@ namespace WebApplication1.Migrations
                     b.Navigation("State");
                 });
 
+            modelBuilder.Entity("WebApplication1.Models.InvestigationCase", b =>
+                {
+                    b.HasOne("WebApplication1.Models.InvestigationCaseStatus", "InvestigationCaseStatus")
+                        .WithMany()
+                        .HasForeignKey("InvestigationCaseStatusId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("WebApplication1.Models.LineOfBusiness", "LineOfBusiness")
+                        .WithMany()
+                        .HasForeignKey("LineOfBusinessId");
+
+                    b.Navigation("InvestigationCaseStatus");
+
+                    b.Navigation("LineOfBusiness");
+                });
+
             modelBuilder.Entity("WebApplication1.Models.PinCode", b =>
                 {
+                    b.HasOne("WebApplication1.Models.Country", "Country")
+                        .WithMany()
+                        .HasForeignKey("CountryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("WebApplication1.Models.State", "State")
                         .WithMany()
                         .HasForeignKey("StateId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.Navigation("Country");
+
                     b.Navigation("State");
-                });
-
-            modelBuilder.Entity("WebApplication1.Models.RiskCase", b =>
-                {
-                    b.HasOne("WebApplication1.Models.RiskCaseStatus", "RiskCaseStatus")
-                        .WithMany()
-                        .HasForeignKey("RiskCaseStatusId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("WebApplication1.Models.RiskCaseType", "RiskCaseType")
-                        .WithMany()
-                        .HasForeignKey("RiskCaseTypeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("RiskCaseStatus");
-
-                    b.Navigation("RiskCaseType");
                 });
 
             modelBuilder.Entity("WebApplication1.Models.State", b =>

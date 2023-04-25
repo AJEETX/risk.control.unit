@@ -1,4 +1,4 @@
-﻿@model List<WebApplication1.Models.RiskCase>
+﻿@model List<WebApplication1.Models.InvestigationCase>
 
 @{
     ViewData["Title"] = "Index";
@@ -52,20 +52,20 @@
                             @Html.DisplayFor(modelItem => item.Description)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.RiskCaseType.Name)
+                            @Html.DisplayFor(modelItem => item.LineOfBusiness.Name)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.RiskCaseStatus.Name)
+                            @Html.DisplayFor(modelItem => item.InvestigationCaseStatus.Name)
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.Created)
                         </td>
                         <td>
-                            <a class="btn btn-xs btn-info" asp-action="Details" asp-route-id="@item.RiskCaseId"><i
+                            <a class="btn btn-xs btn-info" asp-action="Details" asp-route-id="@item.InvestigationId"><i
                                     class="fa fa-search"></i> View</a> &nbsp;
-                            <a class="btn btn-xs btn-warning" asp-action="Edit" asp-route-id="@item.RiskCaseId"><i
+                            <a class="btn btn-xs btn-warning" asp-action="Edit" asp-route-id="@item.InvestigationId"><i
                                     class="fas fa-pen"></i> Edit</a> &nbsp;
-                            <a class="btn btn-xs btn-danger" asp-action="Delete" asp-route-id="@item.RiskCaseId"><i
+                            <a class="btn btn-xs btn-danger" asp-action="Delete" asp-route-id="@item.InvestigationId"><i
                                     class="fas fa-trash"></i> Delete</a>
                         </td>
                     </tr>

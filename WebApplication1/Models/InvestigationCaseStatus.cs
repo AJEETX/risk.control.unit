@@ -3,11 +3,11 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace WebApplication1.Models
 {
-    public class RiskCaseStatus
+    public class InvestigationCaseStatus
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public string RiskCaseStatusId { get; set; }
+        public string InvestigationCaseStatusId { get; set; }
         [Display(Name = "Case status")]
         [Required]
         public string Name { get; set; }

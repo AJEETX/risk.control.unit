@@ -1,4 +1,4 @@
-﻿@model WebApplication1.Models.RiskCase
+﻿@model WebApplication1.Models.InvestigationCase
 
 @{
     ViewData["Title"] = "Edit";
@@ -13,7 +13,7 @@
         <form asp-action="Edit" asp-antiforgery="true" enctype="multipart/form-data">
             <div class="card-body">
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                <input type="hidden" asp-for="RiskCaseId" />
+                <input type="hidden" asp-for="InvestigationId" />
                 <div class="form-group">
                     <label asp-for="Name" class="control-label"></label>
                     <input asp-for="Name" class="form-control" />
@@ -25,18 +25,18 @@
                     <span asp-validation-for="Description" class="text-danger"></span>
                 </div>
                 <div class="form-group">
-                    <label asp-for="RiskCaseTypeId" class="control-label"></label>
-                    <select asp-for="RiskCaseTypeId" class="form-control" asp-items="ViewBag.RiskCaseTypeId">
+                    <label asp-for="InvestigationCaseTypeId" class="control-label"></label>
+                    <select asp-for="InvestigationCaseTypeId" class="form-control" asp-items="ViewBag.RiskCaseTypeId">
                         <option>--- SELECT CASE TYPE ---</option>
                     </select>
-                    <span asp-validation-for="RiskCaseTypeId" class="text-danger"></span>
+                    <span asp-validation-for="InvestigationCaseTypeId" class="text-danger"></span>
                 </div>
                 <div class="form-group">
-                    <label asp-for="RiskCaseStatusId" class="control-label"></label>
-                    <select asp-for="RiskCaseStatusId" class="form-control" asp-items="ViewBag.RiskCaseStatusId">
+                    <label asp-for="InvestigationCaseStatusId" class="control-label"></label>
+                    <select asp-for="InvestigationCaseStatusId" class="form-control" asp-items="ViewBag.RiskCaseStatusId">
                         <option>--- SELECT CASE STATUS ---</option>
                     </select>
-                    <span asp-validation-for="RiskCaseStatusId" class="text-danger"></span>
+                    <span asp-validation-for="InvestigationCaseStatusId" class="text-danger"></span>
                 </div>
                 <div class="form-group">
                     <label asp-for="Created" class="control-label"></label>

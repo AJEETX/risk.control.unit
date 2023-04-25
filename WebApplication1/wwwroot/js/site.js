@@ -21,11 +21,11 @@
     $('#StateId').change(function(){
         loadPinCode($(this));
     });    
-    $("select").each(function () {
-        if ($(this).find("option").length <= 1) {
-            $(this).attr("disabled", "disabled");
-        }
-    });
+    //$("select").each(function () {
+    //    if ($(this).find("option").length <= 1) {
+    //        $(this).attr("disabled", "disabled");
+    //    }
+    //});
     $("#btnDeleteImage").click(function () {
         var id = $(this).attr("data-id");
         $.ajax({

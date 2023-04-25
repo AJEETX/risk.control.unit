@@ -82,7 +82,7 @@
                 </li>
                 <li class="nav-header">INVESTIGATION <span class="badge badge-danger">*</span></li>
                 <li class="nav-item">
-                    <a is-active-page asp-area="" asp-controller="RiskCase" asp-action="Index" class="nav-link">
+                    <a is-active-page asp-area="" asp-controller="InvestigationCase" asp-action="Index" class="nav-link">
                         <i class="nav-icon fas fa-users-cog"></i>
                         <p>
                             INVESTIGATION CASES
@@ -90,7 +90,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a is-active-page asp-area="" asp-controller="RiskCaseType" asp-action="Index" class="nav-link">
+                    <a is-active-page asp-area="" asp-controller="LineOfBusiness" asp-action="Index" class="nav-link">
                         <i class="nav-icon fas fa-cogs"></i>
                         <p>
                             LINE OF BUSINESS
@@ -98,7 +98,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a is-active-page asp-area="" asp-controller="RiskCaseStatus" asp-action="Index" class="nav-link">
+                    <a is-active-page asp-area="" asp-controller="InvestigationCaseStatus" asp-action="Index" class="nav-link">
                         <i class="far fa-circle nav-icon"></i>
                         <p>CASE STATUS</p>
                     </a>
@@ -148,7 +148,15 @@
                                     MANAGE STATE
                                 </p>
                             </a>
-                        </li>                        
+                        </li>
+                        <li class="nav-item">
+                            <a is-active-page asp-area="" asp-controller="PinCode" asp-action="Index" class="nav-link">
+                                <i class="nav-icon fas fa-user-lock"></i>
+                                <p>
+                                    MANAGE PINCODE
+                                </p>
+                            </a>
+                        </li>
                     }
                 }
             </ul>

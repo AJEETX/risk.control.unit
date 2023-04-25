@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace WebApplication1.Migrations
 {
     /// <inheritdoc />
-    public partial class usercountrystate : Migration
+    public partial class init : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -40,31 +40,31 @@ namespace WebApplication1.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "RiskCaseStatus",
+                name: "InvestigationCaseStatus",
                 columns: table => new
                 {
-                    RiskCaseStatusId = table.Column<string>(type: "TEXT", nullable: false),
+                    InvestigationCaseStatusId = table.Column<string>(type: "TEXT", nullable: false),
                     Name = table.Column<string>(type: "TEXT", nullable: false),
                     Code = table.Column<string>(type: "TEXT", nullable: false),
                     Created = table.Column<DateTime>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_RiskCaseStatus", x => x.RiskCaseStatusId);
+                    table.PrimaryKey("PK_InvestigationCaseStatus", x => x.InvestigationCaseStatusId);
                 });
 
             migrationBuilder.CreateTable(
-                name: "RiskCaseType",
+                name: "LineOfBusiness",
                 columns: table => new
                 {
-                    RiskCaseTypeId = table.Column<string>(type: "TEXT", nullable: false),
+                    LineOfBusinessId = table.Column<string>(type: "TEXT", nullable: false),
                     Name = table.Column<string>(type: "TEXT", nullable: false),
                     Code = table.Column<string>(type: "TEXT", nullable: false),
                     Created = table.Column<DateTime>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_RiskCaseType", x => x.RiskCaseTypeId);
+                    table.PrimaryKey("PK_LineOfBusiness", x => x.LineOfBusinessId);
                 });
 
             migrationBuilder.CreateTable(
@@ -109,31 +109,31 @@ namespace WebApplication1.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "RiskCase",
+                name: "InvestigationCase",
                 columns: table => new
                 {
-                    RiskCaseId = table.Column<string>(type: "TEXT", nullable: false),
+                    InvestigationId = table.Column<string>(type: "TEXT", nullable: false),
                     Name = table.Column<string>(type: "TEXT", nullable: false),
                     Description = table.Column<string>(type: "TEXT", nullable: false),
-                    RiskCaseTypeId = table.Column<string>(type: "TEXT", nullable: false),
-                    RiskCaseStatusId = table.Column<string>(type: "TEXT", nullable: false),
+                    InvestigationCaseTypeId = table.Column<string>(type: "TEXT", nullable: false),
+                    LineOfBusinessId = table.Column<string>(type: "TEXT", nullable: true),
+                    InvestigationCaseStatusId = table.Column<string>(type: "TEXT", nullable: false),
                     Created = table.Column<DateTime>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_RiskCase", x => x.RiskCaseId);
+                    table.PrimaryKey("PK_InvestigationCase", x => x.InvestigationId);
                     table.ForeignKey(
-                        name: "FK_RiskCase_RiskCaseStatus_RiskCaseStatusId",
-                        column: x => x.RiskCaseStatusId,
-                        principalTable: "RiskCaseStatus",
-                        principalColumn: "RiskCaseStatusId",
+                        name: "FK_InvestigationCase_InvestigationCaseStatus_InvestigationCaseStatusId",
+                        column: x => x.InvestigationCaseStatusId,
+                        principalTable: "InvestigationCaseStatus",
+                        principalColumn: "InvestigationCaseStatusId",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_RiskCase_RiskCaseType_RiskCaseTypeId",
-                        column: x => x.RiskCaseTypeId,
-                        principalTable: "RiskCaseType",
-                        principalColumn: "RiskCaseTypeId",
-                        onDelete: ReferentialAction.Cascade);
+                        name: "FK_InvestigationCase_LineOfBusiness_LineOfBusinessId",
+                        column: x => x.LineOfBusinessId,
+                        principalTable: "LineOfBusiness",
+                        principalColumn: "LineOfBusinessId");
                 });
 
             migrationBuilder.CreateTable(
@@ -143,11 +143,18 @@ namespace WebApplication1.Migrations
                     PinCodeId = table.Column<string>(type: "TEXT", nullable: false),
                     Name = table.Column<string>(type: "TEXT", nullable: false),
                     Code = table.Column<string>(type: "TEXT", nullable: false),
-                    StateId = table.Column<string>(type: "TEXT", nullable: false)
+                    StateId = table.Column<string>(type: "TEXT", nullable: false),
+                    CountryId = table.Column<string>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_PinCode", x => x.PinCodeId);
+                    table.ForeignKey(
+                        name: "FK_PinCode_Country_CountryId",
+                        column: x => x.CountryId,
+                        principalTable: "Country",
+                        principalColumn: "CountryId",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_PinCode_State_StateId",
                         column: x => x.StateId,
@@ -346,19 +353,24 @@ namespace WebApplication1.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
+                name: "IX_InvestigationCase_InvestigationCaseStatusId",
+                table: "InvestigationCase",
+                column: "InvestigationCaseStatusId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_InvestigationCase_LineOfBusinessId",
+                table: "InvestigationCase",
+                column: "LineOfBusinessId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_PinCode_CountryId",
+                table: "PinCode",
+                column: "CountryId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_PinCode_StateId",
                 table: "PinCode",
                 column: "StateId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_RiskCase_RiskCaseStatusId",
-                table: "RiskCase",
-                column: "RiskCaseStatusId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_RiskCase_RiskCaseTypeId",
-                table: "RiskCase",
-                column: "RiskCaseTypeId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_State_CountryId",
@@ -385,7 +397,7 @@ namespace WebApplication1.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "RiskCase");
+                name: "InvestigationCase");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
@@ -394,10 +406,10 @@ namespace WebApplication1.Migrations
                 name: "AspNetUsers");
 
             migrationBuilder.DropTable(
-                name: "RiskCaseStatus");
+                name: "InvestigationCaseStatus");
 
             migrationBuilder.DropTable(
-                name: "RiskCaseType");
+                name: "LineOfBusiness");
 
             migrationBuilder.DropTable(
                 name: "PinCode");
