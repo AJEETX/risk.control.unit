@@ -11,9 +11,9 @@ namespace WebApplication1.Models
         public string Name { get; set; }
         public string Description { get; set; }
         [Required]
-        [Display(Name = "Case type")]
+        [Display(Name = "Line of Business")]
         public string LineOfBusinessId { get; set; }
-        [Display(Name = "Case type")]
+        [Display(Name = "Line of Business")]
         public LineOfBusiness LineOfBusiness { get; set; }
         [Required]
         [Display(Name = "Case status")]

@@ -8,10 +8,10 @@ namespace WebApplication1.Models
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public string LineOfBusinessId { get; set; }
-        [Display(Name = "Case type")]
+        [Display(Name = "Line of Business")]
         [Required]
         public string Name { get; set; }
-        [Display(Name = "Case type code")]
+        [Display(Name = "Line of Business code")]
         [Required]
         public string Code { get; set; }
         public DateTime Created { get; set; }

@@ -74,6 +74,8 @@ namespace WebApplication1.Controllers
             {
                 return NotFound();
             }
+            ViewData["CountryId"] = new SelectList(_context.Country, "CountryId", "Name");
+
             return View(state);
         }
 
@@ -109,6 +111,8 @@ namespace WebApplication1.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["CountryId"] = new SelectList(_context.Country, "CountryId", "Name");
+
             return View(state);
         }
 

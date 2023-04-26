@@ -94,30 +94,23 @@ namespace WebApplication1.Controllers
             {
                 return NotFound();
             }
-
-            if (ModelState.IsValid)
+            try
             {
-                try
-                {
-                    _context.Update(pinCode);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!PinCodeExists(pinCode.PinCodeId))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
+                _context.Update(pinCode);
+                await _context.SaveChangesAsync();
             }
-            ViewData["CountryId"] = new SelectList(_context.Country, "CountryId", "Name", pinCode.CountryId);
-            ViewData["StateId"] = new SelectList(_context.State.Where(s => s.CountryId == pinCode.CountryId ), "StateId", "Name", pinCode?.StateId);
-            return View(pinCode);
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!PinCodeExists(pinCode.PinCodeId))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+            return RedirectToAction(nameof(Index));
         }
 
         // GET: PinCodes/Delete/5
