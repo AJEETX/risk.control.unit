@@ -287,11 +287,8 @@ namespace WebApplication1.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("InvestigationCaseTypeId")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
                     b.Property<string>("LineOfBusinessId")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Name")
@@ -495,7 +492,9 @@ namespace WebApplication1.Migrations
 
                     b.HasOne("WebApplication1.Models.LineOfBusiness", "LineOfBusiness")
                         .WithMany()
-                        .HasForeignKey("LineOfBusinessId");
+                        .HasForeignKey("LineOfBusinessId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("InvestigationCaseStatus");
 

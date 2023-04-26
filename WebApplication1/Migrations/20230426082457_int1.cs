@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace WebApplication1.Migrations
 {
     /// <inheritdoc />
-    public partial class init : Migration
+    public partial class int1 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -115,8 +115,7 @@ namespace WebApplication1.Migrations
                     InvestigationId = table.Column<string>(type: "TEXT", nullable: false),
                     Name = table.Column<string>(type: "TEXT", nullable: false),
                     Description = table.Column<string>(type: "TEXT", nullable: false),
-                    InvestigationCaseTypeId = table.Column<string>(type: "TEXT", nullable: false),
-                    LineOfBusinessId = table.Column<string>(type: "TEXT", nullable: true),
+                    LineOfBusinessId = table.Column<string>(type: "TEXT", nullable: false),
                     InvestigationCaseStatusId = table.Column<string>(type: "TEXT", nullable: false),
                     Created = table.Column<DateTime>(type: "TEXT", nullable: false)
                 },
@@ -133,7 +132,8 @@ namespace WebApplication1.Migrations
                         name: "FK_InvestigationCase_LineOfBusiness_LineOfBusinessId",
                         column: x => x.LineOfBusinessId,
                         principalTable: "LineOfBusiness",
-                        principalColumn: "LineOfBusinessId");
+                        principalColumn: "LineOfBusinessId",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(

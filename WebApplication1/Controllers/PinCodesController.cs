@@ -50,7 +50,6 @@ namespace WebApplication1.Controllers
         public IActionResult Create()
         {
             ViewData["CountryId"] = new SelectList(_context.Country, "CountryId", "Name");
-            ViewData["StateId"] = new SelectList(_context.State, "StateId", "Name");
             return View();
         }
 
@@ -59,17 +58,11 @@ namespace WebApplication1.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("PinCodeId,Name,Code,StateId,CountryId")] PinCode pinCode)
+        public async Task<IActionResult> Create(PinCode pinCode)
         {
-            if (ModelState.IsValid)
-            {
                 _context.Add(pinCode);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
-            }
-            ViewData["CountryId"] = new SelectList(_context.Country, "CountryId", "Name", pinCode.CountryId);
-            ViewData["StateId"] = new SelectList(_context.State, "StateId", "Name", pinCode.StateId);
-            return View(pinCode);
         }
 
         // GET: PinCodes/Edit/5
@@ -86,7 +79,7 @@ namespace WebApplication1.Controllers
                 return NotFound();
             }
             ViewData["CountryId"] = new SelectList(_context.Country, "CountryId", "Name", pinCode.CountryId);
-            ViewData["StateId"] = new SelectList(_context.State, "StateId", "Name", pinCode.StateId);
+            ViewData["StateId"] = new SelectList(_context.State.Where(s => s.CountryId == pinCode.CountryId ), "StateId", "Name", pinCode?.StateId);
             return View(pinCode);
         }
 
@@ -95,7 +88,7 @@ namespace WebApplication1.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(string id, [Bind("PinCodeId,Name,Code,StateId,CountryId")] PinCode pinCode)
+        public async Task<IActionResult> Edit(string id, PinCode pinCode)
         {
             if (id != pinCode.PinCodeId)
             {
@@ -123,7 +116,7 @@ namespace WebApplication1.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewData["CountryId"] = new SelectList(_context.Country, "CountryId", "Name", pinCode.CountryId);
-            ViewData["StateId"] = new SelectList(_context.State, "StateId", "Name", pinCode.StateId);
+            ViewData["StateId"] = new SelectList(_context.State.Where(s => s.CountryId == pinCode.CountryId ), "StateId", "Name", pinCode?.StateId);
             return View(pinCode);
         }
 

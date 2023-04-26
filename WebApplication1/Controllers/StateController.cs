@@ -69,7 +69,7 @@ namespace WebApplication1.Controllers
                 return NotFound();
             }
 
-            var state = await _context.State.FirstOrDefaultAsync(c => c.StateId == id);
+            var state = await _context.State.Include(s => s.Country).FirstOrDefaultAsync(c => c.StateId == id);
             if (state == null)
             {
                 return NotFound();

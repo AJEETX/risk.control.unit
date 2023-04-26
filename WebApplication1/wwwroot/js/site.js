@@ -53,13 +53,13 @@
 });
 function loadState(obj) {
     var value = obj.value;
-    $.post("GetStatesByCountryId", { countryId: value }, function (data) {
+    $.post("/User/GetStatesByCountryId", { countryId: value }, function (data) {
         PopulateDropDown("#StateId", data, "<option>--SELECT STATE--</option>");
     });
 }
 function loadPinCode(obj) {
     var value = obj.value;
-    $.post("GetPinCodesByStateId", { stateId: value }, function (data) {
+    $.post("/User/GetPinCodesByStateId", { stateId: value }, function (data) {
         PopulatePinCodeDropDown("#PinCodeId", data, "<option>--SELECT PINCODE--</option>");
     });
 }

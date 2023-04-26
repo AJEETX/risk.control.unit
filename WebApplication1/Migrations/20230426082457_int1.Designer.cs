@@ -11,8 +11,8 @@ using WebApplication1.Data;
 namespace WebApplication1.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230425145024_init")]
-    partial class init
+    [Migration("20230426082457_int1")]
+    partial class int1
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -290,11 +290,8 @@ namespace WebApplication1.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("InvestigationCaseTypeId")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
                     b.Property<string>("LineOfBusinessId")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Name")
@@ -498,7 +495,9 @@ namespace WebApplication1.Migrations
 
                     b.HasOne("WebApplication1.Models.LineOfBusiness", "LineOfBusiness")
                         .WithMany()
-                        .HasForeignKey("LineOfBusinessId");
+                        .HasForeignKey("LineOfBusinessId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("InvestigationCaseStatus");
 
