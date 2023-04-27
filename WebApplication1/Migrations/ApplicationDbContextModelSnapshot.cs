@@ -296,11 +296,23 @@ namespace WebApplication1.Migrations
                     b.Property<string>("ClientCompanyId")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("AddressId")
+                    b.Property<string>("Addressline")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Branch")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("City")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Code")
                         .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("CountryId")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Description")
@@ -319,9 +331,19 @@ namespace WebApplication1.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
+                    b.Property<string>("PinCodeId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("StateId")
+                        .HasColumnType("TEXT");
+
                     b.HasKey("ClientCompanyId");
 
-                    b.HasIndex("AddressId");
+                    b.HasIndex("CountryId");
+
+                    b.HasIndex("PinCodeId");
+
+                    b.HasIndex("StateId");
 
                     b.ToTable("ClientCompany");
                 });
@@ -580,11 +602,23 @@ namespace WebApplication1.Migrations
 
             modelBuilder.Entity("WebApplication1.Models.ClientCompany", b =>
                 {
-                    b.HasOne("WebApplication1.Models.Address", "Address")
+                    b.HasOne("WebApplication1.Models.Country", "Country")
                         .WithMany()
-                        .HasForeignKey("AddressId");
+                        .HasForeignKey("CountryId");
 
-                    b.Navigation("Address");
+                    b.HasOne("WebApplication1.Models.PinCode", "PinCode")
+                        .WithMany()
+                        .HasForeignKey("PinCodeId");
+
+                    b.HasOne("WebApplication1.Models.State", "State")
+                        .WithMany()
+                        .HasForeignKey("StateId");
+
+                    b.Navigation("Country");
+
+                    b.Navigation("PinCode");
+
+                    b.Navigation("State");
                 });
 
             modelBuilder.Entity("WebApplication1.Models.InvestigationCase", b =>

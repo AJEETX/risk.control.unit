@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace WebApplication1.Migrations
 {
     /// <inheritdoc />
-    public partial class companyaddress : Migration
+    public partial class company : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -257,16 +257,31 @@ namespace WebApplication1.Migrations
                     Description = table.Column<string>(type: "TEXT", nullable: false),
                     PhoneNumber = table.Column<string>(type: "TEXT", nullable: false),
                     Email = table.Column<string>(type: "TEXT", nullable: false),
-                    AddressId = table.Column<string>(type: "TEXT", nullable: true)
+                    Branch = table.Column<string>(type: "TEXT", nullable: false),
+                    Addressline = table.Column<string>(type: "TEXT", nullable: false),
+                    City = table.Column<string>(type: "TEXT", nullable: false),
+                    StateId = table.Column<string>(type: "TEXT", nullable: true),
+                    CountryId = table.Column<string>(type: "TEXT", nullable: true),
+                    PinCodeId = table.Column<string>(type: "TEXT", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_ClientCompany", x => x.ClientCompanyId);
                     table.ForeignKey(
-                        name: "FK_ClientCompany_Address_AddressId",
-                        column: x => x.AddressId,
-                        principalTable: "Address",
-                        principalColumn: "AddressId");
+                        name: "FK_ClientCompany_Country_CountryId",
+                        column: x => x.CountryId,
+                        principalTable: "Country",
+                        principalColumn: "CountryId");
+                    table.ForeignKey(
+                        name: "FK_ClientCompany_PinCode_PinCodeId",
+                        column: x => x.PinCodeId,
+                        principalTable: "PinCode",
+                        principalColumn: "PinCodeId");
+                    table.ForeignKey(
+                        name: "FK_ClientCompany_State_StateId",
+                        column: x => x.StateId,
+                        principalTable: "State",
+                        principalColumn: "StateId");
                 });
 
             migrationBuilder.CreateTable(
@@ -425,9 +440,19 @@ namespace WebApplication1.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_ClientCompany_AddressId",
+                name: "IX_ClientCompany_CountryId",
                 table: "ClientCompany",
-                column: "AddressId");
+                column: "CountryId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ClientCompany_PinCodeId",
+                table: "ClientCompany",
+                column: "PinCodeId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ClientCompany_StateId",
+                table: "ClientCompany",
+                column: "StateId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_InvestigationCase_InvestigationCaseStatusId",
@@ -459,6 +484,9 @@ namespace WebApplication1.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
+                name: "Address");
+
+            migrationBuilder.DropTable(
                 name: "AspNetRoleClaims");
 
             migrationBuilder.DropTable(
@@ -484,9 +512,6 @@ namespace WebApplication1.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
-
-            migrationBuilder.DropTable(
-                name: "Address");
 
             migrationBuilder.DropTable(
                 name: "InvestigationCaseStatus");
