@@ -4,12 +4,22 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<div>
+    <h4>Pincode</h4>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
+    <form method="post" action="roles/create">
+        <div class="input-group col-5" style="padding:0px;">
+            <a class="btn btn-success" asp-action="Create"><i class="fas fa-plus"></i> Create Pincode</a>
+
+            <input autocomplete="off" name="roleName" type="text" class="form-control">
+            <span class="input-group-append">
+                <button type="submit" class="btn btn-info"> <i class="fa fa-search"></i> Search...</button>
+            </span>
+        </div>
+    </form>
+    <br />
+    <table class="table table-striped">
+
     <thead>
         <tr>
             <th>
@@ -43,11 +53,16 @@
                 @Html.DisplayFor(modelItem => item.Country.Name)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.PinCodeId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.PinCodeId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.PinCodeId">Delete</a>
+                        <a class="btn btn-xs btn-info" asp-action="Details" asp-route-id="@item.PinCodeId">
+                            <i class="fa fa-search"></i> View</a> &nbsp;
+                        <a class="btn btn-xs btn-warning" asp-action="Edit" asp-route-id="@item.PinCodeId">
+                            <i class="fas fa-pen"></i> Edit</a> &nbsp;
+                        <a class="btn btn-xs btn-danger" asp-action="Delete" asp-route-id="@item.PinCodeId">
+                            <i class="fas fa-trash"></i> Delete
+                        </a>
             </td>
         </tr>
 }
     </tbody>
 </table>
+</div>
