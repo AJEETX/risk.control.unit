@@ -2,9 +2,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using NToastNotify;
-using System.Security.Claims;
 using WebApplication1.Data;
-using WebApplication1.Helpers;
 using WebApplication1.Models;
 using WebApplication1.Permission;
 using WebApplication1.Seeds;
@@ -14,13 +12,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddSingleton<IAuthorizationPolicyProvider, PermissionPolicyProvider>();
 builder.Services.AddScoped<IAuthorizationHandler, PermissionAuthorizationHandler>();
 // Add services to the container.
-builder.Services.AddControllersWithViews().AddRazorRuntimeCompilation().AddNToastNotifyNoty(new NotyOptions
-{
-    Layout = "bottomRight",
-    ProgressBar = true,
-    Timeout = 5000,
-    Theme = "metroui"
-});
+builder.Services.AddControllersWithViews().AddRazorRuntimeCompilation();
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlite("Data Source=rcu00.db"));
 builder.Services.AddIdentity<ApplicationUser, ApplicationRole>(options =>
@@ -55,14 +47,11 @@ builder.Services.AddAuthorization(options =>
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
-app.UseNToastNotify();
 app.UseHttpsRedirection();
 await DatabaseSeed.SeedDatabase(app);
 app.UseStaticFiles();

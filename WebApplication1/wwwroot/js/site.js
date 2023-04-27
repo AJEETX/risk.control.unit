@@ -54,7 +54,7 @@
 function loadState(obj) {
     var value = obj.value;
     $.post("/User/GetStatesByCountryId", { countryId: value }, function (data) {
-        PopulateDropDown("#StateId", data, "<option>--SELECT STATE--</option>");
+        PopulateStateDropDown("#PinCodeId", "#StateId", data, "<option>--SELECT STATE--</option>", "<option>--SELECT PINCODE--</option>");
     });
 }
 function loadPinCode(obj) {
@@ -70,9 +70,13 @@ function PopulatePinCodeDropDown(dropDownId, list, option) {
         $(dropDownId).append("<option value='" + row.pinCodeId + "'>" + row.name + "</option>")
     });
 }
-function PopulateDropDown(dropDownId, list, option) {
+function PopulateStateDropDown(pinCodedropDownId, dropDownId, list, option, pincodeOption) {
     $(dropDownId).empty();
-    $(dropDownId).append(option)
+    $(pinCodedropDownId).empty();
+
+    $(dropDownId).append(option);
+    $(pinCodedropDownId).append(pincodeOption);
+
     $.each(list, function (index, row) {
         $(dropDownId).append("<option value='" + row.stateId + "'>" + row.name + "</option>")
     });
