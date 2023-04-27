@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace WebApplication1.Migrations
 {
     /// <inheritdoc />
-    public partial class int1 : Migration
+    public partial class companyaddress : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -164,6 +164,38 @@ namespace WebApplication1.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Address",
+                columns: table => new
+                {
+                    AddressId = table.Column<string>(type: "TEXT", nullable: false),
+                    Branch = table.Column<string>(type: "TEXT", nullable: false),
+                    Addressline = table.Column<string>(type: "TEXT", nullable: false),
+                    City = table.Column<string>(type: "TEXT", nullable: false),
+                    StateId = table.Column<string>(type: "TEXT", nullable: true),
+                    CountryId = table.Column<string>(type: "TEXT", nullable: true),
+                    PinCodeId = table.Column<string>(type: "TEXT", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Address", x => x.AddressId);
+                    table.ForeignKey(
+                        name: "FK_Address_Country_CountryId",
+                        column: x => x.CountryId,
+                        principalTable: "Country",
+                        principalColumn: "CountryId");
+                    table.ForeignKey(
+                        name: "FK_Address_PinCode_PinCodeId",
+                        column: x => x.PinCodeId,
+                        principalTable: "PinCode",
+                        principalColumn: "PinCodeId");
+                    table.ForeignKey(
+                        name: "FK_Address_State_StateId",
+                        column: x => x.StateId,
+                        principalTable: "State",
+                        principalColumn: "StateId");
+                });
+
+            migrationBuilder.CreateTable(
                 name: "AspNetUsers",
                 columns: table => new
                 {
@@ -213,6 +245,28 @@ namespace WebApplication1.Migrations
                         principalTable: "State",
                         principalColumn: "StateId",
                         onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ClientCompany",
+                columns: table => new
+                {
+                    ClientCompanyId = table.Column<string>(type: "TEXT", nullable: false),
+                    Name = table.Column<string>(type: "TEXT", nullable: false),
+                    Code = table.Column<string>(type: "TEXT", nullable: false),
+                    Description = table.Column<string>(type: "TEXT", nullable: false),
+                    PhoneNumber = table.Column<string>(type: "TEXT", nullable: false),
+                    Email = table.Column<string>(type: "TEXT", nullable: false),
+                    AddressId = table.Column<string>(type: "TEXT", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ClientCompany", x => x.ClientCompanyId);
+                    table.ForeignKey(
+                        name: "FK_ClientCompany_Address_AddressId",
+                        column: x => x.AddressId,
+                        principalTable: "Address",
+                        principalColumn: "AddressId");
                 });
 
             migrationBuilder.CreateTable(
@@ -301,6 +355,24 @@ namespace WebApplication1.Migrations
                 });
 
             migrationBuilder.CreateIndex(
+                name: "IX_Address_CountryId",
+                table: "Address",
+                column: "CountryId",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Address_PinCodeId",
+                table: "Address",
+                column: "PinCodeId",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Address_StateId",
+                table: "Address",
+                column: "StateId",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
                 table: "AspNetRoleClaims",
                 column: "RoleId");
@@ -353,6 +425,11 @@ namespace WebApplication1.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
+                name: "IX_ClientCompany_AddressId",
+                table: "ClientCompany",
+                column: "AddressId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_InvestigationCase_InvestigationCaseStatusId",
                 table: "InvestigationCase",
                 column: "InvestigationCaseStatusId");
@@ -397,6 +474,9 @@ namespace WebApplication1.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
+                name: "ClientCompany");
+
+            migrationBuilder.DropTable(
                 name: "InvestigationCase");
 
             migrationBuilder.DropTable(
@@ -404,6 +484,9 @@ namespace WebApplication1.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
+
+            migrationBuilder.DropTable(
+                name: "Address");
 
             migrationBuilder.DropTable(
                 name: "InvestigationCaseStatus");

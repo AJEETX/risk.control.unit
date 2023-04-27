@@ -11,8 +11,8 @@ using WebApplication1.Data;
 namespace WebApplication1.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230426082457_int1")]
-    partial class int1
+    [Migration("20230427124816_companyaddress")]
+    partial class companyaddress
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -117,6 +117,46 @@ namespace WebApplication1.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens", (string)null);
+                });
+
+            modelBuilder.Entity("WebApplication1.Models.Address", b =>
+                {
+                    b.Property<string>("AddressId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Addressline")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Branch")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("City")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("CountryId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("PinCodeId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("StateId")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("AddressId");
+
+                    b.HasIndex("CountryId")
+                        .IsUnique();
+
+                    b.HasIndex("PinCodeId")
+                        .IsUnique();
+
+                    b.HasIndex("StateId")
+                        .IsUnique();
+
+                    b.ToTable("Address");
                 });
 
             modelBuilder.Entity("WebApplication1.Models.ApplicationRole", b =>
@@ -252,6 +292,41 @@ namespace WebApplication1.Migrations
                     b.HasIndex("StateId");
 
                     b.ToTable("AspNetUsers", (string)null);
+                });
+
+            modelBuilder.Entity("WebApplication1.Models.ClientCompany", b =>
+                {
+                    b.Property<string>("ClientCompanyId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("AddressId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Code")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("PhoneNumber")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("ClientCompanyId");
+
+                    b.HasIndex("AddressId");
+
+                    b.ToTable("ClientCompany");
                 });
 
             modelBuilder.Entity("WebApplication1.Models.Country", b =>
@@ -458,6 +533,27 @@ namespace WebApplication1.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("WebApplication1.Models.Address", b =>
+                {
+                    b.HasOne("WebApplication1.Models.Country", "Country")
+                        .WithOne("Address")
+                        .HasForeignKey("WebApplication1.Models.Address", "CountryId");
+
+                    b.HasOne("WebApplication1.Models.PinCode", "PinCode")
+                        .WithOne("Address")
+                        .HasForeignKey("WebApplication1.Models.Address", "PinCodeId");
+
+                    b.HasOne("WebApplication1.Models.State", "State")
+                        .WithOne("Address")
+                        .HasForeignKey("WebApplication1.Models.Address", "StateId");
+
+                    b.Navigation("Country");
+
+                    b.Navigation("PinCode");
+
+                    b.Navigation("State");
+                });
+
             modelBuilder.Entity("WebApplication1.Models.ApplicationUser", b =>
                 {
                     b.HasOne("WebApplication1.Models.Country", "Country")
@@ -483,6 +579,15 @@ namespace WebApplication1.Migrations
                     b.Navigation("PinCode");
 
                     b.Navigation("State");
+                });
+
+            modelBuilder.Entity("WebApplication1.Models.ClientCompany", b =>
+                {
+                    b.HasOne("WebApplication1.Models.Address", "Address")
+                        .WithMany()
+                        .HasForeignKey("AddressId");
+
+                    b.Navigation("Address");
                 });
 
             modelBuilder.Entity("WebApplication1.Models.InvestigationCase", b =>
@@ -532,6 +637,21 @@ namespace WebApplication1.Migrations
                         .IsRequired();
 
                     b.Navigation("Country");
+                });
+
+            modelBuilder.Entity("WebApplication1.Models.Country", b =>
+                {
+                    b.Navigation("Address");
+                });
+
+            modelBuilder.Entity("WebApplication1.Models.PinCode", b =>
+                {
+                    b.Navigation("Address");
+                });
+
+            modelBuilder.Entity("WebApplication1.Models.State", b =>
+                {
+                    b.Navigation("Address");
                 });
 #pragma warning restore 612, 618
         }
